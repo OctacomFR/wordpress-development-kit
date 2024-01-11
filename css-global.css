@@ -1,0 +1,90 @@
+a,
+.btn,
+button
+{
+    transition: all ease 0.4s;
+}
+
+/* Fix bug affichage map avant acceptation des cookies */
+body .cmplz-placeholder-parent,
+body .cmplz-placeholder-parent > iframe
+{
+	max-height: 400px;
+}
+
+/* Affichage cookies PPD */
+#cmplz-cookies-overview summary
+{
+  margin-bottom: 15px;
+}
+
+#cmplz-cookies-overview summary *
+{
+  display: inline;
+}
+
+/* Redimensionne le menu burger */
+@media(max-width: 1120px)
+{
+    /* Lignes du Burger Menu */
+    nav .oxy-nav-menu-hamburger
+    {
+        width: 35px;
+        height: 25px;
+    }
+    
+    nav .oxy-nav-menu-hamburger-line
+    {
+        height: 3px;
+    }
+    
+    nav.oxy-nav-menu-open .oxy-nav-menu-hamburger .oxy-nav-menu-hamburger-line:first-child
+    {
+        top: 10px;
+    }
+    
+    /* Comportement du menu Tablettes / Mobiles lorsqu'il est ouvert */
+    .oxy-nav-menu.oxy-nav-menu-open .oxy-nav-menu-list
+    {
+        display: flex !important;
+        row-gap: 50px !important;
+    }
+
+    .oxy-nav-menu.oxy-nav-menu-open .menu-item-has-children > a::after
+    {
+      display: block !important;
+    }
+    
+    .oxy-nav-menu.oxy-nav-menu-open .menu-item .sub-menu
+    {
+        padding: 50px 30px 0 !important;
+        display: flex !important;
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        box-shadow: none !important;
+        white-space: normal !important;
+        row-gap: 50px !important;
+    }
+    
+    .oxy-nav-menu.oxy-nav-menu-open .menu-item .sub-menu li
+    {
+      position: relative !important;
+      padding-left: 15px !important;
+    }
+    
+    .oxy-nav-menu.oxy-nav-menu-open .menu-item .sub-menu li::before
+    {
+      content: "▸";
+      position: absolute;
+      top: 25%;
+      left: 0;
+      font-size: 25px;
+    }
+    
+    nav.oxy-nav-menu-dropdowns .oxy-nav-menu-list li.menu-item a
+    {
+      font-size: 35px !important;
+      line-height: 40px !important;
+    }
+}
