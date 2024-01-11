@@ -1,15 +1,17 @@
-html{
-  height: calc(100% - var(--wp-admin--admin-bar--height, 0px));
+html
+{
+    height: calc(100% - var(--wp-admin--admin-bar--height, 0px));
 }
 
-body{
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
+body
+{
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .ct-inner-content{
-  flex-grow: 1;
+    flex-grow: 1;
 }
 
 a,
@@ -23,18 +25,23 @@ button
 body .cmplz-placeholder-parent,
 body .cmplz-placeholder-parent > iframe
 {
-	max-height: 400px;
+	  max-height: 400px;
 }
 
 /* Affichage cookies PPD */
 #cmplz-cookies-overview summary
 {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 #cmplz-cookies-overview summary *
 {
-  display: inline;
+    display: inline;
+}
+
+div#cmplz-document
+{
+    margin-inline: auto;
 }
 
 /* Redimensionne le menu burger */
@@ -66,7 +73,7 @@ body .cmplz-placeholder-parent > iframe
 
     .oxy-nav-menu.oxy-nav-menu-open .menu-item-has-children > a::after
     {
-      display: block !important;
+        display: block !important;
     }
     
     .oxy-nav-menu.oxy-nav-menu-open .menu-item .sub-menu
@@ -83,22 +90,22 @@ body .cmplz-placeholder-parent > iframe
     
     .oxy-nav-menu.oxy-nav-menu-open .menu-item .sub-menu li
     {
-      position: relative !important;
-      padding-left: 15px !important;
+        position: relative !important;
+        padding-left: 15px !important;
     }
     
     .oxy-nav-menu.oxy-nav-menu-open .menu-item .sub-menu li::before
     {
-      content: "▸";
-      position: absolute;
-      top: 25%;
-      left: 0;
-      font-size: 25px;
+        content: "▸";
+        position: absolute;
+        top: 25%;
+        left: 0;
+        font-size: 25px;
     }
     
     nav.oxy-nav-menu-dropdowns .oxy-nav-menu-list li.menu-item a
     {
-      font-size: 35px !important;
-      line-height: 40px !important;
+        font-size: 35px !important;
+        line-height: 40px !important;
     }
 }
