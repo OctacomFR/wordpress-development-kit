@@ -47,6 +47,11 @@ div#cmplz-document
 /* Redimensionne le menu burger */
 @media(max-width: 1120px)
 {
+    [data-aos$="left"], [data-aos$="right"]
+	{
+	 transform: translate(0) scale(1) !important;
+	}
+
     /* Lignes du Burger Menu */
     nav .oxy-nav-menu-hamburger
     {
