@@ -47,9 +47,10 @@ div#cmplz-document
 /* Redimensionne le menu burger */
 @media(max-width: 1120px)
 {
+    /* Désactive les animations left et right en responsive pour éviter les bugs d'affichage */
     [data-aos$="left"], [data-aos$="right"]
 	{
-	 transform: translate(0) scale(1) !important;
+        transform: translate(0) scale(1) !important;
 	}
 
     /* Lignes du Burger Menu */
