@@ -10,22 +10,40 @@ body
     flex-direction: column;
 }
 
-.ct-inner-content{
-    flex-grow: 1;
+a,
+.ct-link-button
+{
+    transition: all ease 0.4s !important;
 }
 
-a,
-.btn,
-button
+a
 {
-    transition: all ease 0.4s;
+    text-decoration: underline !important;
+    text-decoration-color: transparent !important;
+    text-underline-offset: 3px !important;
+}
+
+a:hover
+{
+    text-decoration-color: red !important;
+}
+
+.ct-link-button
+{
+    text-decoration: none !important;
+}
+
+.ct-inner-content
+{
+    flex-grow: 1;
+    overflow: hidden !important; /* Fix les débordements à cause des animations qui viennent des côtés */
 }
 
 /* Fix bug affichage map avant acceptation des cookies */
 body .cmplz-placeholder-parent,
 body .cmplz-placeholder-parent > iframe
 {
-	  height: 400px;
+    max-height: 400px;
 }
 
 /* Affichage cookies PPD */
@@ -48,10 +66,10 @@ div#cmplz-document
 @media(max-width: 1120px)
 {
     /* Désactive les animations left et right en responsive pour éviter les bugs d'affichage */
-    [data-aos$="left"], [data-aos$="right"]
+    /*[data-aos$="left"], [data-aos$="right"]
 	{
         transform: translate(0) scale(1) !important;
-	}
+	}*/
 
     /* Lignes du Burger Menu */
     nav .oxy-nav-menu-hamburger
