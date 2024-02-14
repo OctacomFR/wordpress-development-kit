@@ -1,6 +1,7 @@
 html
 {
     height: calc(100% - var(--wp-admin--admin-bar--height, 0px));
+    overflow-x: hidden;
 }
 
 body
