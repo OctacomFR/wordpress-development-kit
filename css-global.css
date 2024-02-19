@@ -134,3 +134,8 @@ div#cmplz-document
         line-height: 40px !important;
     }
 }
+
+#wpfooter
+{
+    position: fixed !important;
+}
