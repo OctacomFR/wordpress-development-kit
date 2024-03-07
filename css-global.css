@@ -32,18 +32,6 @@ a,
     transition: all ease 0.4s !important;
 }
 
-a
-{
-    text-decoration: underline !important;
-    text-decoration-color: transparent !important;
-    text-underline-offset: 3px !important;
-}
-
-a:hover
-{
-    text-decoration-color: #0f3228 !important;
-}
-
 .ct-link-button
 {
     text-decoration: none !important;
@@ -148,9 +136,4 @@ div#cmplz-document
         font-size: 35px !important;
         line-height: 40px !important;
     }
-}
-
-#wpfooter
-{
-    position: fixed !important;
 }
