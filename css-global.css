@@ -66,6 +66,10 @@ div#cmplz-document
     margin-inline: auto;
 }
 
+.forminator-consent__label p{
+  margin: 0;
+}
+
 /* Redimensionne le menu burger */
 @media(max-width: 1120px)
 {
