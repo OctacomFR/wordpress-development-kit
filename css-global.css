@@ -141,3 +141,43 @@ div#cmplz-document
         line-height: 40px !important;
     }
 }
+
+body:has(.oxy-post) //Cache automatiquement le "Contenu à venir" dès qu'un post est publié sur la page
+{
+    .waiting
+    {
+        display: none !important;
+    }
+}
+
+body:has(#cmplz-document) //Politique de protection des données
+{
+	.ct-inner-content
+    {
+        max-width: 1120px !important;
+        margin: 0 auto 50px !important;
+        padding: 0 30px !important;
+
+        h1
+        {
+            width: 100% !important;
+            text-align: center !important;
+            margin-bottom: 80px !important;
+        }
+    }
+
+    #cmplz-document
+    {
+        max-width: unset !important;
+    }
+
+    #cmplz-document p,
+    .editor-styles-wrapper .cmplz-unlinked-mode p,
+    #cmplz-document li,
+    .editor-styles-wrapper .cmplz-unlinked-mode li,
+    #cmplz-document td,
+    .editor-styles-wrapper .cmplz-unlinked-mode td
+    {
+        font-size: 16px !important;
+    }
+}
