@@ -145,12 +145,47 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
     {
         width: 100% !important;
         justify-content: flex-end;
+	align-items: flex-end;
     }
 
     .oxy-site-navigation li
     {
         text-align: right;
         padding-inline: 32px !important;
+	gap: 10px;
+        justify-content: flex-end;
+	position: relative;
+	width: max-content !important;
+    }
+
+    .oxy-site-navigation li ul
+    {
+        min-width: unset;
+        width: unset !important;
+    }
+
+    .oxy-site-navigation li > button
+    {
+        margin-right: 0;
+        padding: 0;
+    }
+
+    .oxy-site-navigation > ul > li > ul > li > a
+    {
+        max-width: unset !important;
+    }
+
+    .oxy-site-navigation li > ul 
+    {
+        position: absolute !important;
+        width: max-content !important;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .oxy-site-navigation li > ul li
+    {
+        width: 100% !important;
     }
   
     .oxy-site-navigation li.oxy-site-navigation__mobile-close-wrapper
