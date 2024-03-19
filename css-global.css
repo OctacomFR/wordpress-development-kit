@@ -125,6 +125,12 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
     font-size: 1rem !important;
 }
 
+/* fix nom des albums avec le module galerie */
+
+.bwg-album :is(.bwg-zoom-effect-overlay, .bwg-title1)
+{
+    opacity: 1 !important;
+}
 
 /* Redimensionne le menu burger (utiliser la media query définie pour le switch en menu mobile) */
 @media(max-width: 1120px)
