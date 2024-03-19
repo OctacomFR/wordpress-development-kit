@@ -74,8 +74,30 @@ div#cmplz-document
     margin-inline: auto;
 }
 
-.forminator-consent__label p{
-  margin: 0;
+.forminator-ui
+{
+    input,
+    textarea
+    {
+        background: none !important;
+        border-radius: 8px;
+    }
+
+    .forminator-consent__label > p
+    {
+        margin-top: 0;
+    }
+
+    .forminator-button-submit
+    {
+        display: inline-block !important;
+    }
+
+    .forminator-button-submit:hover
+    {
+        transform: scale(1.1) !important;
+        box-shadow: none !important;
+    }
 }
 
 /* Oxygen navigation menu */
