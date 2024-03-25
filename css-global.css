@@ -1,6 +1,7 @@
 *,
 *::before,
-*::after {
+*::after
+{
     box-sizing: border-box;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
@@ -74,39 +75,46 @@ div#cmplz-document
     margin-inline: auto;
 }
 
-.forminator-ui
+/* single post pages */
+
+.single-post .ct-inner-content p
 {
-    input,
-    textarea
-    {
-        background: none !important;
-        border-radius: 8px !important;
-    }
-
-    .forminator-consent__label > p
-    {
-        margin-top: 0 !important;
-    }
-
-    .forminator-button-submit
-    {
-        display: inline-block !important;
-    }
-
-    .forminator-button-submit:hover
-    {
-        transform: scale(1.1) !important;
-        box-shadow: none !important;
-    }
+    max-width: 1000px;
+    margin-inline: auto;
+    padding-inline: 20px;
 }
 
+.forminator-ui input,
+.forminator-ui textarea
+{
+    border-radius: 8px !important;
+}
+
+.forminator-ui .forminator-consent__label > p
+{
+    margin-top: 0 !important;
+}
+
+.forminator-ui .forminator-button-submit
+{
+    display: inline-block !important;
+}
+
+.forminator-ui .forminator-button-submit:hover
+{
+    transform: scale(1.1) !important;
+    box-shadow: none !important;
+}
+	
 /* Oxygen navigation menu */
 
-.oxy-site-navigation ul{
-  flex-wrap: wrap;
+.oxy-site-navigation ul
+{
+    flex-wrap: wrap;
 }
-.oxy-header-container{
-  padding: 0; 
+.oxy-header-container
+{
+    padding: 0; 
 }
 
  /* ----------------- Cache automatiquement le "Contenu à venir" dès qu'un post est publié sur la page ---------------- */
