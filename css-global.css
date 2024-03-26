@@ -57,6 +57,7 @@ body .cmplz-placeholder-parent,
 body .cmplz-placeholder-parent > iframe
 {
     height: 400px;
+    width: 100%;
 }
 
 /* Affichage cookies PPD */
