@@ -88,6 +88,7 @@ div#cmplz-document
 .forminator-ui input,
 .forminator-ui textarea
 {
+    background: none !important;
     border-radius: 8px !important;
 }
 
