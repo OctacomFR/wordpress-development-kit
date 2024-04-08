@@ -35,6 +35,10 @@ h6
     text-wrap: balance;
 }
 
+img{
+    -webkit-user-drag: none;
+}
+
 a,
 .ct-link-button
 {
