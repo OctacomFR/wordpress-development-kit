@@ -94,6 +94,7 @@ div#cmplz-document
 {
     background: none !important;
     border-radius: 8px !important;
+    border: 1px solid #c4a346 !important;
 }
 
 .forminator-ui .forminator-consent__label > p
@@ -104,12 +105,35 @@ div#cmplz-document
 .forminator-ui .forminator-button-submit
 {
     display: inline-block !important;
+    background: #c4a346 !important;
+    padding: 13px 30px !important;
+    border-radius: 50px !important;
+    transition: .4s ease !important;
 }
 
 .forminator-ui .forminator-button-submit:hover
 {
     transform: scale(1.1) !important;
     box-shadow: none !important;
+}
+
+.forminator-checkbox-box::before
+{
+  color: #c4a346 !important;
+}
+
+.forminator-checkbox__label a
+{
+  color: #000 !important;
+  font-weight: 600;
+  text-decoration: 1px underline transparent;
+  text-underline-offset: 3px;
+  transition: all ease 0.4s;
+}
+
+.forminator-checkbox__label a:hover
+{
+  text-decoration: 1px underline #000;
 }
 	
 /* Oxygen navigation menu */
