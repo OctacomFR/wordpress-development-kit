@@ -147,6 +147,11 @@ div#cmplz-document
     padding: 0; 
 }
 
+/* On cache automatiquement les cols du oxy header s'ils sont vides */
+.oxy-header-container > div:empty {
+    display: none;
+}
+
  /* ----------------- Cache automatiquement le "Contenu à venir" dès qu'un post est publié sur la page ---------------- */
 
 body:has(.oxy-post) .waiting
