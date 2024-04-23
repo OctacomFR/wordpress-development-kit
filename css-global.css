@@ -35,7 +35,8 @@ h6
     text-wrap: balance;
 }
 
-img{
+img
+{
     -webkit-user-drag: none;
 }
 
@@ -115,6 +116,11 @@ div#cmplz-document
 {
     transform: scale(1.1) !important;
     box-shadow: none !important;
+}
+
+.forminator-checkbox-box
+{
+  background-color: transparent !important;
 }
 
 .forminator-checkbox-box::before
