@@ -121,8 +121,8 @@ div#cmplz-document
 .forminator-checkbox-box
 {
   background-color: transparent !important;
-  border: 1.5px solid #5b5b5b;
-  border-radius: 5px;
+  border: 1.5px solid #5b5b5b !important;
+  border-radius: 5px !important;
 }
 
 .forminator-checkbox-box::before
