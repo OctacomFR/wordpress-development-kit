@@ -1,0 +1,229 @@
+:root
+{
+  --vik-primary-color: #506755;
+}
+
+/* Global */
+.wp-block-vikrestaurants-gutenberg-shortcodes,
+.widget_mod_vikrestaurants_takeaway_cart
+{
+  margin: 0 auto;
+  max-width: 1300px;
+  padding: 0 50px;
+}
+
+@media (max-width: 550px)
+{
+  .wp-block-vikrestaurants-gutenberg-shortcodes,
+  .widget_mod_vikrestaurants_takeaway_cart
+  {
+    padding: 0 20px;
+  }
+}
+
+.vrtkitemspagediv
+{
+  margin-bottom: 80px;
+}
+
+/* Fonts */
+.vrtk-additem-notes-info,
+.vrtkitemdescsp p
+{
+  font-size: 16px;
+}
+
+.vrtk-additem-notes-title,
+.vrtk-additem-group-title,
+.vrtkitemsdiv .vrtkmenuheader .vrtkmenutitlediv,
+.vrtkdeliverytitlediv
+{
+  font-weight: 700;
+}
+
+/* Couleurs */
+.vrtkitemsdiv .vrtkmenuheader .vrtkmenutitlediv,
+.vrtkcartdiscountoutmodule *,
+.vrtkdeliverytitlediv
+{
+  color: var(--vik-primary-color);
+}
+
+/* Boutons */
+a.vre-btn.primary,
+button.vre-btn.primary
+{
+  background: var(--vik-primary-color) !important;
+  border: none !important;
+  transition: all ease 0.4s;
+}
+
+a.vre-btn.primary:hover,
+button.vre-btn.primary:hover
+{
+  background: var(--vik-primary-color) !important;
+  transform: scale(1.1);
+}
+
+/* PANIER */
+.vrtkcartitemsmodule
+{
+  box-sizing: border-box;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 80px;
+}
+
+.vrtkcartoneitemrow
+{
+  display: flex !important;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.vrtkcartleftrow
+{
+  width: 100% !important;
+  float: none !important;
+  margin-bottom: 10px;
+}
+
+.vrtkcartdiscountoutmodule
+{
+  margin-bottom: 20px;
+}
+
+/* VUE DE LA LISTE DES MENUS */
+.vrtk-menu-outer.list-layout .vrtksingleitemdiv
+{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 700px)
+{
+  .vrtk-menu-outer.list-layout .vrtksingleitemdiv
+  {
+    flex-wrap: wrap;
+  }
+
+  .vrtkitemsdiv .vrtksinglevar .vrtkvaraddbuttondiv
+  {
+    margin-left: 0;
+  }
+
+  .vrtkitemsdiv .vrtksinglevar .vrtkvaraddbuttondiv .vrtkvaraddbutton
+  {
+    padding-left: 0;
+  }
+}
+
+.vrtk-menu-outer.list-layout .vrtkitemleftdiv
+{
+  width: 100%;
+  float: none; 
+}
+
+.vrtkitemsdiv .vrtkitemvardiv
+{
+  width: fit-content !important;
+}
+
+.vrtkitemsdiv .vrtksinglevar
+{
+  padding-top: 0;
+}
+
+.vrtkitemsdiv .vrtk-menu-outer.list-layout .vrtksinglevar .vrtkvarfloatrdiv
+{
+  position: static;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row-reverse;
+  column-gap: 10px;
+}
+
+.vrtkitemsdiv .vrtksinglevar .vrtkvarpricesp
+{
+  text-wrap: nowrap;
+}
+
+/* VUE DES PRODUITS */
+.vrtk-additem-notes-field /* Affiche toujours le champ des instructions pour les produits */
+{
+  display: block !important;
+}
+
+/* Suppléments */
+.vrtk-additem-groups-container .vrtk-additem-group-box
+{
+  width: 100%;
+  float: none;
+}
+
+.vrtk-additem-group-title
+{
+  margin-bottom: 15px;
+}
+
+.vrtk-additem-group-fields
+{
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.vrtk-additem-topping-field
+{
+  display: flex;
+}
+
+.vrtk-additem-group-fields .vrtk-group-multiple
+{
+  float: none !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: 16px;
+}
+
+/* Liste des attributs (spicy, végétarien, allergènes...) */
+.vrtk-attributes-legend
+{
+  display: none;
+}
+
+/* VUE CONFIRMATION DE COMMANDE */
+#vrpayform
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.post-scriptum
+{
+  padding: 15px;
+  border: 2px solid var(--vik-primary-color);
+  margin: 30px auto 50px;
+  max-width: 600px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: justify;
+}
+
+.vikrestaurants-page-takeawayconfirm .custom-fields-default *
+{
+  font-size: 16px;
+}
+
+.vikrestaurants-page-takeawayconfirm .custom-fields-default .separator
+{
+  margin-top: 30px;
+  font-weight: 700;
+}
