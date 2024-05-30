@@ -90,12 +90,67 @@ div#cmplz-document
     padding-inline: 20px;
 }
 
+.forminator-ui .forminator-label,
+.forminator-slider-limit-min,
+.forminator-slider-limit-max
+{
+    color: #000 !important;
+    font-weight: 400 !important;
+}
+
+.forminator-slider-limit-min,
+.forminator-slider-limit-max
+{
+    font-size: 13px !important;
+}
+
 .forminator-ui input,
 .forminator-ui textarea
 {
     background: none !important;
     border-radius: 8px !important;
-    border: 1px solid #c4a346 !important;
+    border: 2px solid #a6fbb2 !important;
+}
+
+.forminator-ui .select2-selection
+{
+  background: transparent !important;
+  border: 2px solid #a6fbb2 !important;
+  border-radius: 8px;
+}
+
+.forminator-select-dropdown
+{
+  background: #fff !important;
+  border: 2px solid #a6fbb2 !important;
+  border-radius: 8px;
+}
+
+.forminator-select2 + .forminator-select .selection .select2-selection--single[role="combobox"] .select2-selection__arrow
+{
+  color: #a6fbb2 !important;
+}
+
+.forminator-select-dropdown-container--open .forminator-custom-form-76.forminator-dropdown--default .select2-results .select2-results__options .select2-results__option:not(.select2-results__option--selected).select2-results__option--highlighted
+{
+  background: #a6fbb2 !important;
+  color: #000 !important;
+}
+
+.forminator-ui .select2-selection__placeholder
+{
+  color: #777771 !important;
+}
+
+.forminator-ui .forminator-slider .forminator-slide
+{
+    background: transparent !important;
+}
+
+.forminator-ui .forminator-slider .ui-slider-range,
+.forminator-ui .forminator-slider .ui-slider-handle
+{
+    background: #a6fbb2 !important;
 }
 
 .forminator-ui .forminator-consent__label > p
@@ -106,7 +161,7 @@ div#cmplz-document
 .forminator-ui .forminator-button-submit
 {
     display: inline-block !important;
-    background: #c4a346 !important;
+    background: #a6fbb2 !important;
     padding: 13px 30px !important;
     border-radius: 50px !important;
     transition: .4s ease !important;
@@ -127,7 +182,7 @@ div#cmplz-document
 
 .forminator-checkbox-box::before
 {
-  color: #c4a346 !important;
+  color: #a6fbb2 !important;
 }
 
 .forminator-checkbox__label a
