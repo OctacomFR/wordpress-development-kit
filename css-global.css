@@ -112,6 +112,11 @@ div#cmplz-document
     border: 2px solid #a6fbb2 !important;
 }
 
+.forminator-ui.forminator-design--default .forminator-label
+{
+  font-size: 16px !important;
+}
+
 .forminator-ui .select2-selection
 {
   background: transparent !important;
@@ -140,6 +145,34 @@ div#cmplz-document
 .forminator-ui .select2-selection__placeholder
 {
   color: #777771 !important;
+}
+
+.forminator-ui.forminator-design--default .forminator-multiselect
+{
+  border: 2px solid #a6fbb2 !important;
+  border-radius: 8px !important;
+  background-color: transparent !important;
+}
+
+.forminator-ui.forminator-design--default .forminator-multiselect .forminator-option:hover
+{
+  background: #a6fbb2 !important;
+}
+
+.forminator-ui.forminator-design--default .forminator-multiselect::-webkit-scrollbar
+{
+  width: 8px !important;
+}
+ 
+.forminator-ui.forminator-design--default .forminator-multiselect::-webkit-scrollbar-track
+{
+  border-radius: 5px !important;
+}
+ 
+.forminator-ui.forminator-design--default .forminator-multiselect::-webkit-scrollbar-thumb
+{
+  background-color: #c7c7c7 !important;
+  border-radius: 5px !important;
 }
 
 .forminator-ui .forminator-slider .forminator-slide
