@@ -465,3 +465,8 @@ ol li::first-letter
 {
   text-transform: uppercase;
 }
+
+.oxy-site-navigation > ul > li:has(ul) > a /* Désactivation des liens parents de dropdowns */
+{
+  pointer-events: none;
+}
