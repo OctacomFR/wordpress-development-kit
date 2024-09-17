@@ -452,3 +452,16 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
     column-count: 2 !important;
   }
 }
+
+/* Forcer une Sentance Case sur les éléments de listes */
+ul li,
+ol li
+{
+  text-transform: lowercase;
+}
+
+ul li::first-letter,
+ol li::first-letter
+{
+  text-transform: lowercase;
+}
