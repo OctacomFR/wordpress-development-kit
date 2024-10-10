@@ -471,6 +471,7 @@ ol li::first-letter
   pointer-events: none;
 }
 
+
 /* Sunshine Gallery */
 #sunshine #sunshine--main .sunshine--container
 {
@@ -478,7 +479,9 @@ ol li::first-letter
 }
 
 #sunshine--main-menu, /* Cache la barre de menu */
-#sunshine--image-items figure .sunshine--image-menu ul /* Cache le panier sur les images */
+#sunshine--image-items figure .sunshine--image-menu ul, /* Cache le panier sur les images */
+#sunshine--image-items .sunshine--image-menu, /* Cache le box-shadow */
+#sunshine--image-items figure .sunshine--image--name /* Cache le titre de l'image */
 {
   display: none !important;
 }
