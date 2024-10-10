@@ -486,6 +486,12 @@ ol li::first-letter
   display: none !important;
 }
 
+#sunshine--gallery-items.sunshine--layout--justified,
+#sunshine--image-items.sunshine--layout--justified
+{
+  gap: 10px !important;
+}
+
 #go-back
 {
   position: relative;
