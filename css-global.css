@@ -639,3 +639,9 @@ html:has(.lightbox[style="display: flex;"])
     background-color: transparent;
   }
 }
+
+/* Rappel immédiat */
+#rappel-immediat
+{
+  z-index: 10; /* Passe sous le menu ouvert en responsive */
+}
