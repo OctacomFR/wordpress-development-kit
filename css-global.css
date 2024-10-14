@@ -454,14 +454,18 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 }
 
 /* Forcer une Sentance Case sur les éléments de listes */
-ul li,
-ol li
+.ct-text-block ul li,
+.ct-text-block ol li,
+.oxy-rich-text ul li,
+.oxy-rich-text ol li
 {
   text-transform: lowercase;
 }
 
-ul li::first-letter,
-ol li::first-letter
+.ct-text-block ul li::first-letter,
+.ct-text-block ol li::first-letter,
+.oxy-rich-text ul li::first-letter,
+.oxy-rich-text ol li::first-letter
 {
   text-transform: uppercase;
 }
