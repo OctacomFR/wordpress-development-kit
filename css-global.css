@@ -374,11 +374,6 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
         justify-content: flex-end;
     }
 
-    .oxy-site-navigation li a, .oxy-site-navigation > a
-    {
-        padding-inline: 0;
-    }
-
     /* ---------- Lignes du Burger Menu ------------- */
     nav .oxy-nav-menu-hamburger
     {
