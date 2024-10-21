@@ -3,6 +3,13 @@
   --primary-color: red;
 }
 
+::selection,
+::-moz-selection
+{
+  color: #000;
+  background: var(--primary-color);
+}
+
 *,
 *::before,
 *::after
