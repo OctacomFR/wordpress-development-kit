@@ -452,11 +452,19 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
   }
 }
 
-@media (max-width: 550px)
+@media (max-width: 750px)
 {
   .oxy-gallery.oxy-gallery-masonry
   {
     column-count: 2 !important;
+  }
+}
+
+@media (max-width: 450px)
+{
+  .oxy-gallery.oxy-gallery-masonry
+  {
+    column-count: 1 !important;
   }
 }
 
