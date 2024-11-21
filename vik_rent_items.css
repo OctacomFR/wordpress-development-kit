@@ -1,0 +1,384 @@
+/* Vik - Page Réservations */
+
+h3.vri-page-head-title
+{
+  display: none !important;
+}
+
+.vrilistcontainer,
+.vri-search-results-container
+{
+  display: flex !important;
+  flex-direction: column;
+  row-gap: 50px;
+}
+
+.vri-list-item-block
+{
+  margin: 0 !important;
+  border: none !important;
+  min-height: 300px;
+  align-items: center;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7),
+                    rgba(255, 255, 255, 0.7)),
+                    url(/wp-content/uploads/2024/11/bg-3-e1731941987263.webp);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.vri-list-item-block:nth-child(even)
+{
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7),
+                    rgba(255, 255, 255, 0.7)),
+                    url(/wp-content/uploads/2024/11/bg-2-e1731925835395.webp);
+  background-position: 0% 20%;
+}
+
+.vri-list-item-inner,
+.vri-result-item-inner
+{
+  justify-content: space-around;
+  align-items: center;
+  border-right: 1px solid rgb(0 0 0 / 20%) !important;
+}
+
+.vri-result-item-img,
+.vri-list-item-img
+{
+  padding-left: 20px;
+}
+
+.vri-result-item-img img,
+.vri-list-item-img img
+{
+  mix-blend-mode: multiply;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100%;
+  object-fit: scale-down;
+}
+
+.vri-list-item-img
+{
+  min-width: 220px;
+}
+
+.vrilistitemname
+{
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.vri-list-item-descr
+{
+  flex: 1;
+  max-width: 540px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.vrilistitemcat
+{
+  color: var(--primary-color) !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.vriliststartfromtext,
+.vri-itemdet-priceblock .vri-itemdet-price-fromtext
+{
+  display: none !important; /* Cache le texte "Par heure" sous le prix */
+}
+
+.vri-list-item-cont,
+.vri-result-item-cont
+{
+  width: unset !important;
+  flex-basis: unset !important;
+  align-self: stretch !important;
+  min-width: 175px;
+}
+
+.vrilistcostdivcont,
+.vri-result-costdivcont
+{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(50px);
+}
+
+/* Page sélection date / heure */
+.vri-itemdet-monthslegend,
+.vri-avcals-container
+{
+  display: none !important; /* Cache le calendrier de dispos car si on sélectionne date pas dispo depuis celui-ci, ça nous bloque dans une fonction de recherche de dates bugguée */
+}
+
+.vri-itemdet-groupblocks
+{
+  padding: 30px !important;
+  justify-content: space-between;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7),
+                    rgba(255, 255, 255, 0.7)),
+                    url(/wp-content/uploads/2024/11/bg-3-e1731941987263.webp);
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+  border: none !important;
+  border-radius: 15px;
+}
+
+.vri-itemdet-mainimage img
+{
+  mix-blend-mode: multiply;
+}
+
+.vri-itemdet-groupright
+{
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vri-bookform-container .vri-medium-header
+{
+  text-align: center;
+  margin-bottom: 40px !important;
+}
+
+.vri-bookform-container .vridivsearch .vricalform
+{
+  width: 100% !important;
+}
+
+.vricalform .vrisfentry
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vricalform input,
+.vricalform select
+{
+  margin-bottom: 20px !important;
+}
+
+.vridivsearch .vrisfentry .vrisfentrytimeslot
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vri-page-content .vri-showprc-groupblocks
+{
+  padding: 30px !important;
+  justify-content: space-between;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+  border: none !important;
+  border-radius: 15px;
+}
+
+.vri-showprc-groupblocks .vri-medium-header
+{
+  font-size: 25px;
+  line-height: 1.3;
+}
+
+.vri-showprc-groupright .vri-showprc-descr
+{
+  padding: 20px 10px 10px 10px !important;
+}
+
+.goback a
+{
+  background-color: transparent !important;
+}
+
+.btn.booknow
+{
+  background-color: #079507;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 30px;
+  color: #fff;
+  border: none !important;
+}
+
+.goback a:hover,
+.vrilistgoonlist a:hover,
+.vricontinue:hover,
+.vricompleteorderdiv a:hover,
+.vrirelitemsubmit:hover
+{
+  transform: scale(1.1);
+  background: #bb9360 !important;
+  color: #fff !important;
+}
+
+/* Page de confirmation - Vik */
+.vricontinuerentdiv,
+.vrichangedatesdivcontainer
+{
+  display: none !important;
+}
+
+.vri-oconfirm-summary-container *
+{
+  line-height: 1.3 !important;
+}
+
+.vri-showprc-pricetbl-cost > label > strong
+{
+  min-width: 75px;
+}
+
+.vri-save-order-block
+{
+  margin-top: 30px;
+}
+
+.vri-oconfirm-summary-item-wrapper > div > div,
+.vri-oconfirm-summary-total-wrapper > div > div
+{
+  padding: 15px 10px !important;
+}
+
+.vri-oconfirm-mainf-cont .vri-oconfirm-cfield-entry-checkbox
+{
+  margin: 5px auto !important;
+  display: flex !important;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  column-gap: 15px;
+}
+
+.vri-oconfirm-mainf-cont .vri-oconfirm-cfield-entry-checkbox > div
+{
+  display: flex !important;
+}
+
+#vrif13 a
+{
+  color: var(--primary-color);
+}
+
+@media (max-width: 680px)
+{
+  .vri-list-item-block,
+  .vri-itemdet-groupblocks
+  {
+    background-size: cover;
+  }
+  
+  .vrilistgoonlist a,
+  .vricontinue,
+  .vricompleteorderdiv a,
+  .vrirelitemsubmit
+  {
+    width: fit-content !important;
+  }
+
+  .vri-list-item-descr
+  {
+    padding-right: 30px !important;
+  }
+}
+
+@media (max-width: 550px)
+{
+  .vri-list-item-inner,
+  .vri-result-item-inner
+  {
+    border: none !important;
+  }
+  
+  .vri-list-item-img img
+  {
+    max-height: 200px;
+  }
+
+  .vri-result-item-img,
+  .vri-list-item-img
+  {
+    padding-left: 0 !important;
+  }
+  
+  .vri-list-item-descr
+  {
+    padding-right: 15px !important;
+    align-items: center;
+  }
+  
+  .vrilistitemcat
+  {
+    margin: 10px auto 0 !important;
+    padding: 5px 15px;
+    background: var(--black);
+    border-radius: 30px;
+    font-size: 14px !important;
+  }
+
+  .vri-list-item-cont:has(.vrilistcostdivcont)
+  {
+    border-top: 1px solid #e7e7e7;
+  }
+
+  .vrilistcostdivcont
+  {
+    padding: 15px 15px 25px !important;
+    backdrop-filter: blur(5px);
+  }
+
+  .item_prices .table > tbody > tr
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .vri-oconfirm-mainf-cont .vricustomfields
+  {
+    padding: 20px !important;
+  }
+
+  .vridivcustomfield .vritextarea
+  {
+    min-width: unset !important;
+  }
+
+  .vri-oconfirm-mainf-cont .booknow
+  {
+    width: auto;
+    margin: 0 auto;
+    display: inline-block;
+    max-width: 100%;
+    text-wrap: wrap;
+  }
+}
+
+@media (max-width: 800px)
+{
+  .vrispecificationoptselect
+  {
+    margin-top: 5px;
+    float: left !important;
+  }
+
+  .vrioconfirmbuttonsdiv
+  {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
