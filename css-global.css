@@ -664,3 +664,42 @@ html:has(.lightbox[style="display: flex;"])
 {
   z-index: 10; /* Passe sous le menu ouvert en responsive */
 }
+
+
+/* A utiliser pour un menu avec logo au centre */
+/*
+.oxy-header-left,
+.oxy-header-right
+{
+  width: 45%;
+}
+
+.oxy-header-center,
+{
+  width: 10%;
+}
+
+
+#left-menu > ul,
+#right-menu > ul
+{
+  justify-content: space-between;
+}
+
+
+/* Classes de liens de menus définis en wp-admin (Apparence > Menus > Options de l'écran > Classes CSS) */
+/*
+#left-menu .order-5,
+#left-menu .order-6,
+#left-menu .order-7
+{
+  display: none;
+}
+
+#right-menu .order-1,
+#right-menu .order-2,
+#right-menu .order-3,
+#right-menu .order-4
+{
+  display: none;
+}*/
