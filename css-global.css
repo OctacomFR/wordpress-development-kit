@@ -702,4 +702,26 @@ html:has(.lightbox[style="display: flex;"])
 #right-menu .order-4
 {
   display: none;
+}
+
+@media (max-width: 1120px)
+{
+  #left-menu
+  {
+    display: none;
+  }
+
+  #right-menu
+  {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  #right-menu .order-1,
+  #right-menu .order-2,
+  #right-menu .order-3,
+  #right-menu .order-4
+  {
+    display: flex;
+  }
 }*/
