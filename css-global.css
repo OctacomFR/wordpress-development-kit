@@ -667,60 +667,58 @@ html:has(.lightbox[style="display: flex;"])
 
 
 /* A utiliser pour un menu avec logo au centre */
-/*
-.oxy-header-left,
+ 
+/*.oxy-header-left,
 .oxy-header-right
 {
   width: 45%;
 }
-
+ 
 .oxy-header-center,
 {
   width: 10%;
 }
-
-
-#left-menu > ul,
-#right-menu > ul
+ 
+ 
+.oxy-header-left > ul,
+.oxy-header-right > ul
 {
   justify-content: space-between;
-}
-
-
+}*/
+ 
+ 
 /* Classes de liens de menus définis en wp-admin (Apparence > Menus > Options de l'écran > Classes CSS) */
-/*
-#left-menu .order-5,
-#left-menu .order-6,
-#left-menu .order-7
+/*.oxy-header-left .order-4,
+.oxy-header-left .order-5,
+.oxy-header-left .order-6,
+.oxy-header-left .order-7
 {
   display: none;
 }
-
-#right-menu .order-1,
-#right-menu .order-2,
-#right-menu .order-3,
-#right-menu .order-4
+ 
+.oxy-header-right .order-1,
+.oxy-header-right .order-2,
+.oxy-header-right .order-3
 {
   display: none;
 }
-
+ 
 @media (max-width: 1120px)
 {
-  #left-menu
+  .oxy-header-left
   {
     display: none;
   }
-
-  #right-menu
+ 
+  .oxy-header-right
   {
     display: flex;
     justify-content: flex-end;
   }
-  
-  #right-menu .order-1,
-  #right-menu .order-2,
-  #right-menu .order-3,
-  #right-menu .order-4
+  .oxy-header-right .order-1,
+  .oxy-header-right .order-2,
+  .oxy-header-right .order-3,
+  .oxy-header-right .order-4
   {
     display: flex;
   }
