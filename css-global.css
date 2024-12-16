@@ -485,10 +485,11 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
   text-transform: uppercase;
 }
 
-.oxy-site-navigation > ul > li:has(ul) > a /* Désactivation des liens parents de dropdowns */
+/* Désactivation des liens parents de dropdowns */
+/*.oxy-site-navigation > ul > li:has(ul) > a
 {
   pointer-events: none;
-}
+}*/
 
 
 /* Sunshine Gallery */
