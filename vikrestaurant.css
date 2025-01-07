@@ -227,3 +227,20 @@ button.vre-btn.primary:hover
   margin-top: 30px;
   font-weight: 700;
 }
+
+.ct-text-block ul,
+.oxy-rich-text ul,
+.ct-text-block ol,
+.oxy-rich-text ol
+{
+  margin: 0;
+  padding-left: 20px;
+}
+
+.ct-text-block ul li,
+.oxy-rich-text ul li,
+.ct-text-block ol li,
+.oxy-rich-text ol li
+{
+  margin-bottom: 8px;
+}
