@@ -665,3 +665,10 @@ html:has(.lightbox[style="display: flex;"])
 {
   z-index: 10; /* Passe sous le menu ouvert en responsive */
 }
+
+/* Debug galeries masonry Oxygen */
+.oxy-gallery-masonry .oxy-gallery-item .oxy-gallery-item-contents img
+{
+  min-width: 100%;
+  object-fit: cover;
+}
