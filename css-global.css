@@ -672,3 +672,42 @@ html:has(.lightbox[style="display: flex;"])
   min-width: 100%;
   object-fit: cover;
 }
+
+/* Comparaison d'images */
+.ct-div-block.oxel-image-comparisonv2
+{
+  overflow: hidden;
+}
+
+.ct-fancy-icon.oxel-image-comparisonv2__icon::before,
+.ct-fancy-icon.oxel-image-comparisonv2__icon::after
+{
+  content: "";
+  position: absolute;
+  height: 500px;
+  width: 2px;
+  left: calc(50% - 1px);
+  background: #fff;
+}
+
+.ct-fancy-icon.oxel-image-comparisonv2__icon::before
+{
+  bottom: 50px;
+}
+
+.ct-fancy-icon.oxel-image-comparisonv2__icon::after
+{
+  top: 50px;
+}
+
+.oxel-image-comparisonv2__icon
+{
+  margin-left: -2px; /* Compense le décalage fait par la border */
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+}
+
+.ct-fancy-icon > svg
+{
+  fill: #fff !important;
+}
