@@ -694,7 +694,7 @@ html:has(.lightbox[style="display: flex;"])
   position: absolute;
   height: 500px;
   width: 2px;
-  left: calc(50% - 1px);
+  left: calc(50% - 2px);
   background: #fff;
 }
 
