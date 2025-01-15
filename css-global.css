@@ -676,6 +676,7 @@ html:has(.lightbox[style="display: flex;"])
 /* Comparaison d'images */
 .ct-div-block.oxel-image-comparisonv2
 {
+  min-height: 100%;
   overflow: hidden;
   z-index: 1;
 }
