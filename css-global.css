@@ -677,6 +677,14 @@ html:has(.lightbox[style="display: flex;"])
 .ct-div-block.oxel-image-comparisonv2
 {
   overflow: hidden;
+  z-index: 1;
+}
+
+.oxel-image-comparisonv2__icon
+{
+  background-color: transparent !important;
+  border: 2px solid #fff;
+  backdrop-filter: blur(10px);
 }
 
 .ct-fancy-icon.oxel-image-comparisonv2__icon::before,
@@ -698,13 +706,6 @@ html:has(.lightbox[style="display: flex;"])
 .ct-fancy-icon.oxel-image-comparisonv2__icon::after
 {
   top: 50px;
-}
-
-.oxel-image-comparisonv2__icon
-{
-  margin-left: -2px; /* Compense le décalage fait par la border */
-  background-color: transparent !important;
-  border: 2px solid #fff !important;
 }
 
 .ct-fancy-icon > svg
