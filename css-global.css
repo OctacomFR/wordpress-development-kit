@@ -308,15 +308,8 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 }
 
 /* Redimensionne le menu burger (utiliser la media query définie pour le switch en menu mobile) */
-@media(max-width: 1120px)
+/* @media(max-width: 1120px)
 {
-    /* Désactive les animations left et right en responsive pour éviter les bugs d'affichage */
-    /*[data-aos$="left"], [data-aos$="right"]
-	{
-        transform: translate(0) scale(1) !important;
-        }*/
-
-     /* ------------------ Mobile navigation menu --------------- */
     .oxy-site-navigation li > button > svg
     {
         width: 25px;
@@ -381,7 +374,6 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
         justify-content: flex-end;
     }
 
-    /* ---------- Lignes du Burger Menu ------------- */
     nav .oxy-nav-menu-hamburger
     {
         width: 35px !important;
@@ -398,7 +390,6 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
         top: 10px !important;
     }
     
-    /* Comportement du menu Tablettes / Mobiles lorsqu'il est ouvert */
     .oxy-nav-menu.oxy-nav-menu-open .oxy-nav-menu-list
     {
         display: flex !important;
@@ -443,6 +434,7 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
         line-height: 40px !important;
     }
 }
+ */
 
 @media (max-width: 1050px)
 {
