@@ -308,6 +308,14 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 }
 
 /* Redimensionne le menu burger (utiliser la media query définie pour le switch en menu mobile) */
+@media (max-width: 1120px)
+{
+  .oxy-site-navigation > ul
+  {
+    max-width: 100%; /* Empêche le menu mobile de dépasser de l'écran lorsque le viewport est inférieur à 300px de large */
+    justify-content: center;
+  }
+}
 /* @media(max-width: 1120px)
 {
     .oxy-site-navigation li > button > svg
