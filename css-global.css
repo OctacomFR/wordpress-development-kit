@@ -52,6 +52,168 @@ img
     -webkit-user-drag: none;
 }
 
+/* 
+Calcule automatiquement le nombre d'enfants et l'espacement entre eux
+
+<div class="flex-space-30 || flex-space-40 || flex-space-50">
+    <div class="enfant"></div>
+    <div class="enfant"></div>
+</div>
+*/
+
+[class*="flex-space-"]
+{
+    --gap: 0;
+    --width: 100%;
+    --childs: 1;
+    gap: var(--gap);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+[class*="flex-space-"] > *
+{
+	width: calc(var(--width) - (var(--gap) * (var(--childs) - 1)) / var(--childs)) !important;
+}
+ 
+/* Compter les enfants */
+
+/* 2 enfants */
+[class*="flex-space-"]:has(> *:nth-child(2)):not(:has(> *:nth-child(3))) > *
+{
+	--width: 50%;
+	--childs: 2;
+}
+ 
+/* 3 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(3)):not(:has(> *:nth-child(4))) > *
+{
+	--width: 33.3333%;
+	--childs: 3;
+}
+ 
+/* 4 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(4)):not(:has(> *:nth-child(5))) > *
+{
+	--width: 25%;
+	--childs: 4;
+}
+ 
+/* 5 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(5)):not(:has(> *:nth-child(6))) > *
+{
+	--width: 20%;
+	--childs: 5;
+}
+ 
+/* 6 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(6)):not(:has(> *:nth-child(7))) > *
+{
+	--width: 16.6667%;
+	--childs: 6;
+}
+ 
+/* 7 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(7)):not(:has(> *:nth-child(8))) > *
+{
+	--width: 14.2857%;
+	--childs: 7;
+}
+ 
+/* 8 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(8)):not(:has(> *:nth-child(9))) > *
+{
+	--width: 12.5%;
+	--childs: 8;
+}
+ 
+/* 9 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(9)):not(:has(> *:nth-child(10))) > *
+{
+	--width: 11.1111%;
+	--childs: 9;
+}
+ 
+/* 10 enfants */
+
+[class*="flex-space-"]:has(> *:nth-child(10)):not(:has(> *:nth-child(11))) > *
+{
+	--width: 10%;
+	--childs: 10;
+}
+
+ 
+.flex-space-5
+{
+	--gap: 5px;
+}
+ 
+.flex-space-10
+{
+	--gap: 10px;
+}
+ 
+.flex-space-20
+{
+	--gap: 20px;
+}
+ 
+.flex-space-30
+{
+	--gap: 30px;
+}
+ 
+.flex-space-40
+{
+	--gap: 40px;
+}
+ 
+.flex-space-50
+{
+	--gap: 50px;
+}
+ 
+.flex-space-60
+{
+	--gap: 60px;
+}
+ 
+.flex-space-70
+{
+	--gap: 70px;
+}
+ 
+.flex-space-80
+{
+	--gap: 80px;
+}
+ 
+.flex-space-90
+{
+	--gap: 90px;
+}
+ 
+.flex-space-100
+{
+	--gap: 100px;
+}
+
+@media (max-width: 768px)
+{
+    [class*="flex-space-"] > *
+    {
+        width: 100% !important;
+    }
+}
+
 a,
 .ct-link-button
 {
