@@ -63,10 +63,10 @@ Calcule automatiquement le nombre d'enfants et l'espacement entre eux
 
 [class*="flex-space-"]
 {
-    --gap: 0;
+    --space: 0;
     --width: 100%;
     --childs: 1;
-    gap: var(--gap);
+    gap: var(--space);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -74,7 +74,7 @@ Calcule automatiquement le nombre d'enfants et l'espacement entre eux
 
 [class*="flex-space-"] > *
 {
-	width: calc(var(--width) - (var(--gap) * (var(--childs) - 1)) / var(--childs)) !important;
+	width: calc(var(--width) - (var(--space) * (var(--childs) - 1)) / var(--childs)) !important;
 }
  
 /* Compter les enfants */
@@ -153,57 +153,57 @@ Calcule automatiquement le nombre d'enfants et l'espacement entre eux
  
 .flex-space-5
 {
-	--gap: 5px;
+	--space: 5px;
 }
  
 .flex-space-10
 {
-	--gap: 10px;
+	--space: 10px;
 }
  
 .flex-space-20
 {
-	--gap: 20px;
+	--space: 20px;
 }
  
 .flex-space-30
 {
-	--gap: 30px;
+	--space: 30px;
 }
  
 .flex-space-40
 {
-	--gap: 40px;
+	--space: 40px;
 }
  
 .flex-space-50
 {
-	--gap: 50px;
+	--space: 50px;
 }
  
 .flex-space-60
 {
-	--gap: 60px;
+	--space: 60px;
 }
  
 .flex-space-70
 {
-	--gap: 70px;
+	--space: 70px;
 }
  
 .flex-space-80
 {
-	--gap: 80px;
+	--space: 80px;
 }
  
 .flex-space-90
 {
-	--gap: 90px;
+	--space: 90px;
 }
  
 .flex-space-100
 {
-	--gap: 100px;
+	--space: 100px;
 }
 
 @media (max-width: 768px)
