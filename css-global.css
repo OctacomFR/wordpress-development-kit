@@ -66,10 +66,11 @@ Calcule automatiquement le nombre d'enfants et l'espacement entre eux
     --space: 0;
     --width: 100%;
     --childs: 1;
-    gap: var(--space);
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space);
 }
 
 [class*="flex-space-"] > *
