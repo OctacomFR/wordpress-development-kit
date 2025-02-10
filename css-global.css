@@ -679,9 +679,8 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
   .lightbox-prev,
   .lightbox-next
   {
-    top: unset;
-    bottom: 20px;
     background-color: transparent;
+    padding: 15px;
   }
 }
 
