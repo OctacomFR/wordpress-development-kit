@@ -616,12 +616,6 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
   z-index: 1000;
 }
 
-.lightbox img
-{
-  max-width: 90%;
-  max-height: 90%;
-}
-
 .lightbox-close,
 .lightbox-prev,
 .lightbox-next
@@ -667,12 +661,6 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 .lightbox-prev:hover, .lightbox-next:hover, .lightbox-close:hover 
 {
   transform: scale(0.9);
-}
-
-/* Empêche le scroll quand la lightbox est ouverte */
-html:has(.lightbox[style="display: flex;"])
-{
-  overflow: hidden;
 }
 
 /* Transition au changement d'image (Lightbox) */
