@@ -549,6 +549,22 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
   gap: 10px !important;
 }
 
+#sunshine--gallery-items .sunshine--gallery-item a
+{
+  overflow: hidden;
+}
+
+#sunshine--gallery-items .sunshine--gallery-item a img
+{
+  transition: all 0.4s ease;
+}
+
+#sunshine--gallery-items .sunshine--gallery-item a:is(:hover, :focus, :active) img
+{
+  transform: scale(1.1);
+}
+
+
 #go-back
 {
   position: relative;
