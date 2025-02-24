@@ -216,6 +216,19 @@ Calcule automatiquement le nombre d'enfants et l'espacement entre eux
     }
 }
 
+.oxy-site-navigation li a
+{
+  text-decoration: underline 1px transparent;
+  text-underline-offset: 6px;
+}
+
+.oxy-site-navigation li.current-menu-item a,
+.oxy-site-navigation li:hover a
+{
+  text-decoration-color: var(--primary-color);
+  text-underline-offset: 6px;
+}
+
 a,
 .ct-link-button
 {
@@ -414,6 +427,7 @@ div#cmplz-document
 {
     flex-wrap: wrap;
 }
+
 .oxy-header-container
 {
     padding: 0; 
