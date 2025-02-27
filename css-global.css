@@ -814,3 +814,9 @@ html:has(body.lightbox-open)
 {
   fill: #fff !important;
 }
+
+.ct-new-columns > .ct-div-block:where(:has(> *:only-child), :not(:has(> :not(img)))) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
