@@ -451,7 +451,6 @@ body:has(.oxy-post) .waiting
 body:has(#cmplz-document) .ct-inner-content,
 .privacy-policy .ct-inner-content
 {
-    max-width: 1120px !important;
     margin: 0 auto 50px !important;
     padding: 0 30px !important;
 }
