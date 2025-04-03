@@ -157,6 +157,38 @@ img
   text-decoration-color: var(--primary-color);
 }
 
+.oxy-rich-text ul,
+.oxy-rich-text ol,
+.ct-text-block ul,
+.ct-text-block ol
+{
+  padding-left: 20px;
+}
+
+.oxy-rich-text ul li,
+.oxy-rich-text ol li,
+.ct-text-block ul li,
+.ct-text-block ol li
+{
+  margin-bottom: 10px;
+}
+
+.oxy-rich-text ul li::marker,
+.oxy-rich-text ol li::marker,
+.ct-text-block ul li::marker,
+.ct-text-block ol li::marker
+{
+  color: var(--primary-color);
+}
+
+.oxy-rich-text ul li:first-letter,
+.oxy-rich-text ol li:first-letter,
+.ct-text-block ul li:first-letter,
+.ct-text-block ol li:first-letter
+{
+  text-transform: uppercase;
+}
+
 a,
 .ct-link-button
 {
