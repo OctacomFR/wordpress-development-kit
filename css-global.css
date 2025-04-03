@@ -183,7 +183,7 @@ a,
 .ct-inner-content
 {
     flex-grow: 1;
-    overflow-x: hidden !important; /* Fix les débordements à cause des animations qui viennent des côtés */
+    overflow: hidden !important; /* Fix les débordements à cause des animations qui viennent des côtés */
 }
 
 /* Fix bug affichage map avant acceptation des cookies */
