@@ -54,25 +54,20 @@ img
 
 /* [DEBUT] BREAKPOINT CUSTOM - BURGER MENU */
 
-/* Masquer le menu normal et afficher le burger menu à partir de 1120px */
-/* Masquer le menu normal et afficher le burger menu à partir de 1120px */
-@media (max-width: 1120px) 
+/* @media (max-width: 1120px) 
 {
-    /* Masquer le menu de navigation normal */
     .oxy-nav-menu-open,
     .oxy-nav-menu:not(.oxy-nav-menu-open) .menu-item 
     {
         display: none;
     }
     
-    /* Afficher le bouton du burger menu */
     .oxy-nav-menu-hamburger-wrap 
     {
         display: flex !important;
     }
     
-    /* S'assurer que le conteneur du menu est en mode mobile */
-    .oxy-nav-menu.oxy-nav-menu-open 
+    .oxy-nav-menu.oxy-nav-menu-open
     {
         display: flex;
         flex-direction: column;
@@ -80,17 +75,14 @@ img
         top: 100%;
         left: 0;
         right: 0;
-        background-color: white; /* Ajustez selon votre design */
         z-index: 999;
     }
     
-    /* Afficher les éléments du menu quand il est ouvert */
     .oxy-nav-menu.oxy-nav-menu-open .menu-item 
     {
         display: block;
     }
     
-    /* Appliquer les styles du menu mobile */
     #-site-navigation-10-24.oxy-site-navigation > ul 
     {
         position: fixed;
@@ -108,16 +100,13 @@ img
     }
 }
 
-/* Annuler les styles du menu mobile entre 1121px et 1400px pour revenir au menu desktop */
 @media (min-width: 1121px) and (max-width: 1400px) 
 {
-    /* Afficher le menu de navigation normal */
     .oxy-nav-menu .menu-item 
     {
         display: block !important;
     }
     
-    /* Masquer le bouton du burger menu */
     .oxy-nav-menu-hamburger-wrap,
     .oxy-site-navigation .oxy-site-navigation__mobile-open-button,
     .oxy-site-navigation .oxy-site-navigation__mobile-close-wrapper
@@ -135,7 +124,6 @@ img
          width: fit-content !important;
     }
     
-    /* Annuler spécifiquement les styles du menu mobile pour #-site-navigation-10-24 */
     .oxy-site-navigation > ul 
     {
         position: static !important;
@@ -151,7 +139,7 @@ img
         margin-block-start: initial !important;
         z-index: auto !important;
     }
-}
+} */
 
 /* [FIN] BREAKPOINT CUSTOM - BURGER MENU */
 
