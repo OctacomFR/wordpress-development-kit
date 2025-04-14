@@ -3,7 +3,12 @@
   --primary-color: color(1);
 }
 
-::selection,
+::selection
+{
+  color: #000;
+  background: var(--primary-color);
+}
+
 ::-moz-selection
 {
   color: #000;
