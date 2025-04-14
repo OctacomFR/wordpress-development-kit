@@ -146,23 +146,29 @@ img
 .oxy-site-navigation li a,
 .oxy-site-navigation ul > li.current-menu-item > ul > li > a,
 .oxy-site-navigation ul > li:hover > ul > li > a,
+.footer-links,
 .copyright a
 {
-  text-decoration: underline 2px transparent;
-  text-underline-offset: 6px;
+  text-decoration: underline 2px transparent !important;
+  text-underline-offset: 6px !important;
 }
 
 .oxy-site-navigation li.current-menu-item a,
 .oxy-site-navigation li:hover a,
 .oxy-site-navigation ul > li > ul > li:hover > a,
+{
+  text-decoration-color: var(--primary-color) !important;
+}
+
+.footer-links:hover,
 .copyright a:hover
 {
-  text-decoration-color: var(--primary-color);
+  text-decoration-color: var(--primary-color) !important;
 }
 
 .oxy-site-navigation ul > li > ul > li:hover
 {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .oxy-rich-text ul,
