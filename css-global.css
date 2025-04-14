@@ -430,7 +430,8 @@ body:has(#cmplz-document) .ct-inner-content,
 .privacy-policy .ct-inner-content
 {
     margin: 0 auto 50px !important;
-    padding: 0 30px !important;
+    max-width: 1120px;
+    padding: 0 20px !important;
 }
 
 body:has(#cmplz-document) .ct-inner-content h1,
