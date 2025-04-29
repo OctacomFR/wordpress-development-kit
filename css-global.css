@@ -160,7 +160,7 @@ img
 
 .oxy-site-navigation li.current-menu-item a,
 .oxy-site-navigation li:hover a,
-.oxy-site-navigation ul > li > ul > li:hover > a,
+.oxy-site-navigation ul > li > ul > li:hover > a
 {
   text-decoration-color: var(--primary-color) !important;
 }
