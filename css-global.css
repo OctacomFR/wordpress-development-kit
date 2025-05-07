@@ -176,6 +176,12 @@ img
   background-color: rgba(255, 255, 255, 0.9) !important;
 }
 
+/* Désactive le clic sur les liens "vides" (Pour les parents d'un dropdown) */
+.oxy-site-navigation ul li a[href="#"]
+{
+  pointer-events: none;
+}
+
 .oxy-rich-text ul,
 .oxy-rich-text ol,
 .ct-text-block ul,
