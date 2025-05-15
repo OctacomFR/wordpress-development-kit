@@ -405,6 +405,21 @@ div#cmplz-document
 {
   text-decoration: 1px underline #000;
 }
+
+body .forminator-ui.forminator-design--default .forminator-consent,
+body .forminator-ui.forminator-design--default .forminator-consent__label,
+body .forminator-ui.forminator-design--default .forminator-consent__label p,
+body .forminator-checkbox__label a,
+body .forminator-ui.forminator-design--default .forminator-textarea,
+body .forminator-ui.forminator-design--default .forminator-textarea:hover,
+body .forminator-ui.forminator-design--default .forminator-textarea:focus,
+body .forminator-ui.forminator-design--default .forminator-textarea:active,
+body .forminator-ui.forminator-design--default .forminator-input,
+body .forminator-ui.forminator-design--default .forminator-input:hover,
+body .forminator-ui.forminator-design--default .forminator-input:focus,
+body .forminator-ui.forminator-design--default .forminator-input:active {
+  color: currentColor !important;
+}
 	
 /* Oxygen navigation menu */
 
