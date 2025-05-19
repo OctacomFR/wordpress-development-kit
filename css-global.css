@@ -206,13 +206,7 @@ img
   color: var(--primary-color);
 }
 
-.oxy-rich-text ul li:first-letter,
-.oxy-rich-text ol li:first-letter,
-.ct-text-block ul li:first-letter,
-.ct-text-block ol li:first-letter
-{
-  text-transform: uppercase;
-}
+
 
 a,
 .ct-link-button
@@ -527,7 +521,7 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 {
   text-transform: lowercase;
 }
-
+/*
 .ct-text-block ul li::first-letter,
 .ct-text-block ol li::first-letter,
 .oxy-rich-text ul li::first-letter,
@@ -535,7 +529,7 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 {
   text-transform: uppercase;
 }
-
+*/
 /* Désactivation des liens parents de dropdowns */
 /*.oxy-site-navigation > ul > li:has(ul) > a
 {
