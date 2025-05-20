@@ -513,30 +513,6 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
   }
 }
 
-/* Forcer une Sentance Case sur les éléments de listes */
-.ct-text-block ul li,
-.ct-text-block ol li,
-.oxy-rich-text ul li,
-.oxy-rich-text ol li
-{
-  text-transform: lowercase;
-}
-/*
-.ct-text-block ul li::first-letter,
-.ct-text-block ol li::first-letter,
-.oxy-rich-text ul li::first-letter,
-.oxy-rich-text ol li::first-letter
-{
-  text-transform: uppercase;
-}
-*/
-/* Désactivation des liens parents de dropdowns */
-/*.oxy-site-navigation > ul > li:has(ul) > a
-{
-  pointer-events: none;
-}*/
-
-
 /* Sunshine Gallery */
 #sunshine #sunshine--main .sunshine--container
 {
