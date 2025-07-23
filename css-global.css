@@ -52,97 +52,6 @@ img
     -webkit-user-drag: none;
 }
 
-/* [DEBUT] BREAKPOINT CUSTOM - BURGER MENU */
-
-/* @media (max-width: 1120px) 
-{
-    .oxy-nav-menu-open,
-    .oxy-nav-menu:not(.oxy-nav-menu-open) .menu-item 
-    {
-        display: none;
-    }
-    
-    .oxy-nav-menu-hamburger-wrap 
-    {
-        display: flex !important;
-    }
-    
-    .oxy-nav-menu.oxy-nav-menu-open
-    {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 999;
-    }
-    
-    .oxy-nav-menu.oxy-nav-menu-open .menu-item 
-    {
-        display: block;
-    }
-    
-    #-site-navigation-10-24.oxy-site-navigation > ul 
-    {
-        position: fixed;
-        top: 0;
-        flex-direction: column;
-        height: 100vh;
-        width: 300px;
-        padding: 64px 0px;
-        overflow: auto;
-        background-color: var(--oxynav-neutral-color);
-        box-shadow: 0px 12.5px 10px rgba(0, 0, 0, 0.035), 0px 100px 80px rgba(0, 0, 0, 0.07);
-        margin-block-end: 0px;
-        margin-block-start: 0px;
-        z-index: 9999;
-    }
-}
-
-@media (min-width: 1121px) and (max-width: 1400px) 
-{
-    .oxy-nav-menu .menu-item 
-    {
-        display: block !important;
-    }
-    
-    .oxy-nav-menu-hamburger-wrap,
-    .oxy-site-navigation .oxy-site-navigation__mobile-open-button,
-    .oxy-site-navigation .oxy-site-navigation__mobile-close-wrapper
-    {
-        display: none !important;
-    }
-
-    .oxy-site-navigation > ul:not(.open)
-    {
-        display: flex !important;
-    }
-
-    .oxy-site-navigation > ul > li
-    {
-         width: fit-content !important;
-    }
-    
-    .oxy-site-navigation > ul 
-    {
-        position: static !important;
-        top: auto !important;
-        flex-direction: row !important;
-        height: auto !important;
-        width: auto !important;
-        padding: initial !important;
-        overflow: visible !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-        margin-block-end: initial !important;
-        margin-block-start: initial !important;
-        z-index: auto !important;
-    }
-} */
-
-/* [FIN] BREAKPOINT CUSTOM - BURGER MENU */
-
 .oxy-site-navigation li a,
 .oxy-site-navigation ul > li.current-menu-item > ul > li > a,
 .oxy-site-navigation ul > li:hover > ul > li > a,
@@ -433,39 +342,6 @@ body:has(.oxy-post) .waiting
 {
     display: none !important;
 }
-
-/* --------------- Politique de protection des données ----------- */
-/*
-body:has(#cmplz-document) .ct-inner-content,
-.privacy-policy .ct-inner-content
-{
-    margin: 0 auto 50px !important;
-    max-width: 1120px;
-    padding: 0 20px !important;
-}
-
-body:has(#cmplz-document) .ct-inner-content h1,
-.privacy-policy .ct-inner-content h1
-{
-    width: 100% !important;
-    text-align: center !important;
-    margin: 100px 0 80px !important;
-}
-
-body:has(#cmplz-document) #cmplz-document
-{
-    max-width: unset !important;
-}
-
-body:has(#cmplz-document) #cmplz-document p,
-body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode p,
-body:has(#cmplz-document) #cmplz-document li,
-body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode li,
-body:has(#cmplz-document) #cmplz-document td,
-body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
-{
-    font-size: 1rem !important;
-} */
 
 /* fix nom des albums avec le module galerie */
 
@@ -783,6 +659,10 @@ html:has(body.lightbox-open)
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.copyright a {
+  color: currentColor;
 }
 
 /* 
