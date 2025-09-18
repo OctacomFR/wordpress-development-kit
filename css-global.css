@@ -835,7 +835,7 @@ body:has(#cmplz-document) .ct-inner-content,
 .privacy-policy .ct-inner-content
 {
     margin: 0 auto 50px !important;
-    max-width: 1120px;
+    max-width: 1400px;
     padding: 0 20px !important;
 }
 
@@ -952,3 +952,4 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 } */
 
 /* [FIN] BREAKPOINT CUSTOM - BURGER MENU */
+
