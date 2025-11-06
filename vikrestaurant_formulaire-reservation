@@ -1,0 +1,80 @@
+/* ----- Vik Restaurant ----- */
+
+/* Préfixe téléphone */
+.iti__flag-container
+{
+  display: none;
+}
+
+.notice.is-dismissible.notice-error
+{
+  background: #ffaeae;
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.notice.is-dismissible.notice-error > p
+{
+  margin: 0;
+}
+
+body .vrstepbardiv .vrstepactive .vrsteptitle,
+body .vrstepbardiv .vrstepactive .vrstep-inner:after,
+body a.vre-btn.primary,
+body button.vre-btn.primary,
+body a.vre-btn.primary:hover,
+body button.vre-btn.primary:hover
+{
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.vrformfieldset legend
+{
+  padding: 0 15px;
+}
+
+.vr-confirm-h3
+{
+  margin-top: 30px !important;
+  color: var(--primary-color);
+  font-size: 30px;
+}
+
+#vrpayform
+{
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#vrpayform label:not(#vrcf13-control label)
+{
+  display: block;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+#vrcf13-control
+{
+  margin: 20px 0;
+}
+
+.custom-fields-default input[type="text"],
+.custom-fields-default input[type="email"],
+.custom-fields-default input[type="tel"]
+{
+  text-align: center;
+}
+
+@media screen and (max-width: 640px)
+{
+  input[type=checkbox] + label
+  {
+    display: inline !important;
+  }
+}
