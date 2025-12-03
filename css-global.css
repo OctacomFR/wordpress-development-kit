@@ -953,3 +953,9 @@ body:has(#cmplz-document) .editor-styles-wrapper .cmplz-unlinked-mode td
 
 /* [FIN] BREAKPOINT CUSTOM - BURGER MENU */
 
+/* Fix bug modal */
+body.oxy-modal-active
+{
+	height: unset !important;
+	min-height: 100vh;
+}
