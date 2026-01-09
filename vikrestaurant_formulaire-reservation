@@ -25,12 +25,22 @@ body .vrstepbardiv .vrstepactive .vrstep-inner:after,
 body a.vre-btn.primary,
 body button.vre-btn.primary,
 body a.vre-btn.primary:hover,
-body button.vre-btn.primary:hover
+body button.vre-btn.primary:hover,
+body .ui-datepicker.ui-widget-content .ui-state-active,
+body .ui-datepicker.ui-widget-content .ui-widget-header .ui-state-active,
+body .ui-datepicker.ui-widget-content td:not(.ui-state-disabled) .ui-state-default:hover,
+body .ui-datepicker.ui-widget-content .ui-widget-header td:not(.ui-state-disabled) .ui-state-default:hover
 {
   background-color: var(--primary-color) !important;
   border-color: var(--primary-color) !important;
   color: #fff !important;
   font-weight: 600;
+}
+
+body .ui-datepicker.ui-widget-content .ui-widget-header .ui-datepicker-prev:before,
+body .ui-datepicker.ui-widget-content .ui-widget-header .ui-datepicker-next:before
+{
+  color: var(--primary-color) !important;
 }
 
 .vrformfieldset legend
