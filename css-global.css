@@ -358,6 +358,9 @@ body:has(.oxy-post) .waiting
     max-width: 100%; /* Empêche le menu mobile de dépasser de l'écran lorsque le viewport est inférieur à 300px de large */
     justify-content: center;
   }
+  .ct-div-block{
+    text-align: inherit !important;
+  }
 }
 
 @media (max-width: 1050px)
@@ -959,3 +962,4 @@ body.oxy-modal-active
 	height: unset !important;
 	min-height: 100vh;
 }
+
