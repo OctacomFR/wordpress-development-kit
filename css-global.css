@@ -39,6 +39,7 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  scroll-margin-top: 150px;
 }
 
 img {
