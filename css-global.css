@@ -771,3 +771,10 @@ body.oxy-modal-active {
   height: unset !important;
   min-height: 100vh;
 }
+
+#cmplz-cookiebanner-container{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+}
