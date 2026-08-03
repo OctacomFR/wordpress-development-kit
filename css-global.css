@@ -138,10 +138,13 @@ div#cmplz-document {
   padding-inline: 20px;
 }
 
+.forminator-ui .forminator-label{
+    text-align: left;
+}
 .forminator-ui .forminator-label,
 .forminator-slider-limit-min,
 .forminator-slider-limit-max {
-  color: #000 !important;
+  color: currentColor !important;
   font-weight: 400 !important;
 }
 
