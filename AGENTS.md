@@ -217,7 +217,9 @@ Préserver ratio, cadrage, dimensions ou espace réservé. Utiliser `contain` po
 - Liens HTTP externes : nouvel onglet avec `rel="noopener noreferrer"` ; liens internes : même onglet ; `tel:` et `mailto:` directs.
 - Utiliser le Form Oxygen ou le composant validé avant une version manuelle.
 - Confirmer destination, expéditeur, consentement, CAPTCHA et domaine final.
-- Configurer WP Mail SMTP avec les données validées et prouver la réception réelle ; un message de succès front ne suffit pas.
+- Lors de tout test où le formulaire est rempli, saisir `support@octacom.fr` dans le champ email et utiliser uniquement des données manifestement fictives dans tous les autres champs, jamais les coordonnées ou informations du client. Avant chaque envoi de test, configurer temporairement `support@octacom.fr` comme unique adresse de réception et retirer tout destinataire, CC ou BCC client.
+- Identifier clairement chaque soumission avec `TEST OCTACOM - NE PAS TRAITER`. Après les tests, rétablir l'adresse finale validée du client et vérifier la configuration sans lui envoyer de test, sauf demande explicite.
+- Configurer WP Mail SMTP avec les données validées et prouver la réception réelle du test sur `support@octacom.fr` ; un message de succès front ne suffit pas. Ne pas confondre l'adresse de réception temporaire avec l'adresse d'expédition SMTP.
 
 ---
 
@@ -274,6 +276,7 @@ Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au mini
 - performance des images, LCP, CLS et widgets ;
 - rasters convertis en WebP avant usage et SVG utilisés au maximum pour les formes et illustrations vectorielles ;
 - formulaire, réception SMTP, CAPTCHA et consentement ;
+- tests de formulaire reçus sur `support@octacom.fr` avec données fictives, puis destinataire final validé rétabli avant livraison ;
 - sauvegarde et chemin de retour vérifiés.
 
 Le rapport final distingue ce qui est implémenté, réutilisable, dynamique, réellement testé et non vérifié. Pour un développement complet, ajouter le détail temps/tokens/coût par modèle uniquement depuis les journaux accessibles ; ne jamais estimer une métrique absente.

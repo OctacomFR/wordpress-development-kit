@@ -38,6 +38,9 @@ Est-ce que tous les rasters maîtrisés ont été convertis en WebP avant usage 
 Est-ce que les logos, icônes, formes et illustrations vectorielles utilisent au maximum des SVG optimisés et assainis ?
 Est-ce que les iframes/images réservent leur espace ?
 Est-ce que Complianz, le formulaire, le CAPTCHA et l'envoi SMTP ont été testés réellement ?
+Est-ce que `support@octacom.fr` était l'unique destinataire du test et l'adresse saisie dans le champ email ?
+Est-ce que tous les autres champs utilisaient des données fictives marquées `TEST OCTACOM - NE PAS TRAITER`, sans aucune donnée client ?
+Est-ce que le destinataire final validé a été rétabli avant livraison sans envoyer de test au client, sauf demande explicite ?
 Est-ce que les pages légales et le crédit Octacom sont présents dans le footer ?
 Est-ce qu'une sauvegarde vérifiée permet de revenir en arrière ?
 Est-ce que j'ai réellement regardé le rendu avant de dire terminé ?

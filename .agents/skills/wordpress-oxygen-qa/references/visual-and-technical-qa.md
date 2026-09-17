@@ -83,7 +83,8 @@ Avant de déclarer terminé :
 - pas de lien `#` involontaire ;
 - pas de style détruit dans le builder Oxygen ;
 - front vérifié dans Chrome lorsque disponible ;
-- formulaires reçus à l'adresse prévue via WP Mail SMTP ;
+- soumissions de test reçues sur `support@octacom.fr` via WP Mail SMTP, avec `support@octacom.fr` dans le champ email et uniquement des données fictives clairement marquées `TEST OCTACOM - NE PAS TRAITER` ;
+- `support@octacom.fr` était l'unique destinataire pendant les tests, sans autre adresse en destinataire, CC ou BCC ; destinataire final validé rétabli et relu avant livraison, sans envoi au client sauf demande explicite ;
 - CAPTCHA fonctionnel sans boucle de rechargement ;
 - Complianz testé avant/après consentement et wrappers de carte/vidéo contrôlés ;
 - pages **Politique de protection des données** et **Mentions légales** accessibles par le menu du footer, ainsi que les **Conditions générales de vente** lorsqu'elles existent ou sont applicables ;

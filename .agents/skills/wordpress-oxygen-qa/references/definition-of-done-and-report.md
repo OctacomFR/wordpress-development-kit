@@ -105,7 +105,10 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Page **Politique de protection des données** générée par Complianz et présente dans le menu du footer.
 - [ ] Page **Mentions légales** présente dans le menu du footer.
 - [ ] **Conditions générales de vente** validées et présentes dans le menu du footer lorsqu'elles existent ou sont applicables.
-- [ ] WP Mail SMTP configuré pour le domaine final et réception réelle vérifiée.
+- [ ] WP Mail SMTP configuré pour le domaine final et réception réelle du test vérifiée sur `support@octacom.fr`.
+- [ ] Pendant les tests, `support@octacom.fr` était l'unique destinataire et l'adresse saisie dans le champ email ; aucune donnée réelle du client n'a été utilisée.
+- [ ] Les autres champs contenaient uniquement des valeurs fictives et la soumission était marquée `TEST OCTACOM - NE PAS TRAITER`.
+- [ ] Le destinataire final validé du client a été rétabli et relu avant livraison, sans envoi au client sauf demande explicite.
 - [ ] Formulaire, consentement, CAPTCHA, honeypot et messages testés.
 - [ ] Mentions légales remplies avec des données validées et sans variable de template restante.
 - [ ] Crédit de réalisation Octacom présent dans le footer avec la bonne variante de logo.
