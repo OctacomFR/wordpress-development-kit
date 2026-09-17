@@ -57,6 +57,8 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Workflow propre à la page d'accueil | `oxygen6-homepage/SKILL.md` |
 | Workflow propre aux pages internes | `oxygen6-inner-pages/SKILL.md` |
 | Matrice de spécialistes | `AGENTS.md`; `octacom-parallel-delivery/SKILL.md` |
+| Routage des sous-agents par capacité, coût et latence | `AGENTS.md`; `octacom-parallel-delivery/SKILL.md`; `oxygen6-frontend-quality/SKILL.md` |
+| Blocage strict en cas d'information requise manquante | `AGENTS.md`; `octacom-project-start/SKILL.md`; `octacom-parallel-delivery/SKILL.md` |
 
 ## Contrôles de non-perte
 

@@ -15,6 +15,24 @@ Séparer avant de paralléliser. Attribuer un propriétaire exclusif à chaque �
 
 Deux agents écrivent en parallèle seulement si leurs cibles sont réellement distinctes. Les conventions verbales ne constituent pas un verrou.
 
+## Choisir le modèle du sous-agent
+
+Lorsque l'outil permet un choix de modèle, sélectionner d'abord les capacités requises par la mission : vision, code, outils, taille de contexte ou niveau de raisonnement. Choisir ensuite le plus petit et le plus rapide modèle capable d'atteindre les critères d'acceptation. Utiliser coût et latence comme critères de départage après capacité et qualité minimale.
+
+- Modèle compact et rapide : inventaire, extraction, vérification de liens, comparaison structurée, contrôles déterministes et génération factuelle d'alts si la vision est disponible.
+- Modèle compatible vision : images, captures, comparaison visuelle, identification du rôle d'un média et génération d'alts. Une tâche simple ne justifie pas par défaut un modèle frontier.
+- Modèle au raisonnement plus robuste : architecture partagée, synthèse multi-source ambiguë, diagnostic complexe, arbitrage de conflits et mutation à fort rayon d'impact.
+
+Ne pas hard-coder une gamme de modèles dans ce skill. Inspecter les modèles disponibles au moment de la délégation. Si aucun modèle ne possède la capacité nécessaire, remonter un blocage au lieu de simuler cette capacité.
+
+## Blocages d'information
+
+Un sous-agent ne déduit jamais une information requise. Si, après vérification des sources autorisées, une donnée reste introuvable, ambiguë ou contradictoire, il suspend immédiatement toute écriture qui en dépend, conserve la cible inchangée et remonte un blocage au coordinateur.
+
+Le coordinateur vérifie l'application de l'ordre de priorité. Si le manque persiste, il demande une décision explicite à l'utilisateur et ne réattribue pas l'implémentation affectée avant sa réponse.
+
+Les agents peuvent poursuivre uniquement des contrôles en lecture seule indépendants du blocage. Ils ne créent pas de placeholder, de contenu supposé ou de configuration provisoire publiable.
+
 ## Ce qu'il faut paralléliser largement
 
 - lecture de l'ERP et des sources métier ;
@@ -44,7 +62,7 @@ Un éditeur Oxygen ouvert peut sauvegarder un ancien arbre entier. Après une mu
 
 Lancer autant de spécialistes en lecture seule que les créneaux le permettent : ERP/sources, WordPress/Oxygen, Figma, contenus/médias, SEO/dynamique, plugins/formulaires/conformité.
 
-Barrière `DISCOVERY_COMPLETE` : sources, conflits, IDs, slugs, objets existants, périmètre et risques sont consolidés.
+Barrière `DISCOVERY_COMPLETE` : sources, conflits, IDs, slugs, objets existants, périmètre et risques sont consolidés. Toutes les informations requises pour la phase suivante sont confirmées. Si un blocage utilisateur subsiste, aucune écriture dépendante ne démarre.
 
 ### 2. Fondations globales mono-écrivain
 
@@ -82,12 +100,16 @@ Chaque délégation précise :
 Mission :
 Skill à utiliser :
 Objectif exact :
+Capacités requises :
+Modèle choisi et justification :
 Sources autorisées :
 Objets à lire :
 Objets dont l'écriture est autorisée :
 IDs WordPress/Oxygen concernés :
 Objets partagés interdits :
 Dépendances validées :
+Informations requises déjà confirmées :
+Informations dont l'absence est bloquante :
 Critères d'acceptation :
 Preuves attendues :
 Format du compte rendu :
@@ -101,11 +123,13 @@ Exiger un rapport vérifiable :
 
 ```text
 STATUT : terminé | bloqué | constats uniquement
+MODÈLE / CAPACITÉS / JUSTIFICATION : valeurs réellement utilisées
 LU : objets, URLs et IDs contrôlés
 MODIFIÉ : objets et IDs modifiés, ou aucun
 PREUVES : captures, URLs, valeurs ou résultats de tests
 CONFLITS : sources contradictoires
 RISQUES : régressions possibles
+BLOCAGE D'INFORMATION : donnée exacte | sources et IDs/URLs vérifiés | objet/phase affecté | écritures suspendues | question exacte à poser à l'utilisateur
 DEMANDE AU COORDINATEUR : décision ou changement global requis
 ```
 

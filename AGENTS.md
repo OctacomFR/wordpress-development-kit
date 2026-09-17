@@ -60,6 +60,16 @@ Pour le design : dernière correction visuelle, puis Figma et ses annotations/co
 
 Si deux sources du même niveau se contredisent, signaler le conflit et demander laquelle fait foi avant publication. Ne jamais choisir silencieusement.
 
+### Information requise introuvable : blocage
+
+Une information est requise lorsqu'elle conditionne la justesse, la destination, le contenu, la conformité, la sécurité ou le comportement d'une implémentation.
+
+La chercher dans les sources autorisées selon leur ordre de priorité. Si elle reste introuvable, ambiguë ou contradictoire, ne pas la déduire, la compléter, la remplacer par un placeholder ni choisir silencieusement une source.
+
+C'est un blocage. Avant toute écriture ou configuration dépendante, expliquer précisément l'information manquante, les sources vérifiées, l'objet affecté et la décision attendue, puis demander une instruction explicite à l'utilisateur. Ne pas poursuivre l'implémentation affectée avant sa réponse.
+
+Seuls les travaux indépendants en lecture seule peuvent continuer : audit, inventaire, nouvelle vérification des sources, cartographie des impacts et préparation d'options clairement non retenues. Aucune mutation ne peut contourner le blocage ou préparer un état publiable fondé sur une hypothèse.
+
 ---
 
 ## 3. Skills obligatoires et routeur
@@ -93,6 +103,15 @@ Les instructions d'un skill priment dans son domaine, sauf que la dernière inst
 
 Quand les sous-agents sont disponibles, les utiliser par défaut sur tout travail non trivial. Occuper les créneaux avec des missions indépendantes et spécialisées, puis réaffecter un agent terminé à la prochaine vérification utile.
 
+### Choisir un modèle adapté
+
+Lorsque l'outil de délégation permet de choisir le modèle, le faire explicitement. Sélectionner d'abord les capacités obligatoires, par exemple vision, code, outils, taille de contexte ou raisonnement. Parmi les modèles qui les possèdent, choisir le plus petit et le plus rapide qui peut satisfaire les critères d'acceptation. Le coût et la latence départagent seulement des modèles déjà capables de produire la qualité requise.
+
+- Tâche simple et vérifiable, comme extraction, inventaire, contrôle de liens ou génération d'alts depuis des images accessibles : modèle compact et rapide.
+- Génération d'alts ou contrôle visuel : modèle compatible vision obligatoire. Un modèle frontier n'est pas nécessaire pour une description factuelle simple.
+- Architecture partagée, synthèse multi-source ambiguë, diagnostic complexe, arbitrage de conflits ou mutation à fort rayon d'impact : modèle avec raisonnement plus robuste.
+- Capacité requise indisponible, image inaccessible ou contexte indispensable manquant : blocage et question à l'utilisateur, jamais de remplacement par une supposition.
+
 ### Paralléliser
 
 - recherches et audits en lecture seule ;
@@ -110,7 +129,7 @@ Quand les sous-agents sont disponibles, les utiliser par défaut sur tout travai
 
 Un objet mutable a un propriétaire unique. Séparer les cibles avant de paralléliser ; une consigne « faites attention » ne protège pas un état partagé. Les agents de page signalent un besoin global au coordinateur au lieu de modifier le socle.
 
-Chaque mission déléguée précise objectif, sources, objets lisibles, cible d'écriture exacte, IDs, objets interdits, critères d'acceptation et preuves attendues. Sans cible confirmée, elle reste en lecture seule. Le coordinateur relit l'état réel : « terminé » n'est jamais une preuve.
+Chaque mission déléguée précise objectif, capacités requises, modèle choisi et justification, sources, objets lisibles, cible d'écriture exacte, IDs, objets interdits, informations bloquantes, critères d'acceptation et preuves attendues. Sans cible confirmée, elle reste en lecture seule et remonte le blocage. Le coordinateur relit l'état réel : « terminé » n'est jamais une preuve.
 
 Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrières de phase, les rôles spécialisés et le contrat de retour.
 
@@ -120,19 +139,20 @@ Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrière
 
 1. **Lire avant d'écrire.** Auditer le site, Figma, les sources et les composants existants.
 2. **Ne rien inventer.** Aucun téléphone, email, horaire, prix, adresse, certification, témoignage, URL, image, texte métier ou donnée SEO factuelle.
-3. **Préserver le contenu validé.** Ne pas reformuler textes, avis, horaires, tarifs ou mentions légales sans demande.
-4. **Respecter le périmètre.** Une demande sur la home n'autorise pas la refonte des autres pages.
-5. **Une correction locale reste locale.** Aucun sélecteur global large pour résoudre un cas ponctuel.
-6. **Oxygen 6.x reste éditable.** Un front fidèle mais cassé dans le builder est refusé.
-7. **Oxygen natif d'abord.** Élément natif, Component existant, composition Oxygen, puis code custom ciblé en dernier recours avec HTML sémantique et WAI-ARIA applicable.
-8. **Réutiliser avant de dupliquer.** Components, Classes, Selectors, Variables, Templates, Header, Footer, menus et loops sont factorisés à bon escient.
-9. **Données WordPress réellement dynamiques.** Articles, titres, dates, images, permaliens et catégories ne sont pas copiés à la main.
-10. **Navigation réelle.** Un déplacement utilise `<a href>` ; un bouton sert une action. Aucun `#`, `javascript:void(0)` ou URL de développement involontaire.
-11. **HTML/CSS/Oxygen avant JavaScript.** Ne pas ajouter une dépendance ou un plugin sans besoin réel.
-12. **Contenu visible sans JavaScript.** Contenu éditorial, navigation et actions essentielles restent clairs et utilisables si le script est bloqué ou échoue.
-13. **Un seul état d'édition fait foi.** Après une mutation MCP ou externe, recharger Oxygen avant toute sauvegarde depuis un éditeur déjà ouvert.
-14. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
-15. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
+3. **Une donnée requise manquante bloque.** Demander l'information à l'utilisateur et suspendre toute implémentation qui en dépend.
+4. **Préserver le contenu validé.** Ne pas reformuler textes, avis, horaires, tarifs ou mentions légales sans demande.
+5. **Respecter le périmètre.** Une demande sur la home n'autorise pas la refonte des autres pages.
+6. **Une correction locale reste locale.** Aucun sélecteur global large pour résoudre un cas ponctuel.
+7. **Oxygen 6.x reste éditable.** Un front fidèle mais cassé dans le builder est refusé.
+8. **Oxygen natif d'abord.** Élément natif, Component existant, composition Oxygen, puis code custom ciblé en dernier recours avec HTML sémantique et WAI-ARIA applicable.
+9. **Réutiliser avant de dupliquer.** Components, Classes, Selectors, Variables, Templates, Header, Footer, menus et loops sont factorisés à bon escient.
+10. **Données WordPress réellement dynamiques.** Articles, titres, dates, images, permaliens et catégories ne sont pas copiés à la main.
+11. **Navigation réelle.** Un déplacement utilise `<a href>` ; un bouton sert une action. Aucun `#`, `javascript:void(0)` ou URL de développement involontaire.
+12. **HTML/CSS/Oxygen avant JavaScript.** Ne pas ajouter une dépendance ou un plugin sans besoin réel.
+13. **Contenu visible sans JavaScript.** Contenu éditorial, navigation et actions essentielles restent clairs et utilisables si le script est bloqué ou échoue.
+14. **Un seul état d'édition fait foi.** Après une mutation MCP ou externe, recharger Oxygen avant toute sauvegarde depuis un éditeur déjà ouvert.
+15. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
+16. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
 
 ---
 

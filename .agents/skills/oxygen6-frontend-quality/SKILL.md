@@ -34,3 +34,5 @@ Prévoir un état statique utile pour menu mobile, accordéon, carrousel, coordo
 ## Sous-agents
 
 Sur une page non triviale, déléguer séparément et en lecture seule les audits responsive, accessibilité/clavier, no-JS/motion, images/performance et liens/widgets. Le propriétaire de la page applique les corrections ; les auditeurs ne modifient pas simultanément l'arbre Oxygen.
+
+Pour générer des alts depuis les médias, choisir un modèle compatible vision. Un modèle compact et rapide suffit pour une description factuelle simple si l'image, son rôle informatif ou décoratif et son contexte éditorial sont accessibles. Si l'image ou ce contexte manque, bloquer la génération et demander l'information à l'utilisateur. Ne jamais déduire une identité, un lieu, une certification ou un fait invisible.

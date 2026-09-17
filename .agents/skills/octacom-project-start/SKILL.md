@@ -23,9 +23,15 @@ description: "Cadrer un projet WordPress/Oxygen Octacom avant toute mutation : s
 7. Créer et vérifier une sauvegarde proportionnée au risque avant toute mutation importante.
 8. Produire une fiche de départ courte : données confirmées, éléments manquants, conflits, IDs et slugs réels, périmètre, sauvegarde et risques.
 
-## Informations manquantes
+## Informations manquantes : blocage strict
 
-Chercher d'abord dans WordPress, l'ERP en lecture seule, Figma, les documents et les sources fournies. Ne jamais inventer. Demander uniquement ce qui reste introuvable et bloque une décision irréversible ou une configuration métier.
+Identifier toute information requise pour chaque décision ou mutation : contenu, média, URL, cible, ID, périmètre, donnée légale, paramètre de configuration ou validation métier.
+
+Chercher d'abord dans les sources autorisées selon leur ordre de priorité : instruction utilisateur, documents métier validés, WordPress ou ERP vérifiés, Figma dans son rôle applicable, puis documentation. Une information introuvable, ambiguë ou contradictoire ne peut jamais être déduite ou remplacée par une valeur plausible.
+
+Toute information requise encore absente bloque l'implémentation qui en dépend. Documenter le manque, les sources contrôlées, les objets affectés et la décision attendue, puis demander l'instruction de l'utilisateur. Ne faire aucune écriture ni configuration affectée avant sa réponse.
+
+Le travail peut continuer seulement en lecture seule et hors dépendance : audits, inventaires, vérification complémentaire des sources, cartographie des impacts et préparation d'options explicitement non retenues. Ne pas créer de placeholder ou de brouillon publiable pour contourner le blocage.
 
 Le domaine public final est obligatoire avant Complianz, WP Mail SMTP, les cookies, les URLs absolues, les expéditeurs et les redirections. Ne pas le déduire de la préproduction.
 
@@ -37,4 +43,4 @@ Pour un cadrage non trivial, utiliser `octacom-parallel-delivery` et déléguer 
 
 ## Critère de sortie
 
-Ne passer à la construction que lorsque le site et les connecteurs sont certains, les sources sont classées, les conflits bloquants sont résolus ou signalés, les IDs critiques sont connus et la stratégie de retour arrière est vérifiée.
+Ne passer à la construction que lorsque le site et les connecteurs sont certains, les sources sont classées, toutes les informations requises pour la phase sont confirmées, les blocages ont reçu une décision explicite de l'utilisateur, les IDs critiques sont connus et la stratégie de retour arrière est vérifiée.
