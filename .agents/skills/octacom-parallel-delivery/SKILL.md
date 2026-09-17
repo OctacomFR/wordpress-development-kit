@@ -62,6 +62,8 @@ Un éditeur Oxygen ouvert peut sauvegarder un ancien arbre entier. Après une mu
 
 Lancer autant de spécialistes en lecture seule que les créneaux le permettent : ERP/sources, WordPress/Oxygen, Figma, contenus/médias, SEO/dynamique, plugins/formulaires/conformité.
 
+Barrière `FIGMA_ANNOTATIONS_REVIEWED`, lorsque Figma est dans le périmètre : toutes les annotations du périmètre sont reliées à leur node, lues intégralement et analysées avec leurs effets directs et indirects. Aucun blocage d'annotation ne subsiste. Sans cette barrière, aucune écriture dépendante de Figma ne démarre.
+
 Barrière `DISCOVERY_COMPLETE` : sources, conflits, IDs, slugs, objets existants, périmètre et risques sont consolidés. Toutes les informations requises pour la phase suivante sont confirmées. Si un blocage utilisateur subsiste, aucune écriture dépendante ne démarre.
 
 ### 2. Fondations globales mono-écrivain
@@ -106,6 +108,9 @@ Sources autorisées :
 Objets à lire :
 Objets dont l'écriture est autorisée :
 IDs WordPress/Oxygen concernés :
+Nodes/frames Figma concernés, si applicable :
+Annotations attendues et accessibles, si applicable :
+Statut FIGMA_ANNOTATIONS_REVIEWED, si applicable :
 Objets partagés interdits :
 Dépendances validées :
 Informations requises déjà confirmées :
@@ -140,6 +145,7 @@ Ne jamais accepter « terminé » comme preuve. Le coordinateur relit l'état r�
 - auditeur ERP et sources ;
 - auditeur WordPress/Oxygen ;
 - analyste Figma et assets ;
+- auditeur des annotations Figma et de leurs effets indirects ;
 - vérificateur de contenus ;
 - architecte des fondations Oxygen ;
 - intégrateur de l'accueil ;

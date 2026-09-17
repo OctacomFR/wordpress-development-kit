@@ -9,7 +9,7 @@ L'accueil est la page de calibration du site. Il révèle les patterns réutilis
 
 ## Prérequis
 
-1. Terminer `octacom-project-start` et `figma-to-oxygen`.
+1. Terminer `octacom-project-start` et `figma-to-oxygen`, avec la barrière `FIGMA_ANNOTATIONS_REVIEWED` franchie pour tout le périmètre de l'accueil.
 2. Vérifier la sauvegarde et la bonne cible WordPress.
 3. Charger `oxygen6-architecture` pour les fondations globales.
 4. Distinguer ce qui est global, réutilisable et propre à l'accueil.
@@ -51,8 +51,8 @@ Après chaque gros bloc, sauvegarder, ouvrir le front et vérifier avant de pour
 
 ## Sous-agents
 
-Pendant que le propriétaire unique écrit, utiliser intensivement des spécialistes en lecture seule : cartographie textes/médias/sections, comparaison Figma, contrôle des assets, spécification des loops, accessibilité/no-JS, responsive, SEO et régression des objets partagés. Toute évolution globale passe par le coordinateur ou le propriétaire du socle.
+Pendant que le propriétaire unique écrit, utiliser intensivement des spécialistes en lecture seule : vérification de la matrice d'annotations et de ses effets indirects, cartographie textes/médias/sections, comparaison Figma, contrôle des assets, spécification des loops, accessibilité/no-JS, responsive, SEO et régression des objets partagés. Toute évolution globale passe par le coordinateur ou le propriétaire du socle.
 
 ## Critère de stabilité
 
-La barrière `HOME_STABLE` est franchie lorsque la conformité Figma et les contenus sont vérifiés, les patterns locaux et globaux sont séparés, Header/Footer fonctionnent, le responsive et le sans-JS sont contrôlés, le builder reste éditable et les fondations peuvent être consommées par des pages internes sans refonte immédiate.
+La barrière `HOME_STABLE` est franchie lorsque toutes les annotations du périmètre et leurs effets indirects sont appliqués et vérifiés, la conformité Figma et les contenus sont contrôlés, les patterns locaux et globaux sont séparés, Header/Footer fonctionnent, le responsive et le sans-JS sont contrôlés, le builder reste éditable et les fondations peuvent être consommées par des pages internes sans refonte immédiate.

@@ -1,6 +1,6 @@
 # QA visuelle, responsive et technique
 
-Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis harmonisée avec la matrice responsive canonique du skill.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis harmonisée avec la matrice responsive canonique et la barrière active des annotations Figma.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 1320-1397 -->
 
@@ -15,7 +15,8 @@ Pour chaque section :
 1. ouvrir la page front ;
 2. régler le viewport sur la largeur Figma de référence ;
 3. comparer à la capture Figma ;
-4. contrôler :
+4. croiser la section avec toutes les lignes de la matrice d'annotations qui concernent le node, ses parents, ses variantes et ses autres occurrences ;
+5. contrôler :
    - dimensions globales ;
    - max-width ;
    - alignements ;
@@ -29,8 +30,9 @@ Pour chaque section :
    - overlays ;
    - décorations ;
    - états hover ;
-5. corriger ;
-6. recharger et comparer à nouveau.
+6. vérifier ordre, visibilité, responsive, sticky, interactions, destinations, Components et effets indirects demandés par les annotations ;
+7. corriger ;
+8. recharger et comparer à nouveau, puis joindre la preuve à la matrice.
 
 Ne pas tout juger « à l'œil » depuis le code.
 
@@ -60,6 +62,7 @@ Vérifier :
 
 Avant de déclarer terminé :
 
+- toutes les annotations du périmètre possèdent un statut `vérifiée` et une preuve, ou un blocage utilisateur explicite qui empêche la livraison ;
 - page testée avec JavaScript désactivé : tout le contenu, la navigation et les actions essentielles restent clairs et visibles ;
 - animations testées sans JavaScript et en cas d'échec de déclenchement : aucun élément ne reste masqué ;
 - aucune erreur JS console liée aux modifications ;

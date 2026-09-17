@@ -19,6 +19,7 @@ Vérifier l'artefact réel. Ne jamais déclarer « pixel perfect », « responsi
 Avant la QA initiale, fermer les mutations. Utiliser `octacom-parallel-delivery` pour lancer des auditeurs en lecture seule :
 
 - fidélité visuelle desktop ;
+- annotations Figma, matrice de suivi et effets indirects ;
 - responsive et débordements ;
 - builder/editability ;
 - clavier, accessibilité, motion et sans-JS ;
@@ -31,6 +32,7 @@ Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle
 ## Vérifications indispensables
 
 - comparer le front à Figma au viewport de référence puis aux largeurs responsive et intermédiaires ;
+- vérifier que chaque annotation du périmètre est recensée, implémentée et validée, que ses effets indirects sont contrôlés et qu'aucun blocage ne reste silencieux ;
 - tester au minimum 320, 360, 390, 480, 768, 1024, 1280, 1440 et 1920 px lorsque le site est destiné aux viewports standards, puis une largeur intermédiaire proche de chaque changement de layout ;
 - tester le site avec JavaScript désactivé ;
 - tester Header sticky, menu, liens, formulaires, CTA, médias, états et absence de boucle ;

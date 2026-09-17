@@ -56,7 +56,9 @@ En cas de conflit :
 5. ce guide et les skills du dépôt ;
 6. documentation officielle de l'outil.
 
-Pour le design : dernière correction visuelle, puis Figma et ses annotations/commentaires accessibles, puis `frontend-design`, puis l'existant compatible, puis les règles génériques.
+Pour le design : dernière correction visuelle, puis Figma avec lecture obligatoire de toutes les annotations du périmètre, puis `frontend-design`, puis l'existant compatible, puis les règles génériques. L'impossibilité d'accéder aux annotations bloque toute implémentation Figma dépendante.
+
+Dans l'analyse d'un périmètre Figma, appliquer cet ordre interne : instruction explicite de la tâche, annotations Figma, structure et propriétés réelles des nodes/components, rendu visuel, puis interprétation personnelle. Une annotation explicite prévaut sur une lecture fondée uniquement sur l'apparence.
 
 Si deux sources du même niveau se contredisent, signaler le conflit et demander laquelle fait foi avant publication. Ne jamais choisir silencieusement.
 
@@ -140,19 +142,20 @@ Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrière
 1. **Lire avant d'écrire.** Auditer le site, Figma, les sources et les composants existants.
 2. **Ne rien inventer.** Aucun téléphone, email, horaire, prix, adresse, certification, témoignage, URL, image, texte métier ou donnée SEO factuelle.
 3. **Une donnée requise manquante bloque.** Demander l'information à l'utilisateur et suspendre toute implémentation qui en dépend.
-4. **Préserver le contenu validé.** Ne pas reformuler textes, avis, horaires, tarifs ou mentions légales sans demande.
-5. **Respecter le périmètre.** Une demande sur la home n'autorise pas la refonte des autres pages.
-6. **Une correction locale reste locale.** Aucun sélecteur global large pour résoudre un cas ponctuel.
-7. **Oxygen 6.x reste éditable.** Un front fidèle mais cassé dans le builder est refusé.
-8. **Oxygen natif d'abord.** Élément natif, Component existant, composition Oxygen, puis code custom ciblé en dernier recours avec HTML sémantique et WAI-ARIA applicable.
-9. **Réutiliser avant de dupliquer.** Components, Classes, Selectors, Variables, Templates, Header, Footer, menus et loops sont factorisés à bon escient.
-10. **Données WordPress réellement dynamiques.** Articles, titres, dates, images, permaliens et catégories ne sont pas copiés à la main.
-11. **Navigation réelle.** Un déplacement utilise `<a href>` ; un bouton sert une action. Aucun `#`, `javascript:void(0)` ou URL de développement involontaire.
-12. **HTML/CSS/Oxygen avant JavaScript.** Ne pas ajouter une dépendance ou un plugin sans besoin réel.
-13. **Contenu visible sans JavaScript.** Contenu éditorial, navigation et actions essentielles restent clairs et utilisables si le script est bloqué ou échoue.
-14. **Un seul état d'édition fait foi.** Après une mutation MCP ou externe, recharger Oxygen avant toute sauvegarde depuis un éditeur déjà ouvert.
-15. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
-16. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
+4. **Annotations Figma avant implémentation.** Lire toutes les annotations du périmètre, leurs cibles et leurs effets indirects. Une annotation inaccessible ou non résolue bloque toute écriture dépendante.
+5. **Préserver le contenu validé.** Ne pas reformuler textes, avis, horaires, tarifs ou mentions légales sans demande.
+6. **Respecter le périmètre.** Une demande sur la home n'autorise pas la refonte des autres pages.
+7. **Une correction locale reste locale.** Aucun sélecteur global large pour résoudre un cas ponctuel.
+8. **Oxygen 6.x reste éditable.** Un front fidèle mais cassé dans le builder est refusé.
+9. **Oxygen natif d'abord.** Élément natif, Component existant, composition Oxygen, puis code custom ciblé en dernier recours avec HTML sémantique et WAI-ARIA applicable.
+10. **Réutiliser avant de dupliquer.** Components, Classes, Selectors, Variables, Templates, Header, Footer, menus et loops sont factorisés à bon escient.
+11. **Données WordPress réellement dynamiques.** Articles, titres, dates, images, permaliens et catégories ne sont pas copiés à la main.
+12. **Navigation réelle.** Un déplacement utilise `<a href>` ; un bouton sert une action. Aucun `#`, `javascript:void(0)` ou URL de développement involontaire.
+13. **HTML/CSS/Oxygen avant JavaScript.** Ne pas ajouter une dépendance ou un plugin sans besoin réel.
+14. **Contenu visible sans JavaScript.** Contenu éditorial, navigation et actions essentielles restent clairs et utilisables si le script est bloqué ou échoue.
+15. **Un seul état d'édition fait foi.** Après une mutation MCP ou externe, recharger Oxygen avant toute sauvegarde depuis un éditeur déjà ouvert.
+16. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
+17. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
 
 ---
 
@@ -225,7 +228,7 @@ Après stabilisation du socle, plusieurs pages internes peuvent être construite
 1. Cadrer le projet, consulter l'ERP en lecture seule et classer les sources.
 2. Auditer WordPress, Oxygen, plugins, menus, médias et SEO.
 3. Sauvegarder proportionnellement au risque.
-4. Lire Figma et inventorier design, assets et interactions.
+4. Lire Figma, recenser toutes les annotations du périmètre, analyser leurs effets directs et indirects, résoudre les blocages, puis inventorier design, assets et interactions. Aucune implémentation Figma avant `FIGMA_ANNOTATIONS_REVIEWED`.
 5. Planifier les objets Oxygen et les propriétaires d'écriture.
 6. Construire les fondations globales avec un seul écrivain.
 7. Construire et stabiliser la home si elle est dans le périmètre.
@@ -242,6 +245,7 @@ Après chaque bloc important : sauvegarder, ouvrir le front, vérifier le builde
 Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au minimum :
 
 - contenu et médias exacts, aucun doublon ou placeholder ;
+- toutes les annotations Figma recensées, appliquées et vérifiées avec leurs effets indirects ;
 - Figma contrôlé dans le navigateur ;
 - Header sticky et Footer global corrects ;
 - menu légal, Complianz, crédit Octacom et CGV applicables ;

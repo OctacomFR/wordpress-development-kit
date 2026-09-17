@@ -1,6 +1,8 @@
 # Lecture Figma et inventaire de design
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis harmonisée avec la barrière active des annotations Figma.
+
+> Procédure active complète : [annotation-workflow.md](annotation-workflow.md). Toutes les annotations du périmètre doivent être lues avant implémentation. Une annotation inaccessible bloque l'écriture concernée. Une ambiguïté ou contradiction exige une question à l'utilisateur seulement si elle reste non résolue après application de l'ordre de priorité.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 245-314 -->
 
@@ -18,14 +20,15 @@ Pour le node Figma demandé :
 
 #### Commentaires et annotations Figma
 
-Les commentaires/annotations sont contraignants lorsqu'ils sont accessibles par le MCP.
+Les annotations du périmètre sont contraignantes. Les commentaires Figma sont inclus lorsqu'ils sont exposés comme annotations ou lorsqu'une instruction explicite les rend requis. Toutes les annotations requises doivent être accessibles, lues intégralement et prises en compte avant implémentation.
 
-Si l'utilisateur demande explicitement de prendre en compte des **commentaires Figma** mais que le MCP utilisé ne les expose pas :
+Si le MCP utilisé n'expose pas les annotations requises ou si leur exhaustivité ne peut pas être vérifiée :
 
 - ne jamais dire qu'ils ont été lus ;
-- utiliser toutes les annotations retournées par le contexte de design ;
-- signaler précisément que les commentaires non exposés ne peuvent pas être vérifiés ;
-- demander un export ou une copie uniquement si ces commentaires sont indispensables pour continuer correctement.
+- utiliser les annotations retournées uniquement pour établir l'état de l'inventaire, sans commencer l'implémentation ;
+- signaler précisément ce qui ne peut pas être vérifié ;
+- demander un accès, un export, des captures ou une copie ;
+- maintenir l'implémentation Figma dépendante bloquée jusqu'à lecture complète.
 
 ### Phase C — Inventaire de design
 

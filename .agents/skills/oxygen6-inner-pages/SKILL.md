@@ -13,7 +13,7 @@ Lire [references/historical-inner-pages.md](references/historical-inner-pages.md
 
 ## Avant chaque page
 
-1. Lire ses sources métier et son node Figma ou ses captures.
+1. Lire ses sources métier, son node Figma, toutes les annotations de son périmètre et les captures utiles. Franchir `FIGMA_ANNOTATIONS_REVIEWED` avant toute écriture de la page.
 2. Résoudre ID, slug, médias, liens, contraintes et pages hors périmètre.
 3. Inventorier les Templates, Components, Variables, classes et patterns autorisés.
 4. Identifier les besoins propres et les skills spécialisés nécessaires.
@@ -46,4 +46,4 @@ En parallèle, déléguer en lecture seule : vérification des textes/médias, l
 
 ## Critère de sortie
 
-La page est terminée lorsque son contenu et ses médias sont exacts, ses ajustements restent locaux, le Header sticky ne masque rien, responsive/liens/états/no-JS/builder sont testés et l'accueil comme les autres consommateurs n'ont pas régressé.
+La page est terminée lorsque toutes ses annotations et leurs effets indirects sont vérifiés, son contenu et ses médias sont exacts, ses ajustements restent locaux, le Header sticky ne masque rien, responsive/liens/états/no-JS/builder sont testés et l'accueil comme les autres consommateurs n'ont pas régressé.

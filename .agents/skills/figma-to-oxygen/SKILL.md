@@ -9,6 +9,7 @@ La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'im
 
 ## Références à lire
 
+- Lire obligatoirement [references/annotation-workflow.md](references/annotation-workflow.md) avant toute implémentation fondée sur Figma.
 - Lire [references/figma-reading-and-inventory.md](references/figma-reading-and-inventory.md) pour l'acquisition du contexte et l'inventaire.
 - Lire [references/translation-and-assets.md](references/translation-and-assets.md) avant toute implémentation issue de Figma.
 - Lire [references/anti-slop.md](references/anti-slop.md) avant une décision esthétique non explicitement visible dans la maquette.
@@ -16,23 +17,26 @@ La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'im
 ## Workflow
 
 1. Ouvrir le node exact et récupérer contexte, capture, variables, composants, annotations, interactions et variantes desktop/mobile accessibles.
-2. Ne jamais prétendre avoir lu un commentaire que le connecteur n'expose pas.
-3. Construire l'inventaire typographie, couleurs, géométrie, espacements, composants, assets et états.
-4. Distinguer les valeurs répétées des valeurs ponctuelles avant de créer des tokens.
-5. Traduire les compositions en Sections/Containers, flexbox ou Grid, largeur fluide et structure sémantique.
-6. Réserver l'absolu aux superpositions et décorations réellement présentes.
-7. Importer les assets exacts dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
-8. Comparer régulièrement le front à la capture de référence, à la largeur correspondante.
+2. Recenser et lire intégralement toutes les annotations du périmètre, identifier leur cible exacte et construire la matrice obligatoire.
+3. Analyser pour chaque annotation ses effets directs, ses effets indirects, ses occurrences liées, ses breakpoints, ses états et ses contraintes.
+4. Appliquer l'ordre de priorité Figma. Si une annotation inaccessible, ambiguë, techniquement impossible ou contradictoire laisse une décision requise non résolue, demander une instruction explicite à l'utilisateur. Ne commencer aucune implémentation avant `FIGMA_ANNOTATIONS_REVIEWED`.
+5. Construire l'inventaire typographie, couleurs, géométrie, espacements, composants, assets et états.
+6. Distinguer les valeurs répétées des valeurs ponctuelles avant de créer des tokens.
+7. Traduire les compositions en Sections/Containers, flexbox ou Grid, largeur fluide et structure sémantique.
+8. Réserver l'absolu aux superpositions et décorations réellement présentes.
+9. Importer les assets exacts dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
+10. Comparer régulièrement le front à la capture de référence et vérifier la matrice d'annotations à chaque bloc concerné.
 
 Ne pas coller du React, Tailwind ou un arbre rempli de coordonnées fixes dans Oxygen. Ne pas recréer approximativement logos, icônes, SVG ou favicon disponibles.
 
 ## Sous-agents
 
-Pour une maquette riche, déléguer en parallèle et en lecture seule : inventaire des frames et annotations, inventaire des tokens, manifeste des assets, matrice desktop/mobile, et comparaison visuelle. Un seul propriétaire transforme ensuite ces constats en objets Oxygen partagés.
+Pour une maquette riche, déléguer en parallèle et en lecture seule : inventaire exhaustif des annotations, vérification des effets indirects, inventaire des frames et tokens, manifeste des assets, matrice desktop/mobile et comparaison visuelle. Un seul coordinateur consolide la matrice ; un seul propriétaire transforme ensuite ces constats en objets Oxygen partagés.
 
 ## Garde-fous
 
-- La dernière correction visuelle explicite de l'utilisateur prime, puis Figma.
+- Dans l'analyse Figma : instruction explicite de la tâche, annotations, structure/propriétés réelles, rendu visuel, puis interprétation personnelle.
 - Les documents métier priment sur Figma pour le contenu lorsqu'ils sont la source validée.
+- Une annotation fait partie des spécifications. Ne jamais l'écarter parce que le rendu visuel paraît différent.
 - Ne pas ajouter d'effets, sections, CTA, textes ou animations pour « améliorer » la charte.
 - Signaler un contraste manifestement insuffisant et proposer une correction minimale au lieu de modifier silencieusement la charte.

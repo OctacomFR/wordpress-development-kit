@@ -1,6 +1,6 @@
 # Definition of Done et rapport final
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec la barrière active des annotations Figma.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 1510-1673 -->
 
@@ -16,7 +16,9 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Couleurs conformes.
 - [ ] Espacements contrôlés.
 - [ ] États hover/interactions conformes.
-- [ ] Commentaires/annotations Figma appliqués lorsqu'accessibles.
+- [ ] Toutes les annotations du périmètre ont été lues intégralement et reliées à leur node/frame/composant/section.
+- [ ] Chaque annotation applicable et ses effets indirects ont été vérifiés sur le front, aux breakpoints et états concernés.
+- [ ] La matrice d'annotations contient un statut et une preuve pour chaque ligne ; aucune annotation inaccessible, ambiguë ou contradictoire ne reste sans décision utilisateur.
 
 ### Oxygen 6.x
 
@@ -134,7 +136,7 @@ Ne pas écrire « tout est bon » si une partie n'a pas été testée.
 
 Si le navigateur n'est pas disponible, écrire explicitement que la comparaison visuelle front n'a pas pu être effectuée.
 
-Si les commentaires Figma ne sont pas exposés, écrire explicitement qu'ils n'ont pas pu être lus.
+Si les annotations Figma ne sont pas exposées ou si leur exhaustivité ne peut pas être vérifiée, l'implémentation dépendante reste bloquée. Le rapport indique la limite et la question posée à l'utilisateur ; il ne revendique pas une conformité Figma complète.
 
 ### Rapport de temps, tokens et coût
 

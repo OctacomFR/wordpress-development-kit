@@ -59,6 +59,7 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Matrice de spécialistes | `AGENTS.md`; `octacom-parallel-delivery/SKILL.md` |
 | Routage des sous-agents par capacité, coût et latence | `AGENTS.md`; `octacom-parallel-delivery/SKILL.md`; `oxygen6-frontend-quality/SKILL.md` |
 | Blocage strict en cas d'information requise manquante | `AGENTS.md`; `octacom-project-start/SKILL.md`; `octacom-parallel-delivery/SKILL.md` |
+| Lecture exhaustive et bloquante des annotations Figma | `AGENTS.md`; `figma-to-oxygen/SKILL.md`; `figma-to-oxygen/references/annotation-workflow.md`; skills accueil, pages internes et QA |
 
 ## Contrôles de non-perte
 
@@ -68,4 +69,4 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 4. Tous les skills possèdent un frontmatter valide et un nom identique à leur dossier.
 5. Le fichier racine reste sous la limite de découverte usuelle de 32 Kio.
 
-Les références conservent le fond des règles historiques. Quatre normalisations post-migration sont documentées : correction du chemin relatif du template de Mentions légales, bornage du template single au périmètre articles, attribution au client ou à son conseil de la décision d'applicabilité des CGV, et harmonisation de la QA avec la matrice responsive complète incluant 480 et 1920 px. Le texte source exact reste disponible dans le snapshot.
+Les références conservent le fond des règles historiques. Les normalisations post-migration sont documentées : correction du chemin relatif du template de Mentions légales, bornage du template single au périmètre articles, attribution au client ou à son conseil de la décision d'applicabilité des CGV, harmonisation de la QA avec la matrice responsive complète incluant 480 et 1920 px, et renforcement bloquant de la lecture et de la validation des annotations Figma. Le texte source exact reste disponible dans le snapshot.

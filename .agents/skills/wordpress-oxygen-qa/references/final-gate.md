@@ -1,6 +1,6 @@
 # Questionnaire final anti-erreur
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec le contrôle actif des annotations Figma.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 1784-1814 -->
 
@@ -10,6 +10,11 @@ Avant de modifier le site, se demander :
 
 ```text
 Est-ce que j'ai lu Figma et le WordPress actuel ?
+Est-ce que toutes les annotations du périmètre ont été lues intégralement ?
+Est-ce que chaque annotation est reliée au bon node, frame, composant ou section ?
+Est-ce que les effets indirects sur parents, occurrences, breakpoints, interactions et objets partagés ont été vérifiés ?
+Est-ce qu'une annotation inaccessible, ambiguë, contradictoire ou techniquement impossible reste sans décision utilisateur ?
+Est-ce que la matrice d'annotations et ses preuves sont complètes ?
 Est-ce que j'utilise le bon MCP WordPress ?
 Est-ce que les identifiants entreprise/projet sont confirmés et l'ERP a été consulté sans mutation ?
 Est-ce que le domaine public final est confirmé avant Complianz et WP Mail SMTP ?
