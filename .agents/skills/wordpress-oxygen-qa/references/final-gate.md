@@ -34,6 +34,8 @@ Est-ce que la page tient à 320 px sans casser ?
 Est-ce que le H1 est unique ?
 Est-ce que Yoast n'est pas doublonné ?
 Est-ce que l'image LCP n'est pas lazy ?
+Est-ce que tous les rasters maîtrisés ont été convertis en WebP avant usage ?
+Est-ce que les logos, icônes, formes et illustrations vectorielles utilisent au maximum des SVG optimisés et assainis ?
 Est-ce que les iframes/images réservent leur espace ?
 Est-ce que Complianz, le formulaire, le CAPTCHA et l'envoi SMTP ont été testés réellement ?
 Est-ce que les pages légales et le crédit Octacom sont présents dans le footer ?

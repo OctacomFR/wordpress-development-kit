@@ -61,6 +61,7 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Blocage strict en cas d'information requise manquante | `AGENTS.md`; `octacom-project-start/SKILL.md`; `octacom-parallel-delivery/SKILL.md` |
 | Lecture exhaustive et bloquante des annotations Figma | `AGENTS.md`; `figma-to-oxygen/SKILL.md`; `figma-to-oxygen/references/annotation-workflow.md`; skills accueil, pages internes et QA |
 | Templates Single Article et 404 obligatoires sur chaque site | `AGENTS.md`; `oxygen6-architecture`; `wordpress-dynamic-content`; `oxygen6-homepage`; `oxygen6-inner-pages`; `wordpress-oxygen-qa` |
+| Conversion obligatoire des rasters en WebP et usage maximal obligatoire du SVG pour les formes/illustrations vectorielles, sauf contrainte technique démontrée | `AGENTS.md`; `figma-to-oxygen`; `oxygen6-frontend-quality`; `wordpress-oxygen-qa` |
 
 ## Contrôles de non-perte
 

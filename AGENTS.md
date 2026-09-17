@@ -199,6 +199,10 @@ Le crédit de réalisation Octacom est présent sur tous les sites, même absent
 
 Chaque image possède obligatoirement un attribut `alt` adapté : descriptif si informative, vide si décorative, nom pertinent pour un logo informatif. Aucun bourrage de mots-clés.
 
+Convertir obligatoirement en WebP tout raster maîtrisé destiné à être affiché sur le site avant son import ou son utilisation. Ne livrer aucun JPEG, PNG ou GIF comme image de contenu. Seuls les formats techniques supplémentaires explicitement imposés par une plateforme peuvent rester dans ces formats, jamais les images affichées dans les pages. Conserver hors production les originaux nécessaires au travail source.
+
+Utiliser au maximum des SVG pour les logos, icônes, pictogrammes, formes graphiques et illustrations réellement vectorielles. Réutiliser ou exporter le SVG source au lieu de rasteriser ces éléments. Optimiser et assainir chaque SVG avant usage ; ne jamais convertir artificiellement une photographie ou un raster en SVG.
+
 Préserver ratio, cadrage, dimensions ou espace réservé. Utiliser `contain` pour les médias qui ne doivent pas être coupés et `cover` uniquement pour les recadrages voulus. L'image LCP n'est pas lazy ; les médias sous le fold le sont lorsque pertinent.
 
 ### Interactions et accessibilité
@@ -268,6 +272,7 @@ Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au mini
 - contenu dynamique, cas zéro/un/plusieurs ;
 - H1/Hn, title, description, canonical, Yoast et Schema applicables ;
 - performance des images, LCP, CLS et widgets ;
+- rasters convertis en WebP avant usage et SVG utilisés au maximum pour les formes et illustrations vectorielles ;
 - formulaire, réception SMTP, CAPTCHA et consentement ;
 - sauvegarde et chemin de retour vérifiés.
 

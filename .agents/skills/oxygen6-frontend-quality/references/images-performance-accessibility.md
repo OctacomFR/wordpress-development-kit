@@ -1,10 +1,21 @@
 # Images, performance et accessibilité
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec la politique obligatoire WebP/SVG.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 1110-1273 -->
 
 ## 14. Images
+
+### 14.0. Formats obligatoires
+
+- convertir en WebP, avant import ou utilisation, tout raster maîtrisé affiché sur le site ;
+- ne livrer aucun JPEG, PNG ou GIF comme image de contenu ;
+- conserver les originaux de travail hors des assets chargés en production lorsqu'ils restent utiles ;
+- utiliser au maximum le SVG pour les logos, icônes, pictogrammes, formes graphiques et illustrations réellement vectorielles ;
+- optimiser et assainir chaque SVG, conserver son `viewBox` et supprimer scripts, références externes et métadonnées inutiles ;
+- ne pas autoriser globalement des uploads SVG non fiables dans WordPress ;
+- ne pas convertir une photographie ou un raster en faux SVG. Ces médias restent des rasters et doivent être fournis en WebP ;
+- respecter uniquement les formats techniques supplémentaires qu'une plateforme impose réellement, par exemple certains fichiers de favicon ou de partage social. Cette contrainte ne permet pas de conserver des rasters non-WebP dans le contenu des pages.
 
 ### 14.1. Alt
 

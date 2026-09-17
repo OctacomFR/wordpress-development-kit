@@ -79,6 +79,9 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 ### Performance
 
+- [ ] Tous les rasters maîtrisés utilisés sur le site ont été convertis en WebP avant import ou utilisation.
+- [ ] Les logos, icônes, pictogrammes, formes et illustrations vectorielles utilisent au maximum des SVG optimisés et assainis.
+- [ ] Aucun JPEG, PNG ou GIF n'est chargé comme image de contenu par les pages.
 - [ ] LCP image non lazy.
 - [ ] Images sous fold lazy lorsque pertinent.
 - [ ] Dimensions/ratio des images réservés.

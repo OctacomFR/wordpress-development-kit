@@ -38,6 +38,7 @@ Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle
 - tester Header sticky, menu, liens, formulaires, CTA, médias, états et absence de boucle ;
 - ouvrir Oxygen, sélectionner les éléments, modifier/annuler une propriété et recharger après mutation externe ;
 - inspecter console, erreurs de ressources, placeholders, liens factices, assets Figma temporaires, alt, Hn, métadonnées et canonical ;
+- vérifier que tous les rasters maîtrisés utilisés par les pages sont en WebP et que les logos, icônes, formes et illustrations vectorielles utilisent un SVG optimisé, sauf contrainte technique démontrée ;
 - vérifier le Template Single Article et ouvrir une URL inexistante pour valider le Template Oxygen spécial 404, son statut HTTP, sa navigation, son responsive et son héritage du Header/Footer ;
 - prouver la réception SMTP et les scénarios Complianz/CAPTCHA applicables ;
 - vérifier menu légal, pages rendues, crédit Octacom et absence de variables de template.

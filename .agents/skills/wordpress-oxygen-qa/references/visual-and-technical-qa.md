@@ -76,6 +76,8 @@ Avant de déclarer terminé :
 - meta title/description inspectés ;
 - canonical inspectée ;
 - images alt inspectées ;
+- aucun raster maîtrisé de contenu n'est livré en JPEG, PNG ou GIF : les fichiers utilisés par les pages sont en WebP ;
+- logos, icônes, pictogrammes, formes et illustrations vectorielles utilisent un SVG optimisé et assaini, sauf contrainte technique démontrée ;
 - pas de Figma asset temporaire dans le HTML final ;
 - pas de contenu placeholder involontaire ;
 - pas de lien `#` involontaire ;

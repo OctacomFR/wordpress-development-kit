@@ -24,7 +24,7 @@ La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'im
 6. Distinguer les valeurs répétées des valeurs ponctuelles avant de créer des tokens.
 7. Traduire les compositions en Sections/Containers, flexbox ou Grid, largeur fluide et structure sémantique.
 8. Réserver l'absolu aux superpositions et décorations réellement présentes.
-9. Importer les assets exacts dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
+9. Préparer les assets exacts avant import : convertir tous les rasters maîtrisés en WebP et conserver/exporter en SVG les logos, icônes, pictogrammes, formes et illustrations vectorielles. Importer ensuite les fichiers optimisés dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
 10. Comparer régulièrement le front à la capture de référence et vérifier la matrice d'annotations à chaque bloc concerné.
 
 Ne pas coller du React, Tailwind ou un arbre rempli de coordonnées fixes dans Oxygen. Ne pas recréer approximativement logos, icônes, SVG ou favicon disponibles.

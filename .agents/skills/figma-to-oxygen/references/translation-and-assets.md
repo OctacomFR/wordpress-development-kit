@@ -1,6 +1,6 @@
 # Traduction Figma vers Oxygen
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec la politique obligatoire WebP/SVG.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 355-445 -->
 
@@ -50,8 +50,11 @@ Interdit comme technique principale pour reconstruire toute une page desktop.
 - Utiliser les images et SVG réels exportés par Figma lorsqu'ils font partie du design.
 - Ne jamais recréer « à peu près » un logo, une icône ou un SVG complexe.
 - Les URLs d'assets retournées par Figma MCP sont temporaires : **ne jamais les laisser en production**.
-- Télécharger/importer les assets durables dans WordPress Media ou dans l'emplacement prévu par le projet.
-- Optimiser les rasters avant ou pendant l'import lorsque le workflow le permet.
+- Avant tout import ou usage sur le site, convertir obligatoirement chaque raster maîtrisé en WebP. Ne pas importer sa version JPEG, PNG ou GIF comme asset de contenu. Seuls les formats techniques supplémentaires explicitement imposés par une plateforme échappent à cette règle, jamais les images affichées dans les pages.
+- Pour les logos, icônes, pictogrammes, formes graphiques et illustrations vectorielles, utiliser au maximum le SVG exact fourni ou exporté depuis Figma. Ne pas les rasteriser sans contrainte technique démontrée.
+- Optimiser et assainir les SVG avant usage. Conserver un `viewBox`, supprimer scripts, références externes et métadonnées inutiles, et ne pas ouvrir globalement les uploads SVG non fiables dans WordPress.
+- Ne jamais envelopper un raster dans un SVG pour prétendre satisfaire cette règle. Une photographie ou une illustration bitmap reste un raster et doit devenir un WebP.
+- Télécharger/importer seulement les assets durables et optimisés dans WordPress Media ou dans l'emplacement prévu par le projet.
 - Conserver le ratio/cadrage Figma via `object-fit`, `object-position` ou l'outil Oxygen adapté.
 - Si Figma ou le dossier projet fournit un favicon, exporter le node exact, générer les formats requis par WordPress et vérifier le rendu dans l'onglet du navigateur. Ne pas fabriquer une icône approchante.
 

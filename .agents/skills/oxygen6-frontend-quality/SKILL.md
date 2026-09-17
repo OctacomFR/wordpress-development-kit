@@ -23,6 +23,7 @@ Lire uniquement les références utiles à la tâche ; pour une revue front comp
 - Le contenu, la navigation et les actions essentielles sont clairs et utilisables sans JavaScript.
 - Une animation part de l'état final visible ; elle ne masque l'élément qu'après initialisation réussie. Respecter `prefers-reduced-motion`.
 - L'attribut `alt` est obligatoire sur chaque image : descriptif si informative, vide si décorative, nom pertinent pour un logo informatif.
+- Tout raster maîtrisé affiché sur le site est converti en WebP avant import ou utilisation. Les logos, icônes, pictogrammes, formes et illustrations vectorielles utilisent au maximum un SVG optimisé et assaini.
 - Préserver ratios, dimensions/espaces réservés, `srcset`/`sizes`, LCP non lazy et lazy-loading pertinent sous la ligne de flottaison.
 - Utiliser une galerie ou un vrai carrousel selon le besoin, avec l'élément Oxygen existant avant du custom.
 - Les liens externes HTTP utilisent `target="_blank"` et `rel="noopener noreferrer"`; les liens internes restent dans le même onglet ; `tel:` et `mailto:` restent directs.
