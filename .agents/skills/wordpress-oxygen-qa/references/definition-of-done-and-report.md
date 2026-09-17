@@ -26,6 +26,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Header Oxygen dédié et règles Location/Conditions vérifiées.
 - [ ] Header sticky fonctionnel sur toutes les pages et tous les breakpoints, sans masquer le contenu.
 - [ ] Footer Oxygen dédié et règles Location/Conditions vérifiées.
+- [ ] Template Oxygen 6 Single Article présent, appliqué aux articles et lié aux données dynamiques réelles.
+- [ ] Template Oxygen 6 spécial 404 présent avec la Location `404 Not Found`, Header/Footer et navigation de sortie.
 - [ ] Templates utilisant Template Content Area lorsque nécessaire.
 - [ ] Components réutilisables créés sans sur-abstraction.
 - [ ] Component Properties utilisées pour les variations pertinentes.
@@ -39,10 +41,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 ### Responsive
 
-- [ ] 320 px testé.
-- [ ] 390 px testé.
-- [ ] 768 px testé.
-- [ ] 1024 px testé.
+- [ ] 1920, 1440, 1280, 1024, 768, 480, 390, 360 et 320 px testés.
+- [ ] Une largeur intermédiaire proche de chaque changement de layout testée.
 - [ ] Desktop testé à la taille de référence Figma.
 - [ ] Aucun overflow horizontal.
 - [ ] Menu utilisable.
@@ -94,6 +94,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Animations défaillantes ou non initialisées ne masquent aucun contenu.
 - [ ] Console sans erreur liée au dev.
 - [ ] Aucun asset 404.
+- [ ] Une URL inexistante renvoie réellement un statut HTTP 404 et le Template Oxygen spécial attendu.
+- [ ] Le Template Single Article et le Template 404 ont été contrôlés sur le front et dans le builder.
 - [ ] Aucun placeholder involontaire.
 - [ ] Sauvegarde proportionnée au risque créée et vérifiée.
 - [ ] Complianz configuré et scénarios de consentement testés.

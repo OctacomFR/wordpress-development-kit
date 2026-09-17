@@ -60,6 +60,7 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Routage des sous-agents par capacité, coût et latence | `AGENTS.md`; `octacom-parallel-delivery/SKILL.md`; `oxygen6-frontend-quality/SKILL.md` |
 | Blocage strict en cas d'information requise manquante | `AGENTS.md`; `octacom-project-start/SKILL.md`; `octacom-parallel-delivery/SKILL.md` |
 | Lecture exhaustive et bloquante des annotations Figma | `AGENTS.md`; `figma-to-oxygen/SKILL.md`; `figma-to-oxygen/references/annotation-workflow.md`; skills accueil, pages internes et QA |
+| Templates Single Article et 404 obligatoires sur chaque site | `AGENTS.md`; `oxygen6-architecture`; `wordpress-dynamic-content`; `oxygen6-homepage`; `oxygen6-inner-pages`; `wordpress-oxygen-qa` |
 
 ## Contrôles de non-perte
 
@@ -69,4 +70,4 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 4. Tous les skills possèdent un frontmatter valide et un nom identique à leur dossier.
 5. Le fichier racine reste sous la limite de découverte usuelle de 32 Kio.
 
-Les références conservent le fond des règles historiques. Les normalisations post-migration sont documentées : correction du chemin relatif du template de Mentions légales, bornage du template single au périmètre articles, attribution au client ou à son conseil de la décision d'applicabilité des CGV, harmonisation de la QA avec la matrice responsive complète incluant 480 et 1920 px, et renforcement bloquant de la lecture et de la validation des annotations Figma. Le texte source exact reste disponible dans le snapshot.
+Les références conservent le fond des règles historiques. Les normalisations post-migration sont documentées : correction du chemin relatif du template de Mentions légales, obligation renforcée des Templates Oxygen Single Article et 404 sur chaque site, attribution au client ou à son conseil de la décision d'applicabilité des CGV, harmonisation de la QA avec la matrice responsive complète incluant 480 et 1920 px, clarification des URLs fixes de l'infrastructure et des assets officiels Octacom sans autoriser le hard-coding d'un domaine public client, et renforcement bloquant de la lecture et de la validation des annotations Figma. Le texte source exact reste disponible dans le snapshot.

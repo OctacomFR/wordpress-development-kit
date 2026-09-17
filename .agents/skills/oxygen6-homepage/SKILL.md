@@ -27,7 +27,7 @@ L'accueil doit :
 - fonctionner sans JavaScript ;
 - rester entièrement éditable dans Oxygen.
 
-Il ne doit pas créer à l'avance toutes les pages internes, archives, singles ou 404 hors périmètre.
+Il ne doit pas créer à l'avance les autres pages internes ou archives hors périmètre. Il doit toutefois créer ou vérifier les Templates Oxygen 6 obligatoires Single Article et 404 avant livraison du site.
 
 ## Global ou local
 

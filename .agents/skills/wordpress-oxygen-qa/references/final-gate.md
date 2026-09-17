@@ -25,6 +25,8 @@ Est-ce que le rendu respecte Figma plutôt que mes goûts ?
 Est-ce que le builder Oxygen restera éditable ?
 Est-ce que l'éditeur a été rechargé depuis la dernière mutation externe ?
 Est-ce que le contenu dynamique est réellement dynamique ?
+Est-ce que le Template Oxygen Single Article existe, cible les articles et affiche les données dynamiques prévues ?
+Est-ce qu'une URL inexistante renvoie le statut HTTP 404 et affiche le Template Oxygen spécial 404 avec une navigation de sortie ?
 Est-ce que tous les liens ont une destination réelle ?
 Est-ce que téléphone/email sont cliquables ?
 Est-ce que la correction locale a laissé les autres pages intactes ?

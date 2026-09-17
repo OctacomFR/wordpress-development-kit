@@ -32,6 +32,8 @@ Chercher dans cet ordre : élément Oxygen natif disponible, Component existant,
 
 - Le Header Oxygen est dédié, utilise le menu WordPress réel et reste sticky sur toutes les pages et tous les breakpoints. Compenser sa hauteur réelle et vérifier `top`, `z-index`, ancêtres `overflow`, ancres et contenu masqué.
 - Le Footer Oxygen est unique, utilise les coordonnées et réseaux réels, le menu WordPress réel pour les pages légales, une année dynamique si disponible et le crédit Octacom prévu dans la référence.
+- Un Template Oxygen 6 Single Article est toujours présent et appliqué aux articles WordPress avec des données dynamiques réelles.
+- Un Template Oxygen 6 spécial 404 est toujours présent et utilise la Location `404 Not Found` ; une URL inexistante doit afficher ce template avec le Header, le Footer et une issue de navigation réelle.
 - Les Templates qui affichent le contenu propre aux pages/posts utilisent `Template Content Area`.
 - Les données répétées utilisent Dynamic Data et les loops Oxygen appropriés.
 

@@ -70,6 +70,10 @@ Principes retenus : le MCP fournit contexte de design, screenshots, styles/varia
   <https://oxygenbuilder.com/documentation/templating/template-basics/>
 - Oxygen — Applying Templates
   <https://oxygenbuilder.com/documentation/templating/applying-templates/>
+- Oxygen — Template Terminology, Single Templates et Special Templates 404
+  <https://oxygenbuilder.com/documentation/templating/applying-templates/template-terminology/>
+- Oxygen — Creating a Custom 404 Page
+  <https://oxygenbuilder.com/tutorial-creating-a-custom-404-page-for-your-wordpress-site/>
 - Oxygen — Headers
   <https://oxygenbuilder.com/documentation/templating/headers/>
 - Oxygen — Footers

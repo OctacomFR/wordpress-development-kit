@@ -1,6 +1,6 @@
 # Règles historiques des pages intérieures
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec les Templates obligatoires de chaque site.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 1479-1506 -->
 
@@ -26,9 +26,9 @@ La home doit préparer le terrain sans créer à l'avance des pages hors scope.
 
 Une page intérieure ne doit pas copier la home entière. Elle doit exploiter les composants communs et ne reprendre que les patterns pertinents.
 
-Quand le site possède des actualités, prévoir lorsque cela entre dans le scope :
+Sur chaque site, créer ou réutiliser et vérifier :
 
-- archive/liste actualités ;
-- template single article ;
-- 404 ;
-- mais ne pas les créer sans demande explicite si le travail actuel concerne uniquement la home.
+- le Template Oxygen 6 Single Article ;
+- le Template Oxygen 6 spécial `404 Not Found`.
+
+Ils restent obligatoires même lorsque le travail initial concerne uniquement la home. L'archive/liste d'actualités et les autres pages internes restent soumises au périmètre du projet.

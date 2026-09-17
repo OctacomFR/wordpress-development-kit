@@ -1,6 +1,6 @@
 # Actualités et articles dynamiques
 
-Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis harmonisée pour borner le template single au périmètre articles.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée pour rendre le Template Single Article obligatoire sur chaque site.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 866-950 -->
 
@@ -94,9 +94,10 @@ Ne pas utiliser `:first-child` au hasard. Inspecter le DOM réellement généré
 
 ### 13.6. Articles
 
-Lorsque le site possède des articles :
+Le Template Oxygen 6 Single Article est toujours présent, même si aucun article n'est encore publié.
 
-- page article / template single cohérent ;
+Lorsqu'un article réel est disponible, vérifier son rendu avec :
+
 - titre visible ;
 - date réelle ;
 - image à la une ;
@@ -105,4 +106,4 @@ Lorsque le site possède des articles :
 - données Article gérées par Yoast quand applicable ;
 - liens vers les articles générés dynamiquement.
 
-Lorsque le système d'articles fait partie du périmètre, toujours créer le template single ; la home doit utiliser des permaliens compatibles avec ce template. Ne pas le créer pendant une mission limitée à la home si les articles et leurs pages ne sont pas dans le périmètre.
+Créer ou réutiliser ce template même si la mission initiale porte sur l'accueil. La home et les loops doivent utiliser des permaliens compatibles avec lui. Relier titre, date, image à la une et contenu aux données dynamiques WordPress ; ne pas créer de faux article destiné à la livraison pour compenser l'absence de contenu réel.

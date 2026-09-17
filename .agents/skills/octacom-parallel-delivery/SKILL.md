@@ -70,7 +70,7 @@ Barrière `DISCOVERY_COMPLETE` : sources, conflits, IDs, slugs, objets existants
 
 Un seul architecte modifie successivement Variables, Classes/Selectors, Components, Header, Footer et Templates. Les autres agents relisent ou testent sans écrire.
 
-Barrière `GLOBALS_STABLE` : le Header sticky, le Footer, les objets globaux et l'éditabilité sont validés.
+Barrière `GLOBALS_STABLE` : le Header sticky, le Footer, les Templates obligatoires Single Article et 404, les autres objets globaux et l'éditabilité sont validés.
 
 ### 3. Accueil mono-écrivain
 

@@ -67,6 +67,8 @@ Avant de déclarer terminé :
 - animations testées sans JavaScript et en cas d'échec de déclenchement : aucun élément ne reste masqué ;
 - aucune erreur JS console liée aux modifications ;
 - aucun 404 de ressource ;
+- une URL volontairement inexistante renvoie le statut HTTP 404 et affiche le Template Oxygen 6 spécial `404 Not Found`, avec Header/Footer, message clair et lien de sortie fonctionnel ;
+- le Template Single Article existe, cible les articles WordPress, reste éditable dans Oxygen et affiche ses données dynamiques correctement lorsqu'un article réel est disponible ;
 - liens CTA testés ;
 - téléphone/email testés ;
 - permaliens actualités testés ;

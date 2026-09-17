@@ -10,7 +10,7 @@ Les procédures détaillées vivent dans les skills repo-scoped de `.agents/skil
 
 ## 1. Paramètres projet
 
-Ne jamais hard-coder un client ou un domaine dans ce guide.
+Ne jamais hard-coder un client ni le domaine public final d'un projet dans ce guide. Les URLs fixes de l'infrastructure et des assets officiels Octacom documentés ici, notamment les modèles d'URL ERP et le logo du crédit de réalisation, sont autorisées.
 
 ```text
 SITE_URL=<url du site>
@@ -156,6 +156,7 @@ Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrière
 15. **Un seul état d'édition fait foi.** Après une mutation MCP ou externe, recharger Oxygen avant toute sauvegarde depuis un éditeur déjà ouvert.
 16. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
 17. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
+18. **Single Article et 404 toujours présents.** Tout site livré possède un Template Oxygen 6 pour les articles et un Template Oxygen 6 spécial `404 Not Found`, même si la mission initiale porte sur la home ou si aucun article n'est encore publié. Auditer et réutiliser les templates conformes existants ; ne jamais créer de doublon.
 
 ---
 
@@ -168,6 +169,15 @@ Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrière
 - Préférer Variables, Classes, Selectors, States, Components, Dynamic Data, loops et Template Content Area.
 - Lire une règle partagée entière et ses usages avant modification ; certains imports remplacent toute la règle du breakpoint.
 - Ne pas reconstruire une page dans un gros bloc HTML/PHP ou avec JavaScript.
+
+### Templates obligatoires
+
+Tout site doit posséder avant livraison :
+
+- un Template Oxygen 6 **Single Article**, appliqué aux articles WordPress, avec titre, date, image à la une, contenu et données dynamiques réelles ;
+- un Template Oxygen 6 spécial **404 Not Found**, ciblé avec la Location Oxygen correspondante, qui conserve le Header, le Footer, un message clair et au moins un lien réel permettant de revenir vers une destination valide.
+
+Ces deux templates font partie du socle global et ne sont jamais considérés comme hors périmètre. S'ils existent déjà, les auditer et les corriger au lieu de les dupliquer. Vérifier leurs Location, Conditions et Priority, leur rendu responsive, leur accessibilité, leur fonctionnement sans JavaScript et leur éditabilité dans Oxygen.
 
 ### Header
 
@@ -213,7 +223,7 @@ Préserver ratio, cadrage, dimensions ou espace réservé. Utiliser `contain` po
 
 La home calibre le système : direction visuelle, rythmes, Header, Footer, hero, Components réutilisables, parcours et aperçus dynamiques. Son arbre a un propriétaire unique. Stabiliser les fondations et identifier clairement ce qui reste local avant d'ouvrir les pages internes en parallèle.
 
-Ne pas créer à l'avance les pages, archives, singles ou 404 hors périmètre.
+Ne pas créer à l'avance les autres pages ou archives hors périmètre. Le Template Single Article et le Template spécial 404 restent obligatoires dans le socle de chaque site.
 
 ### Pages internes
 
@@ -230,7 +240,7 @@ Après stabilisation du socle, plusieurs pages internes peuvent être construite
 3. Sauvegarder proportionnellement au risque.
 4. Lire Figma, recenser toutes les annotations du périmètre, analyser leurs effets directs et indirects, résoudre les blocages, puis inventorier design, assets et interactions. Aucune implémentation Figma avant `FIGMA_ANNOTATIONS_REVIEWED`.
 5. Planifier les objets Oxygen et les propriétaires d'écriture.
-6. Construire les fondations globales avec un seul écrivain.
+6. Construire les fondations globales avec un seul écrivain, y compris les Templates obligatoires Single Article et 404.
 7. Construire et stabiliser la home si elle est dans le périmètre.
 8. Construire les pages internes distinctes en parallèle.
 9. Traiter contenus dynamiques, SEO, formulaires, SMTP, Complianz et légal avec leurs skills.
@@ -248,6 +258,7 @@ Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au mini
 - toutes les annotations Figma recensées, appliquées et vérifiées avec leurs effets indirects ;
 - Figma contrôlé dans le navigateur ;
 - Header sticky et Footer global corrects ;
+- Template Single Article et Template spécial 404 présents, correctement ciblés, éditables et testés ;
 - menu légal, Complianz, crédit Octacom et CGV applicables ;
 - Oxygen éditable après rechargement ;
 - responsive, largeurs intermédiaires et absence d'overflow ;

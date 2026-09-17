@@ -1,6 +1,6 @@
 # Architecture réutilisable Oxygen 6
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec les Templates Single Article et 404 obligatoires.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 449-642 -->
 
@@ -19,8 +19,9 @@ Oxygen
 ├── Templates
 │   ├── Page / contenu si nécessaire
 │   │   └── Template Content Area
-│   ├── Single Article si dans le scope
-│   └── Archives si dans le scope
+│   ├── Single Article obligatoire
+│   ├── 404 Not Found obligatoire
+│   └── Archives supplémentaires si dans le scope
 ├── Components
 │   ├── Hero
 │   ├── Button / CTA variant si utile
@@ -36,6 +37,15 @@ Oxygen
 ```
 
 Un Header/Footer global n'a pas besoin d'être dupliqué dans chaque Template. Utiliser les types **Headers** et **Footers** d'Oxygen 6, avec `Everywhere` ou des conditions plus fines selon le projet.
+
+#### Templates toujours obligatoires
+
+Chaque site possède ces deux objets Oxygen 6 avant livraison :
+
+1. **Single Article** : Template appliqué aux articles WordPress, utilisant les données dynamiques réelles pour le titre, la date, l'image à la une et le contenu. Utiliser `Template Content Area` lorsque le contenu propre à l'article doit être injecté dans la structure commune.
+2. **404 Not Found** : Template spécial ciblé par la Location Oxygen `404 Not Found`. Il conserve le Header et le Footer globaux, affiche un message compréhensible et propose au minimum un lien réel vers l'accueil ou une autre destination valide.
+
+Vérifier Location, Conditions et Priority. Si un template conforme existe, le réutiliser ; sinon le créer. Ne jamais en créer un doublon. L'absence d'articles publiés ne dispense pas de créer le Template Single Article : contrôler sa structure et ses liaisons dynamiques dans le builder sans inventer un article de test destiné à la livraison.
 
 ### 6.2. Template Content Area
 

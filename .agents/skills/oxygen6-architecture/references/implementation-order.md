@@ -1,6 +1,6 @@
 # Plan et ordre d implementation
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec les Templates obligatoires de livraison.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 316-351 -->
 
@@ -27,7 +27,7 @@ Construire dans cet ordre recommandé :
 3. Components génériques ;
 4. Header Oxygen ;
 5. Footer Oxygen ;
-6. Templates + Template Content Area si nécessaires ;
+6. Templates obligatoires Single Article et 404 Not Found, puis autres Templates + Template Content Area nécessaires ;
 7. Component Hero ;
 8. sections propres à la home ;
 9. contenus dynamiques / Post Loop Builder ;

@@ -41,9 +41,10 @@ En parallèle, déléguer en lecture seule : vérification des textes/médias, l
 - contact : formulaire, carte, consentement et délivrabilité ;
 - légale : données validées, Complianz, menu Footer, aucun placeholder ;
 - archive/actualités : données dynamiques, états vides et template single ;
+- 404 : Template Oxygen spécial `404 Not Found`, navigation de sortie, responsive, sans-JS et héritage correct du Header/Footer ;
 - tableau : lisibilité et alternative mobile ;
 - média sticky : arrêt dans la section, offset du Header, désactivation mobile et exclusions.
 
 ## Critère de sortie
 
-La page est terminée lorsque toutes ses annotations et leurs effets indirects sont vérifiés, son contenu et ses médias sont exacts, ses ajustements restent locaux, le Header sticky ne masque rien, responsive/liens/états/no-JS/builder sont testés et l'accueil comme les autres consommateurs n'ont pas régressé.
+La page est terminée lorsque toutes ses annotations et leurs effets indirects sont vérifiés, son contenu et ses médias sont exacts, ses ajustements restent locaux, le Header sticky ne masque rien, responsive/liens/états/no-JS/builder sont testés et l'accueil comme les autres consommateurs n'ont pas régressé. La livraison du site reste bloquée tant que les Templates obligatoires Single Article et 404 ne sont pas validés.
