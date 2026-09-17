@@ -14,8 +14,11 @@ Les informations suivantes doivent être fournies dans le prompt projet ou déte
 
 ```text
 SITE_URL=<url du site>
+FINAL_DOMAIN=<domaine public final, obligatoire avant Complianz et l'envoi d'emails>
 WORDPRESS_MCP=<serveur MCP WordPress du projet>
 FIGMA_URL=<url Figma node-specific>
+COMPANY_ID=<identifiant entreprise dans la base Octacom>
+PROJECT_ID=<identifiant projet dans la base Octacom>
 BUILDER=Oxygen 6.x
 SEO_CONNECTOR=Yoast SEO si disponible
 LANG=fr-FR sauf consigne contraire
@@ -27,6 +30,18 @@ Règles :
 - Ne jamais écrire sur un autre WordPress simplement parce qu'un autre connecteur est disponible.
 - Toujours résoudre les IDs, slugs, catégories, templates et médias depuis le site avant d'écrire.
 - Ne jamais inventer le nom d'un outil MCP ou une capacité que le serveur n'expose pas : inspecter les outils disponibles d'abord.
+- Demander ou retrouver dès le début `COMPANY_ID` et `PROJECT_ID`. Utiliser la base Octacom en lecture seule pour consulter le dossier ; ne jamais modifier le projet ou l'entreprise dans l'ERP sans demande explicite.
+- Construire les URLs ERP uniquement avec les identifiants confirmés :
+
+```text
+https://base.octacom.fr/entreprises/<COMPANY_ID>
+https://base.octacom.fr/entreprises/<COMPANY_ID>/projet/<PROJECT_ID>
+```
+
+- Demander le domaine public final avant de configurer Complianz, WP Mail SMTP, les URLs absolues, les cookies, les expéditeurs ou les redirections. Ne pas déduire ce domaine de l'URL de préproduction.
+- Ne jamais inscrire de mot de passe, clé CAPTCHA, clé SMTP ou licence dans ce fichier, un compte rendu ou un journal de travail.
+
+Documentation interne de référence : [Développement WordPress Octacom](https://app.notion.com/p/octacom/Dev-Wordpress-f6510f445ce44dad95d5c81e5c193540). La consulter lorsqu'elle est accessible pour les procédures Octacom, sans lui faire remplacer les sources métier propres au projet.
 
 ---
 
@@ -37,10 +52,13 @@ Règles :
 En cas de conflit :
 
 1. Dernière instruction explicite de l'utilisateur.
-2. Données réellement présentes dans le WordPress du projet.
-3. Contenu et contraintes du projet fournis par l'utilisateur.
-4. Le présent `AGENTS.md`.
-5. Documentation officielle de l'outil concerné.
+2. Documents métier et contenus validés du projet pour les textes, horaires, prix, coordonnées et données légales.
+3. Données vérifiées dans WordPress ou dans l'ERP Octacom consulté en lecture seule.
+4. Figma pour le design et la disposition ; pour le contenu uniquement si le projet le désigne comme source éditoriale.
+5. Le présent `AGENTS.md`.
+6. Documentation officielle de l'outil concerné.
+
+Si deux sources de même niveau ou deux sources métier se contredisent, signaler le conflit et demander laquelle fait foi avant de publier. Ne pas choisir silencieusement.
 
 ### 1.2. Priorité DESIGN
 
@@ -85,6 +103,11 @@ Les instructions propres aux skills priment sur ce document pour leur domaine, s
 12. **Pas de CSS ou JS global destructif.** Toujours scoper les sélecteurs aux composants concernés.
 13. **Ne pas modifier hors périmètre.** Une demande de home ne donne pas carte blanche pour refaire toutes les pages.
 14. **Sauvegarder ou lire l'état existant avant une écriture importante.** En cas d'échec MCP, ne pas relancer aveuglément une mutation destructive.
+15. **Une correction locale reste locale.** Une page ne doit pas changer les médias, carrousels, vidéos ou espacements d'autres pages par effet de bord.
+16. **Préserver le contenu validé.** Ne pas reformuler les textes métier, avis, horaires, tarifs ou mentions légales sans demande explicite.
+17. **Oxygen natif d'abord.** Chercher un élément, un Component ou une capacité Oxygen compatible avant tout code custom. Construire manuellement seulement en dernier recours, avec HTML sémantique, clavier, focus et WAI-ARIA lorsque nécessaire.
+18. **Un seul état d'édition fait foi.** Après une modification externe ou MCP, recharger l'éditeur Oxygen avant toute nouvelle sauvegarde pour éviter qu'un onglet ancien réinjecte une version obsolète.
+19. **Contenu visible sans JavaScript.** Le HTML et le CSS initiaux doivent afficher clairement tout le contenu éditorial, la navigation et les actions essentielles. JavaScript peut enrichir l'expérience, mais son absence ou son échec ne doit jamais laisser une page vide, un texte masqué ou une navigation inutilisable.
 
 ---
 
@@ -127,6 +150,15 @@ Le design system doit être construit avec les primitives natives :
 - **Post Loop Builder / Term Loop Builder / Repeater Field** selon le type de données répétées ;
 - **Template Content Area** dans les templates qui doivent afficher le contenu propre à chaque page/post.
 
+Avant de créer un comportement ou un bloc à la main, inventorier dans cet ordre :
+
+1. élément Oxygen natif disponible dans la version installée ;
+2. Component existant du projet ;
+3. pattern réalisable avec Containers, liens, Images, Dynamic Data, States, Nested Selectors ou Interactions ;
+4. code custom ciblé en dernier recours.
+
+Pour une implémentation manuelle interactive, suivre les patterns WAI-ARIA applicables sans remplacer la sémantique HTML native par des rôles ARIA inutiles. Tester le clavier, le focus, les noms accessibles et les états annoncés.
+
 ### 3.3. MCP Oxygen / Agent Connector
 
 Si Oxygen expose ses abilities via MCP, les utiliser en priorité au lieu de bricoler les données internes du builder.
@@ -152,7 +184,26 @@ Quand des outils de preview Oxygen sont exposés (`preview-post`, `preview-eleme
 
 ## 4. Workflow obligatoire
 
-### Phase A — Audit du WordPress
+### Phase A0 — Cadrage, ERP et sources
+
+Avant de construire, obtenir ou retrouver :
+
+- l'URL de préproduction et le domaine public final prévu ;
+- `COMPANY_ID` et `PROJECT_ID`, puis consulter les deux fiches ERP en lecture seule ;
+- le node Figma exact, les captures de référence et le dossier des captures de retours ;
+- les documents qui associent les textes et médias à chaque page ou section ;
+- les textes validés, coordonnées légales, horaires, tarifs et informations d'hébergement ;
+- les URLs officielles des réseaux sociaux, de la fiche d'établissement et des destinations externes ;
+- l'adresse de réception des formulaires et les paramètres d'expéditeur attendus ;
+- les pages légales existantes et l'URL de la politique de protection des données ;
+- les cartes, vidéos, PDF, téléchargements et codes d'intégration nécessaires ;
+- la disponibilité des clés CAPTCHA, accès SMTP et licences, sans les recopier dans les comptes rendus ;
+- les pages hors périmètre et les contraintes intangibles, par exemple les polices à conserver ;
+- les dates de recette interne et de validation client lorsqu'elles existent.
+
+Classer chaque donnée par source. Ne jamais compléter une donnée manquante par une supposition. Chercher d'abord dans WordPress, l'ERP consulté en lecture seule, les documents du projet et les sources fournies.
+
+### Phase A1 — Audit du WordPress
 
 Avant toute écriture via le MCP WordPress :
 
@@ -170,9 +221,26 @@ Avant toute écriture via le MCP WordPress :
 12. identifier les articles récents utiles au développement ;
 13. identifier les images/médias existants ;
 14. vérifier Yoast SEO et les métadonnées existantes ;
-15. relever les URLs réelles de contact, actualités, mentions légales, politique de confidentialité, réservation, etc.
+15. relever les URLs réelles de contact, actualités, mentions légales, politique de confidentialité, réservation, etc. ;
+16. lister les éléments Oxygen réellement disponibles, sans supposer qu'un élément Gallery, Accordion, Form ou Slider existe ;
+17. vérifier les plugins actifs, leur rôle, leur licence si elle conditionne le fonctionnement, et les erreurs JavaScript existantes ;
+18. ouvrir l'éditeur dans Chrome lorsqu'un problème semble propre au navigateur embarqué, avant de conclure que les données Oxygen sont cassées.
 
 Ne pas créer un doublon d'une page, d'un menu ou d'un template qui existe déjà.
+
+### Phase A2 — Sauvegarde proportionnée au risque
+
+Avant une refonte, suppression, import global, modification de styles partagés ou opération difficile à annuler :
+
+1. sauvegarder la base de données ;
+2. sauvegarder les fichiers si l'intervention touche les médias, plugins, thèmes ou fichiers ;
+3. exclure le répertoire de sauvegarde de sa propre archive ;
+4. stocker la copie hors des répertoires publics du site ;
+5. calculer une somme SHA-256 ;
+6. noter le périmètre, la date, le chemin, la taille et la somme de contrôle ;
+7. vérifier que les fichiers existent et ont une taille cohérente avant de commencer.
+
+Une sauvegarde de base peut suffire pour une modification limitée aux structures Oxygen stockées en base. Toute modification de fichiers ou médias exige une sauvegarde complète. Sauvegarder aussi les arbres JSON, Components, Header, Footer, Templates, Selectors, Variables et réglages concernés lorsque les outils le permettent.
 
 ### Phase B — Lecture Figma
 
@@ -275,8 +343,10 @@ Construire dans cet ordre recommandé :
 10. interactions ;
 11. responsive ;
 12. SEO ;
-13. performance ;
-14. QA finale.
+13. formulaires, Complianz et WP Mail SMTP ;
+14. pages légales et menus associés ;
+15. performance ;
+16. QA finale.
 
 Après chaque gros bloc : sauvegarder, ouvrir le front, contrôler le rendu avant de continuer.
 
@@ -331,6 +401,7 @@ Interdit comme technique principale pour reconstruire toute une page desktop.
 - Télécharger/importer les assets durables dans WordPress Media ou dans l'emplacement prévu par le projet.
 - Optimiser les rasters avant ou pendant l'import lorsque le workflow le permet.
 - Conserver le ratio/cadrage Figma via `object-fit`, `object-position` ou l'outil Oxygen adapté.
+- Si Figma ou le dossier projet fournit un favicon, exporter le node exact, générer les formats requis par WordPress et vérifier le rendu dans l'onglet du navigateur. Ne pas fabriquer une icône approchante.
 
 ### 5.4. Variables Oxygen 6
 
@@ -427,10 +498,13 @@ Le header doit :
 - utiliser le menu WordPress réel si un menu existe ;
 - avoir des liens réels ;
 - gérer l'état courant ;
+- rester sticky sur toutes les pages et à tous les breakpoints ;
 - être responsive ;
 - être navigable au clavier ;
 - conserver un comportement utilisable sans hover ;
 - ne pas dépendre d'un JS lourd pour une simple navigation.
+
+Le sticky est obligatoire. Utiliser en priorité le réglage natif Oxygen ou `position: sticky` avec un `top` et un `z-index` maîtrisés. Mesurer la hauteur réelle du header à chaque breakpoint et réserver l'espace nécessaire au premier hero ou au contenu suivant. Vérifier qu'aucun parent avec `overflow` incompatible ne désactive le sticky. Aucun titre, ancre ou contrôle ne doit passer sous le header.
 
 Configuration :
 
@@ -459,7 +533,30 @@ Le footer doit :
 - utiliser `tel:` pour les numéros ;
 - avoir de vrais liens pour mentions légales / confidentialité ;
 - réutiliser les réseaux sociaux réels ;
-- ne pas hard-coder l'année si une valeur dynamique propre existe déjà.
+- ne pas hard-coder l'année si une valeur dynamique propre existe déjà ;
+- utiliser le menu WordPress réel du footer pour afficher **Politique de protection des données**, **Mentions légales** et, lorsqu'elles existent ou sont applicables, les **Conditions générales de vente** ;
+- afficher le crédit de réalisation Octacom sur tous les sites, même si Figma ne le montre pas. Cette règle de livraison explicite prime sur l'absence du crédit dans la maquette.
+
+Markup du crédit :
+
+```html
+<span>Réalisation</span><span id="copyright-logo"></span>
+```
+
+Style de base :
+
+```css
+#copyright-logo {
+  display: inline-block;
+  background: url('https://www.octacom.fr/images/logo.png') no-repeat center;
+  /* Variante sur fond sombre : https://www.octacom.fr/images/logo-blanc.png */
+  background-size: contain;
+  height: 17px;
+  width: 80px;
+}
+```
+
+Choisir le logo rouge/classique ou blanc selon le contraste du fond. Conserver le markup demandé. Scoper les règles complémentaires au Footer pour éviter qu'un ancien style global ou le rail social ne les écrase.
 
 Vérifier Location, Conditions et Priority comme pour le Header.
 
@@ -540,6 +637,8 @@ Utiliser :
 - Nested Selectors pour les sous-éléments et sélecteurs relationnels simples ;
 - Selectors manuels pour les cas avancés réellement nécessaires.
 
+Avant de modifier une classe partagée, lire toutes ses propriétés et rechercher ses usages. Avec les imports de règles Oxygen/MCP qui remplacent la règle du breakpoint au lieu de fusionner les propriétés, réécrire la règle complète. Lire les avertissements retournés après chaque import. Pour un besoin local, préférer une classe ciblée à une surcharge globale. Contrôler le front et les pages consommatrices après chaque modification globale.
+
 Éviter les noms visuels fragiles : `blue-box-2`, `rectangle-54`, `left-thing`.
 
 ---
@@ -556,6 +655,8 @@ Une implémentation est refusée si :
 - la structure Oxygen est remplacée par un énorme blob HTML/import HTML alors que des éléments natifs suffisent ;
 - les styles dépendent de sélecteurs DOM hyper fragiles produits par Oxygen.
 
+Exemples attendus : une galerie simple utilise des Containers, liens et Images éditables ; une FAQ utilise un vrai Accordion si cet élément existe ; une liste d'articles utilise Dynamic Data et un loop ; un carrousel utilise l'élément natif disponible seulement si le besoin justifie un carrousel.
+
 ### 7.1. Test « Builder Editability » obligatoire
 
 Pour chaque section majeure :
@@ -566,7 +667,8 @@ Pour chaque section majeure :
 4. vérifier que le rendu reste visible ;
 5. modifier temporairement une propriété simple puis l'annuler ;
 6. vérifier qu'aucun JS ne doit être déclenché pour « restaurer » le design ;
-7. sauvegarder uniquement après validation.
+7. après toute modification faite hors de l'éditeur ouvert, recharger Oxygen avant de sauvegarder ;
+8. sauvegarder uniquement après validation.
 
 Le front ET le builder doivent être cohérents.
 
@@ -615,9 +717,20 @@ Tester également **entre** les breakpoints : le bug qui apparaît à 930 px com
 - une section texte/image peut passer en colonne ;
 - préserver l'ordre de lecture logique en mobile ;
 - ne pas utiliser `order` pour produire un ordre visuel qui contredit fortement l'ordre DOM accessible ;
+- adapter les tableaux à leur contenu et au viewport : colonnes compactes, défilement horizontal annoncé ou présentation alternative accessible lorsque nécessaire ;
 - les textes ne doivent pas être coupés par des hauteurs fixes ;
 - limiter les `height` fixes aux éléments réellement dimensionnés par le design ;
 - préférer `min-height`, ratio ou contenu naturel pour les sections.
+
+Pour une section texte/média, la quantité de contenu et le format du média déterminent les proportions, pas une grille 50/50 automatique :
+
+- étendre le texte sur toute la largeur si aucun média n'est prévu ;
+- placer un média panoramique au-dessus du texte lorsque la colonne latérale créerait de grands vides ;
+- limiter la hauteur visible d'un portrait sans le déformer ;
+- déplacer la suite d'un texte sous le média si une colonne devient nettement plus longue ;
+- vérifier séparément les variantes média à gauche et média à droite ;
+- garder un rythme vertical régulier, souvent 12 à 18 px entre paragraphes liés, puis ajuster à la typographie réelle ;
+- réduire les paddings ou CTA trop hauts sans supprimer l'espace qui marque un changement de sujet.
 
 ### 8.3. Hover et tactile
 
@@ -639,7 +752,24 @@ Pour les animations non essentielles :
 }
 ```
 
+Utiliser d'abord l'Interactions Engine Oxygen. Le style par défaut de tout élément animé doit être son état final visible. Appliquer l'état initial masqué ou décalé uniquement après l'initialisation réussie du mécanisme d'animation. Ne jamais enregistrer dans Oxygen un contenu essentiel durablement en `opacity: 0`, `visibility: hidden`, `display: none` ou hors écran dans l'attente d'un script.
+
+Une animation d'apparition ne doit jamais laisser le contenu invisible si JavaScript est désactivé, bloqué, en erreur ou si son observer ne se déclenche pas. Tester le chargement direct, le retour arrière, le mobile, `prefers-reduced-motion` et la page avec JavaScript désactivé.
+
 Ne pas ajouter des animations décoratives qui n'existent pas dans Figma juste pour « faire premium ».
+
+### 8.5. Sticky ciblé
+
+Réserver `position: sticky` aux médias latéraux qui accompagnent un texte long :
+
+- desktop seulement, sauf preuve contraire dans la maquette ;
+- `top` calculé avec la hauteur réelle du header sticky et une marge visible ;
+- désactivation sous 1024 px par défaut ;
+- exclusion des vidéos, carrousels et médias panoramiques placés au-dessus du texte ;
+- hauteur maximale d'un portrait limitée à la fenêtre sans déformation ;
+- arrêt naturel à la fin de la section par le bon conteneur parent.
+
+Ne jamais appliquer un sticky global à tous les médias.
 
 ---
 
@@ -711,7 +841,7 @@ Pas besoin de `target="_blank"` sur `mailto:`.
 
 Si une URL Maps réelle est fournie ou déjà utilisée par le site, rendre l'adresse cliquable.
 
-Pour une URL externe ouverte dans un nouvel onglet :
+Tous les liens HTTP externes s'ouvrent dans un nouvel onglet avec `rel="noopener noreferrer"`. Les liens internes restent dans le même onglet. `mailto:` et `tel:` ne reçoivent pas de `target="_blank"`.
 
 ```html
 <a href="..." target="_blank" rel="noopener noreferrer">...</a>
@@ -963,6 +1093,18 @@ Lorsque le site possède des articles :
 
 Toujours créer le template single ; La home doit utiliser des permaliens compatibles avec ces templates.
 
+### 13.7. Pages légales, Complianz et consentement
+
+- Créer ou compléter les mentions légales à partir de [`templates/mentions-legales.html.tpl`](templates/mentions-legales.html.tpl). Remplacer chaque variable par une donnée confirmée. Ne jamais publier un placeholder.
+- Demander en amont la raison sociale, la forme juridique, le capital si applicable, l'adresse postale complète, les téléphones et emails publiables, les numéros d'immatriculation, le responsable de publication, les coordonnées du responsable de traitement, le DPO si applicable, l'hébergeur et le propriétaire du site.
+- Faire valider le contenu juridique par le client ou son conseil. Le template structure la collecte et la rédaction ; il ne constitue pas une validation juridique.
+- La page de confidentialité porte strictement le titre **Politique de protection des données**.
+- Générer cette page avec Complianz et conserver son contenu/shortcode géré par le plugin au lieu de recopier une politique statique parallèle.
+- Ajouter **Politique de protection des données** et **Mentions légales** au menu WordPress du footer. Ajouter aussi les **Conditions générales de vente** lorsqu'une page validée existe ou que l'activité les exige. Rendre ce menu dans le Footer Oxygen et ne pas maintenir une seconde liste de liens légaux codée à la main. Ne jamais inventer des CGV ni publier une page CGV vide.
+- Configurer Complianz pour le domaine public final, les services réellement présents, la zone juridique du projet et les scripts/iframes observés. Tester avant consentement, après acceptation, après refus et après retrait du consentement.
+- Vérifier les wrappers ajoutés par Complianz autour des cartes, vidéos et autres iframes. Ils doivent respecter la largeur prévue et réserver leur hauteur.
+- Une page légale vide, un shortcode brut non rendu ou un lien de footer cassé bloque la livraison.
+
 ---
 
 ## 14. Images
@@ -973,10 +1115,18 @@ Toujours créer le template single ; La home doit utiliser des permaliens compat
 - Image décorative : `alt=""`.
 - Logo : alt correspondant au nom de l'entité lorsqu'il apporte cette information.
 - Ne pas bourrer les `alt` de mots-clés.
+- Ne pas importer ou afficher deux fois le même média pour résoudre un problème de mise en page.
 
 ### 14.2. Responsive images
 
 Laisser WordPress produire/utiliser `srcset` et `sizes` lorsque possible.
+
+Respecter le rôle du média :
+
+- `object-fit: contain` pour un logo, pictogramme, portrait ou document qui ne doit pas être coupé ;
+- `object-fit: cover` seulement pour une vignette volontairement recadrée ;
+- miniature optimisée dans une grille, liée à l'original si un agrandissement est demandé ;
+- ratio d'origine conservé sauf recadrage explicitement prévu par la maquette.
 
 Toujours éviter qu'une image dépasse son conteneur :
 
@@ -1016,6 +1166,29 @@ L'image principale visible immédiatement :
 - formats et tailles adaptés ;
 - ne pas charger une image 4000 px pour une card de 400 px.
 
+### 14.6. Galerie ou carrousel
+
+Utiliser une galerie quand la personne doit parcourir un album. Utiliser un carrousel quand le nombre d'éléments visibles doit rester faible, que l'ordre raconte une séquence ou que le besoin produit le demande.
+
+Galerie classique :
+
+- grille native et éditable, avec vignettes cohérentes ;
+- cible par défaut de 4 colonnes desktop, 3 tablette et 2 mobile, adaptée si Figma indique autre chose ;
+- lien vers l'original si agrandissement demandé ;
+- focus clavier visible et chargement différé sous la ligne de flottaison ;
+- même traitement pour les albums d'une même page.
+
+Vrai carrousel :
+
+- élément Oxygen/Swiper existant avant toute implémentation custom ;
+- glissement tactile, flèches, pagination et clavier si ces commandes sont présentes ;
+- nombre de cartes adapté à chaque largeur ;
+- hauteur compatible avec les contenus longs ;
+- aucune couleur bleue par défaut héritée du navigateur ou de Swiper ;
+- autoplay seulement s'il sert le contenu, avec arrêt ou contrôle accessible lorsque requis.
+
+Une simple rangée à défilement horizontal ne doit pas être présentée comme un carrousel si le brief demande de vraies commandes.
+
 ---
 
 ## 15. Performance
@@ -1040,6 +1213,7 @@ CLS <= 0,1
 
 ### 15.2. JavaScript
 
+- appliquer l'amélioration progressive : contenu, navigation et actions essentielles disponibles avant l'exécution du script ;
 - JavaScript minimal ;
 - vanilla JS si aucun besoin d'une dépendance supplémentaire ;
 - ne pas ajouter jQuery si le composant peut fonctionner sans et que jQuery n'est pas nécessaire ;
@@ -1048,6 +1222,8 @@ CLS <= 0,1
 - limiter le travail main-thread ;
 - différer les scripts non critiques lorsque possible ;
 - éviter les animations JS pour des transitions réalisables en CSS.
+
+Prévoir un rendu sans JavaScript pour les composants enrichis : navigation mobile accessible, accordéons lisibles ou ouverts, carrousels présentés comme une liste statique, coordonnées et liens de carte visibles, médias accompagnés d'un lien direct lorsque pertinent. Un message `<noscript>` peut expliquer la perte d'une fonction secondaire, mais ne remplace jamais le contenu masqué.
 
 ### 15.3. Fonts
 
@@ -1091,6 +1267,28 @@ Si la charte Figma contient un contraste manifestement insuffisant :
 - relever la paire couleur/fond problématique ;
 - proposer la correction minimale conforme ;
 - appliquer la décision utilisateur.
+
+### 16.1. États globaux
+
+Définir et vérifier dès le début : liens normaux, hover, `:focus-visible`, état actif du menu, boutons primaires/secondaires, liens sur fond sombre, téléphone et email. L'état courant doit fonctionner sur chaque page, en desktop et dans le menu mobile. Aucun bleu navigateur, WordPress ou Swiper ne doit apparaître par défaut sauf choix explicite de la charte.
+
+### 16.2. Formulaire de contact et délivrabilité
+
+Utiliser l'élément Form Oxygen ou le composant déjà validé du projet lorsqu'il répond au besoin. Une implémentation manuelle vient en dernier recours et respecte HTML sémantique, WAI-ARIA applicable, sécurité serveur et amélioration progressive.
+
+Le formulaire doit avoir :
+
+- labels visibles et associés aux champs ;
+- champs et bouton cohérents avec le design system ;
+- case de consentement obligatoire quand le traitement l'exige, avec lien vers **Politique de protection des données** ;
+- CAPTCHA réellement configuré, honeypot et protection CSRF/nonce ;
+- adresse de destination et adresse d'expéditeur vérifiées ;
+- messages de succès et d'erreur explicites ;
+- focus visible, erreurs associées aux champs et affichage mobile pleine largeur.
+
+Configurer WP Mail SMTP avec le fournisseur, le domaine public final, l'expéditeur et les identifiants validés. Ne pas inventer de serveur, port, chiffrement ou adresse. Tester séparément : connexion SMTP, envoi réel, réception, Reply-To, échec contrôlé et journaux disponibles. La présence du plugin ou d'un message de succès côté navigateur ne prouve pas la réception.
+
+Tester aussi le CAPTCHA avec Complianz actif. Vérifier la présence du widget ou du jeton, la validité des clés pour le domaine final, le consentement requis, l'absence de double initialisation et l'absence de boucle de rechargement.
 
 ---
 
@@ -1151,13 +1349,7 @@ Ne pas tout juger « à l'œil » depuis le code.
 
 ### 18.2. Responsive QA
 
-Tester :
-
-- desktop large ;
-- laptop ;
-- tablette paysage ;
-- tablette portrait ;
-- mobiles petits et standards.
+Tester au minimum 1440, 1280, 1024, 768, 390, 360 et 320 px, puis une largeur intermédiaire proche de chaque changement de layout.
 
 Vérifier :
 
@@ -1173,11 +1365,16 @@ Vérifier :
 - rail social ;
 - hover/focus ;
 - zone tactile.
+- formulaires et cartes utilisant toute la largeur disponible ;
+- sticky désactivé ou sûr aux largeurs prévues ;
+- aucun rechargement en boucle.
 
 ### 18.3. QA technique
 
 Avant de déclarer terminé :
 
+- page testée avec JavaScript désactivé : tout le contenu, la navigation et les actions essentielles restent clairs et visibles ;
+- animations testées sans JavaScript et en cas d'échec de déclenchement : aucun élément ne reste masqué ;
 - aucune erreur JS console liée aux modifications ;
 - aucun 404 de ressource ;
 - liens CTA testés ;
@@ -1190,7 +1387,14 @@ Avant de déclarer terminé :
 - pas de Figma asset temporaire dans le HTML final ;
 - pas de contenu placeholder involontaire ;
 - pas de lien `#` involontaire ;
-- pas de style détruit dans le builder Oxygen.
+- pas de style détruit dans le builder Oxygen ;
+- front vérifié dans Chrome lorsque disponible ;
+- formulaires reçus à l'adresse prévue via WP Mail SMTP ;
+- CAPTCHA fonctionnel sans boucle de rechargement ;
+- Complianz testé avant/après consentement et wrappers de carte/vidéo contrôlés ;
+- pages **Politique de protection des données** et **Mentions légales** accessibles par le menu du footer, ainsi que les **Conditions générales de vente** lorsqu'elles existent ou sont applicables ;
+- crédit Octacom présent, contrasté et non cassé ;
+- éditeur Oxygen rechargé après la dernière mutation externe avant toute sauvegarde finale.
 
 ---
 
@@ -1215,6 +1419,8 @@ Avant toute mutation, inspecter les abilities du serveur MCP puis lire l'objet a
 - métadonnée SEO.
 
 Si des abilities Oxygen natives existent, les préférer à l'écriture directe de post meta, JSON interne ou HTML importé.
+
+Lors d'une mutation externe à Oxygen, noter quels objets ont changé. Considérer tout éditeur déjà ouvert comme périmé jusqu'à son rechargement.
 
 ### Écriture
 
@@ -1248,6 +1454,8 @@ Du code custom est acceptable pour :
 - petite amélioration progressive ;
 - SVG décoratif exporté / composant technique ;
 - logique dynamique réellement nécessaire.
+
+Avant d'en écrire, documenter quel élément ou mécanisme Oxygen a été recherché et pourquoi il ne couvre pas le besoin. Pour un widget interactif custom, appliquer le pattern WAI-ARIA correspondant, conserver les éléments HTML natifs possibles et tester clavier, tactile, focus et annonce des états.
 
 Il n'est pas acceptable de :
 
@@ -1317,6 +1525,7 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 - [ ] Version exacte d'Oxygen confirmée.
 - [ ] Header Oxygen dédié et règles Location/Conditions vérifiées.
+- [ ] Header sticky fonctionnel sur toutes les pages et tous les breakpoints, sans masquer le contenu.
 - [ ] Footer Oxygen dédié et règles Location/Conditions vérifiées.
 - [ ] Templates utilisant Template Content Area lorsque nécessaire.
 - [ ] Components réutilisables créés sans sur-abstraction.
@@ -1326,6 +1535,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Page éditable dans Oxygen.
 - [ ] Aucun gros blob HTML remplaçant le builder.
 - [ ] Aucun concept Classic (`Reusable Part`, `Inner Content`, `Easy Posts`) introduit dans un nouveau build.
+- [ ] Éditeur rechargé après les mutations externes et dernière version sauvegardée sans écrasement.
+- [ ] Toute classe globale modifiée a été relue en entier et ses pages consommatrices ont été contrôlées.
 
 ### Responsive
 
@@ -1352,8 +1563,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Tous les CTA ont une destination.
 - [ ] `tel:` sur téléphone.
 - [ ] `mailto:` sur email.
-- [ ] Liens externes sécurisés si nouvel onglet.
 - [ ] Aucun `#` factice involontaire.
+- [ ] Liens externes ouverts dans un nouvel onglet munis de `rel="noopener noreferrer"`.
 
 ### SEO
 
@@ -1380,9 +1591,20 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 - [ ] Front contrôlé avec navigateur si disponible.
 - [ ] Builder Oxygen contrôlé.
+- [ ] Site contrôlé avec JavaScript désactivé : contenu, navigation et actions essentielles visibles et utilisables.
+- [ ] Animations défaillantes ou non initialisées ne masquent aucun contenu.
 - [ ] Console sans erreur liée au dev.
 - [ ] Aucun asset 404.
 - [ ] Aucun placeholder involontaire.
+- [ ] Sauvegarde proportionnée au risque créée et vérifiée.
+- [ ] Complianz configuré et scénarios de consentement testés.
+- [ ] Page **Politique de protection des données** générée par Complianz et présente dans le menu du footer.
+- [ ] Page **Mentions légales** présente dans le menu du footer.
+- [ ] **Conditions générales de vente** validées et présentes dans le menu du footer lorsqu'elles existent ou sont applicables.
+- [ ] WP Mail SMTP configuré pour le domaine final et réception réelle vérifiée.
+- [ ] Formulaire, consentement, CAPTCHA, honeypot et messages testés.
+- [ ] Mentions légales remplies avec des données validées et sans variable de template restante.
+- [ ] Crédit de réalisation Octacom présent dans le footer avec la bonne variante de logo.
 
 ---
 
@@ -1416,6 +1638,39 @@ Ne pas écrire « tout est bon » si une partie n'a pas été testée.
 Si le navigateur n'est pas disponible, écrire explicitement que la comparaison visuelle front n'a pas pu être effectuée.
 
 Si les commentaires Figma ne sont pas exposés, écrire explicitement qu'ils n'ont pas pu être lus.
+
+### Rapport de temps, tokens et coût
+
+À la fin d'un développement complet, ajouter un récapitulatif du type `Récap <nom du site> — <modèle principal>` à partir des journaux réellement disponibles. Ne jamais estimer des tokens ou des coûts sans données.
+
+Inclure, lorsque les journaux les exposent :
+
+- heure de début et de fin, durée totale avec pauses et temps d'exécution actif ;
+- détail par modèle utilisé ;
+- tokens d'entrée hors cache, tokens d'entrée en cache, tokens de sortie incluant le raisonnement et total ;
+- coût unitaire ou source tarifaire, coût par catégorie, coût par modèle et total ;
+- part du cache dans les tokens d'entrée ;
+- périmètre temporel exact du relevé et éventuelles lacunes des journaux.
+
+Format recommandé :
+
+```text
+Récap <site> — <modèle principal>
+
+Période : <début> à <fin>
+Durée totale avec pauses : <durée>
+Temps d'exécution cumulé : <durée>
+
+Modèle | Entrée hors cache | Entrée en cache | Sortie + raisonnement | Total tokens | Coût
+...
+
+Total : <tokens> | <coût>
+Part du cache dans les entrées : <pourcentage>
+Source des tarifs : <source et date>
+Limites du relevé : <aucune ou détails>
+```
+
+Si le runtime ne donne pas accès à une métrique, écrire `non disponible dans les journaux accessibles` au lieu de l'inventer. Les coûts doivent utiliser les tarifs applicables aux modèles et à la date du travail, avec la devise explicitée.
 
 ---
 
@@ -1533,18 +1788,26 @@ Avant de modifier le site, se demander :
 ```text
 Est-ce que j'ai lu Figma et le WordPress actuel ?
 Est-ce que j'utilise le bon MCP WordPress ?
+Est-ce que les identifiants entreprise/projet sont confirmés et l'ERP a été consulté sans mutation ?
+Est-ce que le domaine public final est confirmé avant Complianz et WP Mail SMTP ?
 Est-ce que je suis bien sur Oxygen 6.x et sur la bonne version exacte ?
 Est-ce que j'ai réutilisé l'existant avant de recréer ?
+Est-ce qu'un élément Oxygen natif couvre le besoin avant le code custom ?
 Est-ce que le rendu respecte Figma plutôt que mes goûts ?
 Est-ce que le builder Oxygen restera éditable ?
+Est-ce que l'éditeur a été rechargé depuis la dernière mutation externe ?
 Est-ce que le contenu dynamique est réellement dynamique ?
 Est-ce que tous les liens ont une destination réelle ?
 Est-ce que téléphone/email sont cliquables ?
+Est-ce que la correction locale a laissé les autres pages intactes ?
 Est-ce que la page tient à 320 px sans casser ?
 Est-ce que le H1 est unique ?
 Est-ce que Yoast n'est pas doublonné ?
 Est-ce que l'image LCP n'est pas lazy ?
 Est-ce que les iframes/images réservent leur espace ?
+Est-ce que Complianz, le formulaire, le CAPTCHA et l'envoi SMTP ont été testés réellement ?
+Est-ce que les pages légales et le crédit Octacom sont présents dans le footer ?
+Est-ce qu'une sauvegarde vérifiée permet de revenir en arrière ?
 Est-ce que j'ai réellement regardé le rendu avant de dire terminé ?
 ```
 
