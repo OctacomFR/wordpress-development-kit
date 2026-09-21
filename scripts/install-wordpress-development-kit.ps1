@@ -5,7 +5,11 @@ param(
 
     [string]$KitRoot = (Split-Path -Parent $PSScriptRoot),
 
-    [switch]$SkipValidation
+    [switch]$SkipValidation,
+
+    [switch]$AllowHardLinkFallback,
+
+    [switch]$UpgradeAgentLink
 )
 
 Set-StrictMode -Version Latest
@@ -165,7 +169,9 @@ function New-SynchronizedFileLink {
         [string]$Path,
 
         [Parameter(Mandatory = $true)]
-        [string]$Target
+        [string]$Target,
+
+        [switch]$AllowHardLinkFallback
     )
 
     if (Test-Path -LiteralPath $Path) {
@@ -175,18 +181,21 @@ function New-SynchronizedFileLink {
     $pathRoot = [System.IO.Path]::GetPathRoot((Get-NormalizedPath -Path $Path))
     $targetRoot = [System.IO.Path]::GetPathRoot((Get-NormalizedPath -Path $Target))
 
-    if ($pathRoot -ieq $targetRoot) {
-        New-Item -ItemType HardLink -Path $Path -Target $Target -ErrorAction Stop | Out-Null
-        return $true
-    }
-
     try {
         New-Item -ItemType SymbolicLink -Path $Path -Target $Target -ErrorAction Stop | Out-Null
         return $true
     }
     catch {
-        throw "Impossible de creer le lien AGENTS.md entre deux volumes. Activez le mode developpeur Windows ou choisissez un dossier sur le meme volume que le kit. Detail : $($_.Exception.Message)"
+        $symbolicLinkError = $_.Exception.Message
     }
+
+    if ($AllowHardLinkFallback -and $pathRoot -ieq $targetRoot) {
+        New-Item -ItemType HardLink -Path $Path -Target $Target -ErrorAction Stop | Out-Null
+        Write-Warning "AGENTS.md utilise un hardlink de secours. Relancez l'installateur apres chaque git pull du kit, car un remplacement physique du fichier source peut rompre la synchronisation."
+        return $true
+    }
+
+    throw "Impossible de creer le lien symbolique AGENTS.md. Activez le mode developpeur Windows ou lancez PowerShell avec les droits requis. Le secours par hardlink est disponible sur le meme volume avec -AllowHardLinkFallback, mais il est moins fiable apres git pull. Detail : $symbolicLinkError"
 }
 
 function New-SynchronizedDirectoryLink {
@@ -354,13 +363,42 @@ Assert-PathAvailableOrLinked -Path $destinationAgentsFile -ExpectedTarget $sourc
 Assert-PathAvailableOrLinked -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory -Kind Directory
 Assert-PathAvailableOrLinked -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory -Kind Directory
 
+$upgradeExistingAgentLink = $false
+if ($UpgradeAgentLink -and (Test-Path -LiteralPath $destinationAgentsFile -PathType Leaf)) {
+    $existingAgentLink = Get-Item -LiteralPath $destinationAgentsFile -Force
+    $upgradeExistingAgentLink = $existingAgentLink.LinkType -ne 'SymbolicLink'
+}
+
 $createdPaths = New-Object System.Collections.Generic.List[string]
 $gitCreated = $false
+$agentsLinkUpgraded = $false
 
 try {
     $gitCreated = Ensure-ExactGitRoot -Path $destinationRoot
 
-    if (New-SynchronizedFileLink -Path $destinationAgentsFile -Target $sourceAgentsFile) {
+    if ($upgradeExistingAgentLink) {
+        Remove-Item -LiteralPath $destinationAgentsFile -Force -ErrorAction Stop
+        try {
+            New-SynchronizedFileLink `
+                -Path $destinationAgentsFile `
+                -Target $sourceAgentsFile `
+                -AllowHardLinkFallback:$AllowHardLinkFallback | Out-Null
+        }
+        catch {
+            $upgradeError = $_
+            if (Test-Path -LiteralPath $destinationAgentsFile) {
+                Remove-Item -LiteralPath $destinationAgentsFile -Force -ErrorAction SilentlyContinue
+            }
+            New-Item -ItemType HardLink -Path $destinationAgentsFile -Target $sourceAgentsFile -ErrorAction Stop | Out-Null
+            throw $upgradeError
+        }
+
+        $agentsLinkUpgraded = (Get-Item -LiteralPath $destinationAgentsFile -Force).LinkType -eq 'SymbolicLink'
+    }
+    elseif (New-SynchronizedFileLink `
+        -Path $destinationAgentsFile `
+        -Target $sourceAgentsFile `
+        -AllowHardLinkFallback:$AllowHardLinkFallback) {
         $createdPaths.Add($destinationAgentsFile)
     }
     if (New-SynchronizedDirectoryLink -Path $destinationSkillsDirectory -Target $sourceSkillsDirectory) {
@@ -392,6 +430,13 @@ catch {
         if (Test-Path -LiteralPath $createdPath) {
             Remove-Item -LiteralPath $createdPath -Force -ErrorAction SilentlyContinue
         }
+    }
+
+    if ($agentsLinkUpgraded) {
+        if (Test-Path -LiteralPath $destinationAgentsFile) {
+            Remove-Item -LiteralPath $destinationAgentsFile -Force -ErrorAction SilentlyContinue
+        }
+        New-Item -ItemType HardLink -Path $destinationAgentsFile -Target $sourceAgentsFile -ErrorAction SilentlyContinue | Out-Null
     }
 
     if ($gitCreated) {
