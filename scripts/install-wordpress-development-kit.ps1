@@ -9,7 +9,7 @@ param(
 
     [switch]$AllowHardLinkFallback,
 
-    [switch]$UpgradeAgentLink
+    [switch]$RefreshAgentLink
 )
 
 Set-StrictMode -Version Latest
@@ -359,25 +359,30 @@ $destinationSkillsDirectory = Join-Path $destinationRoot '.agents'
 $destinationCodexDirectory = Join-Path $destinationRoot '.codex'
 
 # Verifier tous les conflits avant la premiere mutation du projet.
-Assert-PathAvailableOrLinked -Path $destinationAgentsFile -ExpectedTarget $sourceAgentsFile -Kind File
 Assert-PathAvailableOrLinked -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory -Kind Directory
 Assert-PathAvailableOrLinked -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory -Kind Directory
 
-$upgradeExistingAgentLink = $false
-if ($UpgradeAgentLink -and (Test-Path -LiteralPath $destinationAgentsFile -PathType Leaf)) {
-    $existingAgentLink = Get-Item -LiteralPath $destinationAgentsFile -Force
-    $upgradeExistingAgentLink = $existingAgentLink.LinkType -ne 'SymbolicLink'
+if ($RefreshAgentLink -and (Test-Path -LiteralPath $destinationAgentsFile -PathType Leaf)) {
+    if (-not (Test-SameDirectoryLink -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory) -or
+        -not (Test-SameDirectoryLink -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory)) {
+        throw "Le rafraichissement de AGENTS.md exige des liens .agents et .codex deja geres par ce meme kit. Aucun fichier ne sera remplace."
+    }
+}
+else {
+    Assert-PathAvailableOrLinked -Path $destinationAgentsFile -ExpectedTarget $sourceAgentsFile -Kind File
 }
 
 $createdPaths = New-Object System.Collections.Generic.List[string]
 $gitCreated = $false
-$agentsLinkUpgraded = $false
+$agentsLinkBackupPath = $null
+$agentsLinkRefreshed = $false
 
 try {
     $gitCreated = Ensure-ExactGitRoot -Path $destinationRoot
 
-    if ($upgradeExistingAgentLink) {
-        Remove-Item -LiteralPath $destinationAgentsFile -Force -ErrorAction Stop
+    if ($RefreshAgentLink -and (Test-Path -LiteralPath $destinationAgentsFile -PathType Leaf)) {
+        $agentsLinkBackupPath = Join-Path $destinationRoot ('.AGENTS.md.octacom-backup.' + [guid]::NewGuid().ToString('N'))
+        Move-Item -LiteralPath $destinationAgentsFile -Destination $agentsLinkBackupPath -ErrorAction Stop
         try {
             New-SynchronizedFileLink `
                 -Path $destinationAgentsFile `
@@ -385,15 +390,16 @@ try {
                 -AllowHardLinkFallback:$AllowHardLinkFallback | Out-Null
         }
         catch {
-            $upgradeError = $_
+            $refreshError = $_
             if (Test-Path -LiteralPath $destinationAgentsFile) {
                 Remove-Item -LiteralPath $destinationAgentsFile -Force -ErrorAction SilentlyContinue
             }
-            New-Item -ItemType HardLink -Path $destinationAgentsFile -Target $sourceAgentsFile -ErrorAction Stop | Out-Null
-            throw $upgradeError
+            Move-Item -LiteralPath $agentsLinkBackupPath -Destination $destinationAgentsFile -ErrorAction Stop
+            $agentsLinkBackupPath = $null
+            throw $refreshError
         }
 
-        $agentsLinkUpgraded = (Get-Item -LiteralPath $destinationAgentsFile -Force).LinkType -eq 'SymbolicLink'
+        $agentsLinkRefreshed = $true
     }
     elseif (New-SynchronizedFileLink `
         -Path $destinationAgentsFile `
@@ -421,6 +427,11 @@ try {
     if (-not $SkipValidation) {
         Invoke-PythonValidation -InstalledRoot $destinationRoot
     }
+
+    if ($agentsLinkRefreshed -and $agentsLinkBackupPath -and (Test-Path -LiteralPath $agentsLinkBackupPath)) {
+        Remove-Item -LiteralPath $agentsLinkBackupPath -Force -ErrorAction Stop
+        $agentsLinkBackupPath = $null
+    }
 }
 catch {
     $installationError = $_
@@ -432,11 +443,11 @@ catch {
         }
     }
 
-    if ($agentsLinkUpgraded) {
+    if ($agentsLinkRefreshed -and $agentsLinkBackupPath -and (Test-Path -LiteralPath $agentsLinkBackupPath)) {
         if (Test-Path -LiteralPath $destinationAgentsFile) {
             Remove-Item -LiteralPath $destinationAgentsFile -Force -ErrorAction SilentlyContinue
         }
-        New-Item -ItemType HardLink -Path $destinationAgentsFile -Target $sourceAgentsFile -ErrorAction SilentlyContinue | Out-Null
+        Move-Item -LiteralPath $agentsLinkBackupPath -Destination $destinationAgentsFile -ErrorAction SilentlyContinue
     }
 
     if ($gitCreated) {
@@ -452,14 +463,19 @@ catch {
 }
 
 $gitRoot = & git.exe -C $destinationRoot rev-parse --show-toplevel
+$installedAgentsItem = Get-Item -LiteralPath $destinationAgentsFile -Force
+$installedAgentsLinkType = if ($installedAgentsItem.LinkType) { $installedAgentsItem.LinkType } else { 'File' }
 
 Write-Host ''
 Write-Host 'Installation terminee.'
 Write-Host "Racine : $destinationRoot"
 Write-Host "Racine Git : $gitRoot"
-Write-Host "AGENTS.md : synchronise avec $sourceAgentsFile"
+Write-Host "AGENTS.md ($installedAgentsLinkType) : synchronise avec $sourceAgentsFile"
 Write-Host ".agents : synchronise avec $sourceSkillsDirectory"
 Write-Host ".codex : synchronise avec $sourceCodexDirectory"
+if ($installedAgentsLinkType -eq 'HardLink') {
+    Write-Warning "AGENTS.md est un hardlink. Apres chaque git pull du kit, utilisez -RefreshAgentLink -AllowHardLinkFallback ou activez le mode developpeur puis utilisez -RefreshAgentLink."
+}
 if (Test-Path -LiteralPath (Join-Path $destinationRoot 'AGENTS.md.lnk')) {
     Write-Host 'Note : AGENTS.md.lnk a ete conserve. Codex utilise le vrai fichier AGENTS.md cree a cote.'
 }
