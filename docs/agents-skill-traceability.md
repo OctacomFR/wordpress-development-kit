@@ -65,6 +65,10 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Tests de formulaire avec `support@octacom.fr` comme unique destinataire sans CC/BCC client et comme email saisi, autres données fictives marquées `TEST OCTACOM - NE PAS TRAITER`, puis destinataire et `From Email` rétablis par défaut sur `contact@<FINAL_DOMAIN>` sans test à l'adresse finale | `AGENTS.md`; `wordpress-forms-deliverability`; `wordpress-oxygen-qa` |
 | Expéditeur obligatoire sur un domaine personnalisé du client, adresses personnelles limitées à l'affichage/Reply-To/redirection, et branche `redirection vers` préparée avec une vraie boîte SMTP OVH et les paramètres de l'offre réelle, sans intervention dans la console OVH | `AGENTS.md`; `octacom-project-start`; `wordpress-forms-deliverability`; `wordpress-oxygen-qa` |
 | Page **Politique de protection des données** générée par Complianz puis rendue directement dans Oxygen avec une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]` | `AGENTS.md`; `wordpress-legal-consent`; `wordpress-oxygen-qa` |
+| Préflight obligatoire des skills par unité d'exécution, réévaluation lors d'un changement de périmètre et préflight indépendant de chaque sous-agent | `AGENTS.md`; `skill-gate/SKILL.md`; `octacom-parallel-delivery/SKILL.md` |
+| Injection du rappel de préflight à chaque prompt et démarrage de sous-agent, sans fausse promesse de contrôle absolu | `.codex/hooks.json`; `.codex/hooks/inject_skill_gate.py`; `skill-gate/references/enforcement-and-tests.md` |
+| Validation statique du catalogue local, de ses références déclarées, de la configuration Codex et des scripts d'injection | `skill-gate/scripts/validate_workflow.py`; `skill-gate/scripts/test_workflow.py` |
+| Limite assumée : aucun exécuteur strict, permis, `PreToolUse` ou `Stop`; scénarios stricts conservés comme exigences futures, pas comme tests passés | `skill-gate/references/enforcement-and-tests.md`; `README.md` |
 
 ## Contrôles de non-perte
 

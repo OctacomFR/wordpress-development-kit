@@ -1,0 +1,9 @@
+interface:
+  display_name: "Skill Gate"
+  short_description: "Sélectionne et charge les skills avant d'agir."
+  default_prompt: "Évalue l'unité d'exécution, sélectionne les skills applicables, lis leurs instructions et vérifie les blocages avant toute action."
+
+policy:
+  products:
+    - CODEX
+  allow_implicit_invocation: true

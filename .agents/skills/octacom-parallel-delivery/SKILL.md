@@ -9,6 +9,8 @@ Utiliser les sous-agents par défaut sur tout travail non trivial. Occuper les c
 
 Le coordinateur principal conserve la vue d'ensemble, les priorités, l'attribution des objets, les décisions transversales, l'intégration et la validation finale.
 
+Avant chaque délégation, le coordinateur utilise `skill-gate` pour définir l'unité d'exécution et les skills pressentis. Chaque sous-agent utilise ensuite `skill-gate` à son propre démarrage, vérifie cette sélection contre son catalogue réel, lit intégralement les skills retenus et recommence le préflight si sa cible ou son périmètre change. La sélection du parent n'accorde aucune permission supplémentaire.
+
 ## Règle centrale
 
 Séparer avant de paralléliser. Attribuer un propriétaire exclusif à chaque état mutable : page, arbre Oxygen, Header, Footer, Template, Component, Variable, classe, Selector, menu, catégorie, média, réglage WordPress, Complianz, WP Mail SMTP, formulaire ou fichier.
@@ -100,7 +102,8 @@ Chaque délégation précise :
 
 ```text
 Mission :
-Skill à utiliser :
+Skills pressentis par le coordinateur :
+Préflight `skill-gate` obligatoire pour l'agent : oui
 Objectif exact :
 Capacités requises :
 Modèle choisi et justification :
@@ -129,6 +132,7 @@ Exiger un rapport vérifiable :
 ```text
 STATUT : terminé | bloqué | constats uniquement
 MODÈLE / CAPACITÉS / JUSTIFICATION : valeurs réellement utilisées
+SKILLS LUS ET APPLIQUÉS : `skill-gate` + skills métier réellement retenus
 LU : objets, URLs et IDs contrôlés
 MODIFIÉ : objets et IDs modifiés, ou aucun
 PREUVES : captures, URLs, valeurs ou résultats de tests

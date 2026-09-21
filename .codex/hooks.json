@@ -1,0 +1,48 @@
+{
+  "description": "Rappelle le préflight skill-gate au démarrage, à chaque tour utilisateur et à chaque sous-agent.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/inject_skill_gate.py\"",
+            "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"py -3 (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+            "timeout": 10,
+            "statusMessage": "Chargement du préflight des skills",
+            "additionalContextLimit": 1000
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/inject_skill_gate.py\"",
+            "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"py -3 (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+            "timeout": 10,
+            "statusMessage": "Chargement du préflight des skills",
+            "additionalContextLimit": 1000
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/inject_skill_gate.py\"",
+            "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"py -3 (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+            "timeout": 10,
+            "statusMessage": "Chargement du préflight des skills",
+            "additionalContextLimit": 1000
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -74,7 +74,25 @@ Seuls les travaux indépendants en lecture seule peuvent continuer : audit, inve
 
 ---
 
-## 3. Skills obligatoires et routeur
+## 3. Préflight des skills et routeur
+
+Avant toute unité d'exécution observable, utiliser `skill-gate` lorsqu'il est disponible. Une unité d'exécution est une séquence cohérente d'actions de bas niveau qui conserve le même objectif, les mêmes cibles, les mêmes permissions et les mêmes skills applicables. Elle peut couvrir plusieurs lectures ou contrôles liés ; elle ne couvre jamais un changement de périmètre ou de cible.
+
+Le préflight est obligatoire avant la première lecture par outil, mutation, délégation, action externe ou réponse finale de l'unité. Le refaire dès que l'objectif, la cible, la classe d'action, les permissions, le propriétaire d'écriture ou les skills applicables changent.
+
+Pendant ce préflight :
+
+- partir uniquement du catalogue de skills réellement disponible et ne jamais inventer un nom ;
+- sélectionner `skill-gate`, puis le minimum de skills métier qui couvre toute l'unité ;
+- lire intégralement chaque `SKILL.md` sélectionné et les références qu'il rend obligatoires avant d'agir ;
+- si aucun skill métier ne s'applique, conserver `skill-gate` seul au lieu de prétendre qu'aucun contrôle n'est nécessaire ;
+- distinguer le routage des skills de l'autorisation : un skill explique comment travailler, mais n'élargit jamais le périmètre demandé ni les permissions ;
+- annoncer dans le canal de suivi les skills utilisés et la raison, conformément aux règles de session ;
+- traiter une information requise manquante, une cible non confirmée ou une capacité absente comme un blocage selon la section 2.
+
+Chaque sous-agent refait son propre préflight. La sélection suggérée par le coordinateur dans le paquet de mission est une entrée à vérifier, pas une autorisation automatique.
+
+Les hooks de `.codex/hooks.json` rappellent ce préflight au démarrage ou à la reprise d'une session, après compactage, à chaque prompt utilisateur et au démarrage de chaque sous-agent. Ils doivent être relus et approuvés avec `/hooks` dans un projet de confiance. Ces hooks injectent du contexte sans bloquer les actions. Aucun exécuteur strict, permis d'action, contrôle `PreToolUse` ou contrôle `Stop` n'est implémenté dans ce dépôt. Ils ne constituent donc pas une frontière de sécurité et ne couvrent pas nécessairement les outils hébergés ou certains chemins spécialisés. Ne jamais présenter leur présence comme une garantie absolue.
 
 Quand ils sont disponibles, invoquer `caveman`, `unslop` et `frontend-design` sur chaque tour de conception, code ou correction visuelle. Ne jamais prétendre avoir utilisé un skill indisponible.
 
@@ -82,6 +100,7 @@ Utiliser les skills spécialisés suivants dès que leur description correspond 
 
 | Besoin | Skill |
 |---|---|
+| Préflight, sélection et chargement des skills | `skill-gate` |
 | Cadrage, ERP, audit et sauvegarde | `octacom-project-start` |
 | Orchestration intensive et sûre des sous-agents | `octacom-parallel-delivery` |
 | Lecture et traduction de Figma | `figma-to-oxygen` |
@@ -95,7 +114,7 @@ Utiliser les skills spécialisés suivants dès que leur description correspond 
 | Pages légales et Complianz | `wordpress-legal-consent` |
 | Recette et rapport final | `wordpress-oxygen-qa` |
 
-Combiner le minimum de skills qui couvre réellement la tâche. Une construction de site complète utilise normalement le démarrage, l'orchestration parallèle, Figma, l'architecture, le skill accueil ou pages internes, les spécialités applicables, puis la QA.
+Combiner le minimum de skills métier qui couvre réellement la tâche, en plus de `skill-gate`. Une construction de site complète utilise normalement le démarrage, l'orchestration parallèle, Figma, l'architecture, le skill accueil ou pages internes, les spécialités applicables, puis la QA.
 
 Les instructions d'un skill priment dans son domaine, sauf que la dernière instruction utilisateur et les sources métier restent supérieures ; Figma reste la vérité visuelle selon l'ordre précédent.
 
@@ -132,6 +151,8 @@ Lorsque l'outil de délégation permet de choisir le modèle, le faire explicite
 Un objet mutable a un propriétaire unique. Séparer les cibles avant de paralléliser ; une consigne « faites attention » ne protège pas un état partagé. Les agents de page signalent un besoin global au coordinateur au lieu de modifier le socle.
 
 Chaque mission déléguée précise objectif, capacités requises, modèle choisi et justification, sources, objets lisibles, cible d'écriture exacte, IDs, objets interdits, informations bloquantes, critères d'acceptation et preuves attendues. Sans cible confirmée, elle reste en lecture seule et remonte le blocage. Le coordinateur relit l'état réel : « terminé » n'est jamais une preuve.
+
+Le paquet de mission indique aussi les skills pressentis. Le sous-agent doit confirmer ou corriger cette sélection avec `skill-gate`, charger lui-même les instructions retenues et signaler les skills réellement appliqués dans son retour.
 
 Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrières de phase, les rôles spécialisés et le contrat de retour.
 
@@ -246,7 +267,7 @@ Après stabilisation du socle, plusieurs pages internes peuvent être construite
 
 ## 8. Workflow de haut niveau
 
-1. Cadrer le projet, consulter l'ERP en lecture seule et classer les sources.
+1. Exécuter le préflight `skill-gate`, puis cadrer le projet, consulter l'ERP en lecture seule et classer les sources.
 2. Auditer WordPress, Oxygen, plugins, menus, médias et SEO.
 3. Sauvegarder proportionnellement au risque.
 4. Lire Figma, recenser toutes les annotations du périmètre, analyser leurs effets directs et indirects, résoudre les blocages, puis inventorier design, assets et interactions. Aucune implémentation Figma avant `FIGMA_ANNOTATIONS_REVIEWED`.
@@ -256,6 +277,7 @@ Après stabilisation du socle, plusieurs pages internes peuvent être construite
 8. Construire les pages internes distinctes en parallèle.
 9. Traiter contenus dynamiques, SEO, formulaires, SMTP, Complianz et légal avec leurs skills.
 10. Geler les mutations, lancer la QA parallèle, intégrer les corrections, puis relancer les contrôles.
+11. Refaire un préflight final, confirmer que tous les skills applicables ont été suivis et produire le rapport sans inventer les vérifications ou métriques absentes.
 
 Après chaque bloc important : sauvegarder, ouvrir le front, vérifier le builder et recharger tout éditeur devenu périmé.
 
