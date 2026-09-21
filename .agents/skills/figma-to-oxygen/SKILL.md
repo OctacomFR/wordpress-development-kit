@@ -12,6 +12,7 @@ La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'im
 - Lire obligatoirement [references/annotation-workflow.md](references/annotation-workflow.md) avant toute implémentation fondée sur Figma.
 - Lire [references/figma-reading-and-inventory.md](references/figma-reading-and-inventory.md) pour l'acquisition du contexte et l'inventaire.
 - Lire [references/translation-and-assets.md](references/translation-and-assets.md) avant toute implémentation issue de Figma.
+- Lire [../../references/media-tooling.md](../../references/media-tooling.md) avant de transformer, convertir, redimensionner, recadrer, compresser ou extraire un asset image ou vidéo.
 - Lire [references/anti-slop.md](references/anti-slop.md) avant une décision esthétique non explicitement visible dans la maquette.
 
 ## Workflow
@@ -24,7 +25,7 @@ La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'im
 6. Distinguer les valeurs répétées des valeurs ponctuelles avant de créer des tokens.
 7. Traduire les compositions en Sections/Containers, flexbox ou Grid, largeur fluide et structure sémantique.
 8. Réserver l'absolu aux superpositions et décorations réellement présentes.
-9. Préparer les assets exacts avant import : convertir tous les rasters maîtrisés en WebP et conserver/exporter en SVG les logos, icônes, pictogrammes, formes et illustrations vectorielles. Importer ensuite les fichiers optimisés dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
+9. Préparer les assets exacts avant import : utiliser ImageMagick pour transformer et convertir tous les rasters maîtrisés en WebP, FFmpeg pour transformer les vidéos et FFprobe pour les inspecter, puis conserver/exporter en SVG les logos, icônes, pictogrammes, formes et illustrations vectorielles. Importer ensuite les fichiers optimisés dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
 10. Comparer régulièrement le front à la capture de référence et vérifier la matrice d'annotations à chaque bloc concerné.
 
 Ne pas coller du React, Tailwind ou un arbre rempli de coordonnées fixes dans Oxygen. Ne pas recréer approximativement logos, icônes, SVG ou favicon disponibles.

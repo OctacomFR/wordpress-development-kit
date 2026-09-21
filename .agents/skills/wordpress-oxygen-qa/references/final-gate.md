@@ -34,6 +34,7 @@ Est-ce que la page tient à 320 px sans casser ?
 Est-ce que le H1 est unique ?
 Est-ce que Yoast n'est pas doublonné ?
 Est-ce que l'image LCP n'est pas lazy ?
+Est-ce que les rasters ont été manipulés avec ImageMagick, les vidéos avec FFmpeg et les vidéos inspectées avec FFprobe, avec une trace vérifiable des commandes et résultats ?
 Est-ce que tous les rasters maîtrisés ont été convertis en WebP avant usage ?
 Est-ce que les logos, icônes, formes et illustrations vectorielles utilisent au maximum des SVG optimisés et assainis ?
 Est-ce que les iframes/images réservent leur espace ?

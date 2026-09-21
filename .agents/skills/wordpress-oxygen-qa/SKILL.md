@@ -12,6 +12,7 @@ Vérifier l'artefact réel. Ne jamais déclarer « pixel perfect », « responsi
 - Procédure navigateur, responsive et technique : [references/visual-and-technical-qa.md](references/visual-and-technical-qa.md).
 - Definition of Done et rapport final : [references/definition-of-done-and-report.md](references/definition-of-done-and-report.md).
 - Questionnaire final : [references/final-gate.md](references/final-gate.md).
+- Preuves des transformations image et vidéo : [../../references/media-tooling.md](../../references/media-tooling.md). Lire cette procédure lorsqu'un média a été produit ou modifié pendant le projet ou pendant une correction de QA.
 - Sources documentaires historiques, uniquement si une vérification documentaire est nécessaire : [references/official-sources.md](references/official-sources.md).
 
 ## Gel et audits parallèles
@@ -39,6 +40,7 @@ Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle
 - ouvrir Oxygen, sélectionner les éléments, modifier/annuler une propriété et recharger après mutation externe ;
 - inspecter console, erreurs de ressources, placeholders, liens factices, assets Figma temporaires, alt, Hn, métadonnées et canonical ;
 - vérifier que tous les rasters maîtrisés utilisés par les pages sont en WebP et que les logos, icônes, formes et illustrations vectorielles utilisent un SVG optimisé, sauf contrainte technique démontrée ;
+- vérifier que chaque raster modifié l'a été avec ImageMagick et chaque vidéo avec FFmpeg, que les vidéos ont été inspectées avec FFprobe et que la commande, la version de l'outil et le résultat contrôlé sont consignés ;
 - vérifier le Template Single Article et ouvrir une URL inexistante pour valider le Template Oxygen spécial 404, son statut HTTP, sa navigation, son responsive et son héritage du Header/Footer ;
 - prouver la réception SMTP du formulaire sur `support@octacom.fr`, configuré comme unique destinataire sans CC/BCC client, avec `support@octacom.fr` dans le champ email, des données fictives uniquement et `contact@<FINAL_DOMAIN>` comme `From Email` de production ; puis vérifier qu'avant livraison le destinataire est lui aussi configuré par défaut sur `contact@<FINAL_DOMAIN>`, ou sur une autre adresse explicitement validée, sans envoyer de test à l'adresse finale sauf demande explicite ;
 - refuser tout `From Email`, Sender ou envelope sender Gmail, Outlook, Hotmail, Yahoo ou autre domaine non contrôlé par le client ; si une source mentionne `redirection vers`, vérifier la configuration SMTP OVH vers/depuis `contact@<FINAL_DOMAIN>` et signaler la redirection console comme hors périmètre ;

@@ -79,6 +79,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 ### Performance
 
+- [ ] Chaque transformation d'image raster a été exécutée avec ImageMagick et chaque transformation vidéo avec FFmpeg ; FFprobe a servi à inspecter les vidéos avant et après traitement.
+- [ ] La trace des transformations indique l'outil, sa version, la commande, la source, le fichier produit et les propriétés contrôlées ; aucun original unique n'a été écrasé.
 - [ ] Tous les rasters maîtrisés utilisés sur le site ont été convertis en WebP avant import ou utilisation.
 - [ ] Les logos, icônes, pictogrammes, formes et illustrations vectorielles utilisent au maximum des SVG optimisés et assainis.
 - [ ] Aucun JPEG, PNG ou GIF n'est chargé comme image de contenu par les pages.

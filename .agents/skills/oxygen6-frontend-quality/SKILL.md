@@ -12,8 +12,9 @@ Appliquer ces règles pendant la construction, pas seulement à la fin.
 - Layout, breakpoints, motion et sticky : [references/responsive-motion-sticky.md](references/responsive-motion-sticky.md).
 - Rail social, coordonnées, boutons et iframes : [references/social-links-and-iframes.md](references/social-links-and-iframes.md).
 - Images, performance, galerie/carrousel et accessibilité : [references/images-performance-accessibility.md](references/images-performance-accessibility.md).
+- Manipulation des fichiers image et vidéo : [../../references/media-tooling.md](../../references/media-tooling.md). Lire cette procédure avant toute conversion, compression, découpe, extraction, modification de dimensions ou de cadrage.
 
-Lire uniquement les références utiles à la tâche ; pour une revue front complète, lire les trois.
+Lire uniquement les références utiles à la tâche ; pour une revue front complète, lire les trois références frontend. La procédure média devient obligatoire dès qu'un fichier est transformé.
 
 ## Invariants
 
@@ -24,6 +25,7 @@ Lire uniquement les références utiles à la tâche ; pour une revue front comp
 - Une animation part de l'état final visible ; elle ne masque l'élément qu'après initialisation réussie. Respecter `prefers-reduced-motion`.
 - L'attribut `alt` est obligatoire sur chaque image : descriptif si informative, vide si décorative, nom pertinent pour un logo informatif.
 - Tout raster maîtrisé affiché sur le site est converti en WebP avant import ou utilisation. Les logos, icônes, pictogrammes, formes et illustrations vectorielles utilisent au maximum un SVG optimisé et assaini.
+- Toute transformation d'un raster utilise ImageMagick. Toute transformation vidéo utilise FFmpeg et toute inspection technique vidéo utilise FFprobe. Python peut orchestrer ces outils, pas les remplacer comme moteur de traitement.
 - Préserver ratios, dimensions/espaces réservés, `srcset`/`sizes`, LCP non lazy et lazy-loading pertinent sous la ligne de flottaison.
 - Utiliser une galerie ou un vrai carrousel selon le besoin, avec l'élément Oxygen existant avant du custom.
 - Les liens externes HTTP utilisent `target="_blank"` et `rel="noopener noreferrer"`; les liens internes restent dans le même onglet ; `tel:` et `mailto:` restent directs.
