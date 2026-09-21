@@ -261,9 +261,22 @@ function Invoke-PythonValidation {
     $validator = Join-Path $InstalledRoot '.agents\skills\skill-gate\scripts\validate_workflow.py'
     $tests = Join-Path $InstalledRoot '.agents\skills\skill-gate\scripts\test_workflow.py'
 
-    & $pythonLauncher.Source -3 $validator --repo $InstalledRoot
-    if ($LASTEXITCODE -ne 0) {
-        throw "La validation statique du workflow a echoue."
+    $previousPythonIoEncoding = [Environment]::GetEnvironmentVariable('PYTHONIOENCODING', 'Process')
+    try {
+        $env:PYTHONIOENCODING = 'utf-8'
+
+        & $pythonLauncher.Source -3 $validator --repo $InstalledRoot
+        if ($LASTEXITCODE -ne 0) {
+            throw "La validation statique du workflow a echoue."
+        }
+    }
+    finally {
+        if ($null -eq $previousPythonIoEncoding) {
+            Remove-Item Env:PYTHONIOENCODING -ErrorAction SilentlyContinue
+        }
+        else {
+            $env:PYTHONIOENCODING = $previousPythonIoEncoding
+        }
     }
 
     & $pythonLauncher.Source -3 $tests
