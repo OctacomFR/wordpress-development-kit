@@ -18,7 +18,8 @@ Obtenir raison sociale, forme juridique, capital si applicable, adresse postale 
 
 ## Règles de livraison
 
-- La page porte strictement le titre **Politique de protection des données** et est générée/gérée par Complianz.
+- La page porte strictement le titre **Politique de protection des données**. La générer d'abord avec Complianz, puis ouvrir cette même page dans Oxygen et y intégrer exactement `[cmplz-document type="cookie-statement" region="eu"]` dans l'élément Oxygen natif prévu pour exécuter les shortcodes, ou dans l'élément équivalent réellement exposé par la version installée.
+- Conserver une seule occurrence du shortcode. Ne pas créer une seconde page, recopier une politique statique, placer le shortcode dans un bloc qui l'affiche comme texte brut ni maintenir une version parallèle dans l'éditeur WordPress classique.
 - Le menu WordPress réel du Footer contient **Politique de protection des données**, **Mentions légales** et **Conditions générales de vente** lorsqu'une page validée existe ou que le client confirme qu'elles s'appliquent.
 - Ne jamais inventer des CGV ni publier une page vide.
 - Le Footer Oxygen rend ce menu ; aucune seconde liste légale codée à la main.
@@ -26,7 +27,7 @@ Obtenir raison sociale, forme juridique, capital si applicable, adresse postale 
 - Tester absence de consentement, acceptation, refus et retrait, ainsi que les wrappers des cartes, vidéos et iframes.
 - Conserver le crédit Octacom obligatoire prévu par `oxygen6-architecture`, avec la variante de logo adaptée au contraste.
 
-Une page vide, un shortcode brut non rendu, un lien cassé ou une variable de template restante bloque la livraison.
+Une page vide, un shortcode absent, dupliqué ou brut non rendu, un lien cassé ou une variable de template restante bloque la livraison. Vérifier le rendu public et l'éditabilité de la page dans Oxygen.
 
 ## Sous-agents
 

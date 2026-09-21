@@ -102,13 +102,20 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Aucun placeholder involontaire.
 - [ ] Sauvegarde proportionnée au risque créée et vérifiée.
 - [ ] Complianz configuré et scénarios de consentement testés.
-- [ ] Page **Politique de protection des données** générée par Complianz et présente dans le menu du footer.
+- [ ] L'unique page **Politique de protection des données** a été générée par Complianz, puis ouverte dans Oxygen où une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]` a été intégrée dans un élément qui l'exécute.
+- [ ] Le document Complianz est rendu sur le front, le shortcode brut n'est pas visible et la page reste éditable dans Oxygen.
+- [ ] La page **Politique de protection des données** est présente dans le menu WordPress réel du footer.
 - [ ] Page **Mentions légales** présente dans le menu du footer.
 - [ ] **Conditions générales de vente** validées et présentes dans le menu du footer lorsqu'elles existent ou sont applicables.
-- [ ] WP Mail SMTP configuré pour le domaine final et réception réelle du test vérifiée sur `support@octacom.fr`.
+- [ ] WP Mail SMTP configuré avec `contact@<FINAL_DOMAIN>` comme `From Email` de production et réception réelle du test vérifiée sur `support@octacom.fr`.
 - [ ] Pendant les tests, `support@octacom.fr` était l'unique destinataire et l'adresse saisie dans le champ email ; aucune donnée réelle du client n'a été utilisée.
 - [ ] Les autres champs contenaient uniquement des valeurs fictives et la soumission était marquée `TEST OCTACOM - NE PAS TRAITER`.
-- [ ] Le destinataire final validé du client a été rétabli et relu avant livraison, sans envoi au client sauf demande explicite.
+- [ ] Avant livraison, le destinataire du formulaire et le `From Email` WP Mail SMTP sont configurés par défaut sur `contact@<FINAL_DOMAIN>`, construit depuis le domaine final confirmé.
+- [ ] Toute adresse de production différente provient d'une source projet prioritaire et a été explicitement validée.
+- [ ] Toute adresse d'expédition appartient à un domaine personnalisé contrôlé par le client ; aucun Gmail, Outlook, Hotmail, Yahoo ou domaine tiers n'est utilisé comme `From Email`, Sender ou envelope sender.
+- [ ] Si une source indique `redirection vers`, WP Mail SMTP utilise l'offre OVH réelle et `contact@<FINAL_DOMAIN>` en expéditeur/destinataire ; la redirection console OVH est notée hors périmètre et n'a pas été modifiée.
+- [ ] La configuration WP Mail SMTP montre un SMTP Username associé à une vraie boîte authentifiable ; les en-têtes du message reçu montrent un `From` autorisé, un Return-Path/envelope sender sur un domaine personnalisé du client et le Reply-To de test attendu ; le Return-Path n'est pas déclaré incorrect uniquement parce qu'il diffère textuellement du `From`.
+- [ ] L'existence de la boîte et la capacité d'expédition SMTP ont été vérifiées ; aucun test n'a été envoyé à l'adresse finale sauf demande explicite.
 - [ ] Formulaire, consentement, CAPTCHA, honeypot et messages testés.
 - [ ] Mentions légales remplies avec des données validées et sans variable de template restante.
 - [ ] Crédit de réalisation Octacom présent dans le footer avec la bonne variante de logo.

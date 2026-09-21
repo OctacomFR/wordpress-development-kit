@@ -1,6 +1,6 @@
 # Cadrage, audit et sauvegarde
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renforcée avec l'inventaire des identités email et redirections OVH.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 185-243 -->
 
@@ -16,7 +16,9 @@ Avant de construire, obtenir ou retrouver :
 - les documents qui associent les textes et médias à chaque page ou section ;
 - les textes validés, coordonnées légales, horaires, tarifs et informations d'hébergement ;
 - les URLs officielles des réseaux sociaux, de la fiche d'établissement et des destinations externes ;
-- l'adresse de réception des formulaires et les paramètres d'expéditeur attendus ;
+- l'adresse email affichée sur le site, sans la confondre avec l'identité technique d'envoi ;
+- le ou les domaines personnalisés appartenant au client, l'adresse de réception des formulaires, le `From Email`, le Sender/envelope sender, le fournisseur SMTP et l'existence de la boîte `contact@<FINAL_DOMAIN>` ;
+- toute mention `redirection vers <adresse>`, qui déclenche selon la convention Octacom une préparation SMTP OVH mais aucune modification de la console OVH ; la mention ne permet pas de déduire l'offre, la région, la boîte ni les paramètres techniques ;
 - les pages légales existantes et l'URL de la politique de protection des données ;
 - les cartes, vidéos, PDF, téléchargements et codes d'intégration nécessaires ;
 - la disponibilité des clés CAPTCHA, accès SMTP et licences, sans les recopier dans les comptes rendus ;

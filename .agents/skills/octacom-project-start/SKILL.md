@@ -23,6 +23,10 @@ description: "Cadrer un projet WordPress/Oxygen Octacom avant toute mutation : s
 7. Créer et vérifier une sauvegarde proportionnée au risque avant toute mutation importante.
 8. Produire une fiche de départ courte : données confirmées, éléments manquants, conflits, IDs et slugs réels, périmètre, sauvegarde et risques.
 
+Pendant le recensement des sources, distinguer obligatoirement : adresse email affichée, domaine(s) personnalisé(s) appartenant au client, adresse technique de réception du formulaire, adresse d'expédition SMTP, fournisseur email et éventuelle mention `redirection vers <adresse>`. Une adresse Gmail, Outlook ou autre adresse personnelle affichée ne peut jamais devenir l'expéditeur SMTP.
+
+Si une source indique `redirection vers`, appliquer la convention Octacom : relever en lecture seule l'adresse cible et préparer la branche de configuration OVH décrite dans `wordpress-forms-deliverability`. Cette mention déclenche la branche OVH, mais n'autorise pas à inventer l'offre, la région, le serveur, le port, le chiffrement, la boîte ou les identifiants. Retrouver et confirmer ces données ou bloquer la configuration. Ne jamais créer ou modifier la redirection dans la console OVH : cette opération reste hors périmètre.
+
 ## Informations manquantes : blocage strict
 
 Identifier toute information requise pour chaque décision ou mutation : contenu, média, URL, cible, ID, périmètre, donnée légale, paramètre de configuration ou validation métier.

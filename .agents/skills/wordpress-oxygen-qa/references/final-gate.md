@@ -38,9 +38,16 @@ Est-ce que tous les rasters maîtrisés ont été convertis en WebP avant usage 
 Est-ce que les logos, icônes, formes et illustrations vectorielles utilisent au maximum des SVG optimisés et assainis ?
 Est-ce que les iframes/images réservent leur espace ?
 Est-ce que Complianz, le formulaire, le CAPTCHA et l'envoi SMTP ont été testés réellement ?
+Est-ce que l'unique page **Politique de protection des données** a été générée par Complianz, puis éditée dans Oxygen avec une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]` qui rend le document sur le front sans shortcode brut visible ?
 Est-ce que `support@octacom.fr` était l'unique destinataire du test et l'adresse saisie dans le champ email ?
 Est-ce que tous les autres champs utilisaient des données fictives marquées `TEST OCTACOM - NE PAS TRAITER`, sans aucune donnée client ?
-Est-ce que le destinataire final validé a été rétabli avant livraison sans envoyer de test au client, sauf demande explicite ?
+Est-ce que le destinataire et le `From Email` sont revenus par défaut à `contact@<FINAL_DOMAIN>` construit depuis le domaine final confirmé, ou à une adresse alternative explicitement validée ?
+Si une autre adresse est utilisée, est-elle fournie et validée explicitement par une source projet prioritaire ?
+Cette adresse appartient-elle obligatoirement à un domaine personnalisé contrôlé par le client, sans Gmail, Outlook ou autre domaine tiers comme expéditeur ?
+Si une source indique `redirection vers`, le SMTP OVH est-il préparé avec `contact@<FINAL_DOMAIN>` en expéditeur et destinataire, et la redirection console est-elle laissée hors périmètre ?
+L'offre, la région, l'hôte, le port et le chiffrement OVH ont-ils été vérifiés ensemble dans la documentation officielle correspondant à la boîte réelle, sans transformer un exemple en réglage universel ?
+La configuration WP Mail SMTP confirme-t-elle un SMTP Username authentifiable, et les en-têtes reçus confirment-ils séparément un `From` autorisé, un Return-Path/envelope sender sur un domaine personnalisé du client et le Reply-To de test attendu ?
+Est-ce que la boîte et l'expédition SMTP existent réellement, sans envoi de test à l'adresse finale sauf demande explicite ?
 Est-ce que les pages légales et le crédit Octacom sont présents dans le footer ?
 Est-ce qu'une sauvegarde vérifiée permet de revenir en arrière ?
 Est-ce que j'ai réellement regardé le rendu avant de dire terminé ?

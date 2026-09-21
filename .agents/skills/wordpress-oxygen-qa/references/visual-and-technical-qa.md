@@ -83,10 +83,14 @@ Avant de déclarer terminé :
 - pas de lien `#` involontaire ;
 - pas de style détruit dans le builder Oxygen ;
 - front vérifié dans Chrome lorsque disponible ;
-- soumissions de test reçues sur `support@octacom.fr` via WP Mail SMTP, avec `support@octacom.fr` dans le champ email et uniquement des données fictives clairement marquées `TEST OCTACOM - NE PAS TRAITER` ;
-- `support@octacom.fr` était l'unique destinataire pendant les tests, sans autre adresse en destinataire, CC ou BCC ; destinataire final validé rétabli et relu avant livraison, sans envoi au client sauf demande explicite ;
+- soumissions de test reçues sur `support@octacom.fr` via WP Mail SMTP, avec `contact@<FINAL_DOMAIN>` comme `From Email`, `support@octacom.fr` dans le champ email et uniquement des données fictives clairement marquées `TEST OCTACOM - NE PAS TRAITER` ;
+- `support@octacom.fr` était l'unique destinataire pendant les tests, sans autre adresse en destinataire, CC ou BCC ; avant livraison, destinataire du formulaire et `From Email` configurés par défaut sur `contact@<FINAL_DOMAIN>`, ou sur une adresse alternative explicitement validée, sans envoi à l'adresse finale sauf demande explicite ;
+- `From Email`, Sender, envelope sender et SMTP Username utilisent une adresse d'un domaine personnalisé contrôlé par le client ; aucune adresse Gmail, Outlook, Hotmail, Yahoo ou autre domaine tiers n'est utilisée pour l'expédition ;
+- lorsqu'une source indique `redirection vers`, WP Mail SMTP utilise l'offre OVH réelle pour envoyer depuis `contact@<FINAL_DOMAIN>` vers `contact@<FINAL_DOMAIN>` ; l'adresse personnelle n'apparaît pas dans la configuration WordPress et la redirection console OVH est signalée hors périmètre ;
+- la configuration WP Mail SMTP confirme séparément un SMTP Username rattaché à une vraie boîte authentifiable ; les en-têtes reçus confirment un `From` autorisé, un Return-Path/envelope sender sur un domaine personnalisé du client — sans imposer une égalité textuelle avec le `From` — et, pendant le test, un Reply-To égal à `support@octacom.fr` lorsque le champ email l'alimente ;
 - CAPTCHA fonctionnel sans boucle de rechargement ;
 - Complianz testé avant/après consentement et wrappers de carte/vidéo contrôlés ;
+- l'unique page **Politique de protection des données** a été générée par Complianz puis éditée dans Oxygen ; elle contient une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]`, le document est rendu sur le front et aucun shortcode brut n'est visible ;
 - pages **Politique de protection des données** et **Mentions légales** accessibles par le menu du footer, ainsi que les **Conditions générales de vente** lorsqu'elles existent ou sont applicables ;
 - crédit Octacom présent, contrasté et non cassé ;
 - éditeur Oxygen rechargé après la dernière mutation externe avant toute sauvegarde finale.

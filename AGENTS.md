@@ -157,6 +157,7 @@ Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrière
 16. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
 17. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
 18. **Single Article et 404 toujours présents.** Tout site livré possède un Template Oxygen 6 pour les articles et un Template Oxygen 6 spécial `404 Not Found`, même si la mission initiale porte sur la home ou si aucun article n'est encore publié. Auditer et réutiliser les templates conformes existants ; ne jamais créer de doublon.
+19. **Expéditeur email sur domaine client uniquement.** Le `From Email`, le Sender et l'envelope sender des formulaires utilisent toujours une adresse d'un domaine personnalisé appartenant au client et correctement authentifié. Gmail, Outlook, Hotmail, Yahoo et tout autre domaine grand public ou tiers sont interdits comme expéditeurs, même lorsqu'ils sont affichés publiquement comme contact du client.
 
 ---
 
@@ -187,11 +188,11 @@ Le Header Oxygen est dédié, utilise le menu WordPress réel et reste sticky su
 
 Le Footer Oxygen est global et utilise le menu WordPress réel pour afficher :
 
-- **Politique de protection des données**, titre strict, page générée/gérée avec Complianz ;
+- **Politique de protection des données**, titre strict, page générée avec Complianz puis éditée dans Oxygen pour y rendre exactement le shortcode `[cmplz-document type="cookie-statement" region="eu"]` ;
 - **Mentions légales** ;
 - **Conditions générales de vente** lorsqu'une page validée existe ou que le client confirme qu'elles s'appliquent.
 
-Ne jamais inventer des CGV ni publier une page légale vide. Utiliser le template `templates/mentions-legales.html.tpl` avec des données confirmées. Configurer Complianz uniquement avec le domaine final et les services réellement présents.
+Ne jamais inventer des CGV ni publier une page légale vide. Utiliser le template `templates/mentions-legales.html.tpl` avec des données confirmées. Configurer Complianz uniquement avec le domaine final et les services réellement présents. La page générée par Complianz est l'unique page **Politique de protection des données** : l'ouvrir ensuite dans Oxygen et intégrer une seule occurrence du shortcode exact dans un élément Oxygen capable de l'exécuter. Ne pas créer de page parallèle, recopier une politique statique ni laisser le shortcode visible comme texte brut.
 
 Le crédit de réalisation Octacom est présent sur tous les sites, même absent de Figma, avec le markup et la variante rouge/blanche définis dans `oxygen6-architecture` selon le contraste du fond.
 
@@ -217,9 +218,13 @@ Préserver ratio, cadrage, dimensions ou espace réservé. Utiliser `contain` po
 - Liens HTTP externes : nouvel onglet avec `rel="noopener noreferrer"` ; liens internes : même onglet ; `tel:` et `mailto:` directs.
 - Utiliser le Form Oxygen ou le composant validé avant une version manuelle.
 - Confirmer destination, expéditeur, consentement, CAPTCHA et domaine final.
+- Séparer l'adresse affichée sur le site de l'identité technique d'envoi. Une adresse personnelle Gmail, Outlook ou équivalente peut être affichée si elle est validée, mais ne devient jamais le `From Email`, le Sender, l'envelope sender ni le destinataire direct configuré dans le formulaire. Le Reply-To saisi par un visiteur peut utiliser son adresse externe, car ce n'est pas l'expéditeur SMTP.
 - Lors de tout test où le formulaire est rempli, saisir `support@octacom.fr` dans le champ email et utiliser uniquement des données manifestement fictives dans tous les autres champs, jamais les coordonnées ou informations du client. Avant chaque envoi de test, configurer temporairement `support@octacom.fr` comme unique adresse de réception et retirer tout destinataire, CC ou BCC client.
-- Identifier clairement chaque soumission avec `TEST OCTACOM - NE PAS TRAITER`. Après les tests, rétablir l'adresse finale validée du client et vérifier la configuration sans lui envoyer de test, sauf demande explicite.
-- Configurer WP Mail SMTP avec les données validées et prouver la réception réelle du test sur `support@octacom.fr` ; un message de succès front ne suffit pas. Ne pas confondre l'adresse de réception temporaire avec l'adresse d'expédition SMTP.
+- Identifier clairement chaque soumission avec `TEST OCTACOM - NE PAS TRAITER`. Après les tests, configurer par défaut `contact@<FINAL_DOMAIN>` comme adresse de réception du formulaire et comme adresse d'expédition `From Email` de WP Mail SMTP. Utiliser une autre adresse seulement si une source projet prioritaire la fournit et la valide explicitement.
+- Ne construire cette adresse qu'avec le domaine public final confirmé, jamais avec le domaine de préproduction. Vérifier que la boîte et l'expédition SMTP existent réellement ; sinon bloquer la livraison et demander les informations manquantes.
+- Pour le dernier test de délivrabilité, garder `support@octacom.fr` comme destinataire unique et utiliser `contact@<FINAL_DOMAIN>` comme `From Email` afin de prouver l'expédition sans envoyer au client. Après réception, configurer aussi le destinataire sur `contact@<FINAL_DOMAIN>` et relire les réglages sans envoyer de test à cette adresse sauf demande explicite. Un message de succès front ne suffit pas.
+- Lorsqu'une source projet indique `redirection vers <adresse>`, appliquer la convention Octacom : préparer WP Mail SMTP avec le fournisseur OVH et utiliser `contact@<FINAL_DOMAIN>` à la fois comme expéditeur et destinataire du formulaire. L'adresse indiquée après `redirection vers` reste uniquement la cible d'une redirection gérée dans la console OVH. Ne jamais la placer comme expéditeur ou destinataire direct dans WordPress.
+- La création ou modification de la redirection dans la console OVH est hors périmètre. La signaler dans le rapport final sans intervenir dans la console. La mention `redirection vers` ne suffit pas à déduire l'offre, la région, le serveur, le port ou le chiffrement : les vérifier dans la documentation OVHcloud officielle correspondant à l'offre réelle. Si `contact@<FINAL_DOMAIN>` n'est pas une vraie boîte SMTP authentifiable, ou si l'offre OVH et les identifiants nécessaires ne sont pas confirmés, bloquer la configuration au lieu de deviner.
 
 ---
 
@@ -265,7 +270,7 @@ Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au mini
 - Figma contrôlé dans le navigateur ;
 - Header sticky et Footer global corrects ;
 - Template Single Article et Template spécial 404 présents, correctement ciblés, éditables et testés ;
-- menu légal, Complianz, crédit Octacom et CGV applicables ;
+- menu légal, Complianz, shortcode `[cmplz-document type="cookie-statement" region="eu"]` rendu depuis Oxygen, crédit Octacom et CGV applicables ;
 - Oxygen éditable après rechargement ;
 - responsive, largeurs intermédiaires et absence d'overflow ;
 - contenu, navigation et actions utilisables sans JavaScript ;
@@ -276,7 +281,8 @@ Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au mini
 - performance des images, LCP, CLS et widgets ;
 - rasters convertis en WebP avant usage et SVG utilisés au maximum pour les formes et illustrations vectorielles ;
 - formulaire, réception SMTP, CAPTCHA et consentement ;
-- tests de formulaire reçus sur `support@octacom.fr` avec données fictives, puis destinataire final validé rétabli avant livraison ;
+- tests de formulaire reçus sur `support@octacom.fr` avec données fictives, puis destinataire et `From Email` rétablis par défaut sur `contact@<FINAL_DOMAIN>` avant livraison ;
+- aucun expéditeur Gmail/Outlook ou domaine tiers ; branche `redirection vers` configurée avec SMTP OVH et redirection console signalée hors périmètre ;
 - sauvegarde et chemin de retour vérifiés.
 
 Le rapport final distingue ce qui est implémenté, réutilisable, dynamique, réellement testé et non vérifié. Pour un développement complet, ajouter le détail temps/tokens/coût par modèle uniquement depuis les journaux accessibles ; ne jamais estimer une métrique absente.

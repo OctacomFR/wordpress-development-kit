@@ -62,7 +62,9 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Lecture exhaustive et bloquante des annotations Figma | `AGENTS.md`; `figma-to-oxygen/SKILL.md`; `figma-to-oxygen/references/annotation-workflow.md`; skills accueil, pages internes et QA |
 | Templates Single Article et 404 obligatoires sur chaque site | `AGENTS.md`; `oxygen6-architecture`; `wordpress-dynamic-content`; `oxygen6-homepage`; `oxygen6-inner-pages`; `wordpress-oxygen-qa` |
 | Conversion obligatoire des rasters en WebP et usage maximal obligatoire du SVG pour les formes/illustrations vectorielles, sauf contrainte technique démontrée | `AGENTS.md`; `figma-to-oxygen`; `oxygen6-frontend-quality`; `wordpress-oxygen-qa` |
-| Tests de formulaire avec `support@octacom.fr` comme unique destinataire sans CC/BCC client et comme email saisi, autres données fictives marquées `TEST OCTACOM - NE PAS TRAITER`, expéditeur SMTP inchangé, puis destinataire final rétabli sans test client | `AGENTS.md`; `wordpress-forms-deliverability`; `wordpress-oxygen-qa` |
+| Tests de formulaire avec `support@octacom.fr` comme unique destinataire sans CC/BCC client et comme email saisi, autres données fictives marquées `TEST OCTACOM - NE PAS TRAITER`, puis destinataire et `From Email` rétablis par défaut sur `contact@<FINAL_DOMAIN>` sans test à l'adresse finale | `AGENTS.md`; `wordpress-forms-deliverability`; `wordpress-oxygen-qa` |
+| Expéditeur obligatoire sur un domaine personnalisé du client, adresses personnelles limitées à l'affichage/Reply-To/redirection, et branche `redirection vers` préparée avec une vraie boîte SMTP OVH et les paramètres de l'offre réelle, sans intervention dans la console OVH | `AGENTS.md`; `octacom-project-start`; `wordpress-forms-deliverability`; `wordpress-oxygen-qa` |
+| Page **Politique de protection des données** générée par Complianz puis rendue directement dans Oxygen avec une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]` | `AGENTS.md`; `wordpress-legal-consent`; `wordpress-oxygen-qa` |
 
 ## Contrôles de non-perte
 
