@@ -155,7 +155,7 @@ function Assert-PathAvailableOrLinked {
     }
 
     if (-not $matches) {
-        throw "Conflit : '$Path' existe déjà mais ne pointe pas vers '$ExpectedTarget'. Aucun fichier ne sera écrasé."
+        throw "Conflit : '$Path' existe deja mais ne pointe pas vers '$ExpectedTarget'. Aucun fichier ne sera ecrase."
     }
 }
 
@@ -185,7 +185,7 @@ function New-SynchronizedFileLink {
         return $true
     }
     catch {
-        throw "Impossible de créer le lien AGENTS.md entre deux volumes. Activez le mode développeur Windows ou choisissez un dossier sur le même volume que le kit. Détail : $($_.Exception.Message)"
+        throw "Impossible de creer le lien AGENTS.md entre deux volumes. Activez le mode developpeur Windows ou choisissez un dossier sur le meme volume que le kit. Detail : $($_.Exception.Message)"
     }
 }
 
@@ -212,7 +212,7 @@ function New-SynchronizedDirectoryLink {
             return $true
         }
         catch {
-            throw "Impossible de créer le lien '$Path' vers '$Target'. Activez le mode développeur Windows ou utilisez un volume NTFS local. Détail : $($_.Exception.Message)"
+            throw "Impossible de creer le lien '$Path' vers '$Target'. Activez le mode developpeur Windows ou utilisez un volume NTFS local. Detail : $($_.Exception.Message)"
         }
     }
 }
@@ -230,18 +230,18 @@ function Ensure-ExactGitRoot {
             return $false
         }
 
-        throw "Le dossier dépend déjà d'une racine Git parente : '$normalizedDetectedRoot'. Choisissez la racine réelle du projet ou un dossier indépendant."
+        throw "Le dossier depend deja d'une racine Git parente : '$normalizedDetectedRoot'. Choisissez la racine reelle du projet ou un dossier independant."
     }
 
     & git.exe init --quiet $Path
     if ($LASTEXITCODE -ne 0) {
-        throw "Échec de l'initialisation Git dans '$Path'."
+        throw "Echec de l'initialisation Git dans '$Path'."
     }
 
     $confirmedProbe = Get-GitRootProbe -Path $Path
     if ($confirmedProbe.ExitCode -ne 0 -or
         (Get-NormalizedPath -Path $confirmedProbe.Root) -ine (Get-NormalizedPath -Path $Path)) {
-        throw "La racine Git détectée ne correspond pas au dossier d'installation '$Path'."
+        throw "La racine Git detectee ne correspond pas au dossier d'installation '$Path'."
     }
 
     return $true
@@ -255,7 +255,7 @@ function Invoke-PythonValidation {
 
     $pythonLauncher = Get-Command py.exe -ErrorAction SilentlyContinue
     if (-not $pythonLauncher) {
-        throw "Python Launcher 'py.exe' est requis pour valider l'installation. Utilisez -SkipValidation uniquement si vous prévoyez une validation manuelle."
+        throw "Python Launcher 'py.exe' est requis pour valider l'installation. Utilisez -SkipValidation uniquement si vous prevoyez une validation manuelle."
     }
 
     $validator = Join-Path $InstalledRoot '.agents\skills\skill-gate\scripts\validate_workflow.py'
@@ -263,18 +263,18 @@ function Invoke-PythonValidation {
 
     & $pythonLauncher.Source -3 $validator --repo $InstalledRoot
     if ($LASTEXITCODE -ne 0) {
-        throw "La validation statique du workflow a échoué."
+        throw "La validation statique du workflow a echoue."
     }
 
     & $pythonLauncher.Source -3 $tests
     if ($LASTEXITCODE -ne 0) {
-        throw "Les tests d'injection du skill-gate ont échoué."
+        throw "Les tests d'injection du skill-gate ont echoue."
     }
 
     $injector = Join-Path $InstalledRoot '.codex\hooks\inject_skill_gate.py'
     $injectedPolicy = '{}' | & $pythonLauncher.Source -3 $injector
     if ($LASTEXITCODE -ne 0 -or ($injectedPolicy -join "`n") -notmatch 'SKILL PREFLIGHT REQUIRED') {
-        throw "L'injecteur skill-gate n'a pas produit la politique attendue depuis le workspace installé."
+        throw "L'injecteur skill-gate n'a pas produit la politique attendue depuis le workspace installe."
     }
 }
 
@@ -305,7 +305,7 @@ foreach ($requiredPath in $installerRequirements) {
 }
 
 if (-not (Get-Command git.exe -ErrorAction SilentlyContinue)) {
-    throw "Git est requis afin que les hooks puissent résoudre la racine du projet."
+    throw "Git est requis afin que les hooks puissent resoudre la racine du projet."
 }
 
 if (-not $SkipValidation -and -not (Get-Command py.exe -ErrorAction SilentlyContinue)) {
@@ -313,7 +313,7 @@ if (-not $SkipValidation -and -not (Get-Command py.exe -ErrorAction SilentlyCont
 }
 
 if ($destinationRoot -ieq $kitRoot) {
-    throw "Le dossier choisi est déjà la racine du kit. Aucune installation n'est nécessaire."
+    throw "Le dossier choisi est deja la racine du kit. Aucune installation n'est necessaire."
 }
 
 $directorySeparator = [System.IO.Path]::DirectorySeparatorChar
@@ -321,7 +321,7 @@ $kitPrefix = $kitRoot.TrimEnd($directorySeparator) + $directorySeparator
 $destinationPrefix = $destinationRoot.TrimEnd($directorySeparator) + $directorySeparator
 if ($destinationRoot.StartsWith($kitPrefix, [System.StringComparison]::OrdinalIgnoreCase) -or
     $kitRoot.StartsWith($destinationPrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
-    throw "Le kit et la destination ne doivent pas être imbriqués l'un dans l'autre. Kit : '$kitRoot'. Destination : '$destinationRoot'."
+    throw "Le kit et la destination ne doivent pas etre imbriques l'un dans l'autre. Kit : '$kitRoot'. Destination : '$destinationRoot'."
 }
 
 if (Test-Path -LiteralPath $destinationRoot -PathType Leaf) {
@@ -336,7 +336,7 @@ $destinationAgentsFile = Join-Path $destinationRoot 'AGENTS.md'
 $destinationSkillsDirectory = Join-Path $destinationRoot '.agents'
 $destinationCodexDirectory = Join-Path $destinationRoot '.codex'
 
-# Vérifier tous les conflits avant la première mutation du projet.
+# Verifier tous les conflits avant la premiere mutation du projet.
 Assert-PathAvailableOrLinked -Path $destinationAgentsFile -ExpectedTarget $sourceAgentsFile -Kind File
 Assert-PathAvailableOrLinked -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory -Kind Directory
 Assert-PathAvailableOrLinked -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory -Kind Directory
@@ -358,13 +358,13 @@ try {
     }
 
     if (-not (Test-SameFileLink -Path $destinationAgentsFile -ExpectedTarget $sourceAgentsFile)) {
-        throw "Le lien AGENTS.md créé ne correspond pas à la source attendue."
+        throw "Le lien AGENTS.md cree ne correspond pas a la source attendue."
     }
     if (-not (Test-SameDirectoryLink -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory)) {
-        throw "Le lien .agents créé ne correspond pas à la source attendue."
+        throw "Le lien .agents cree ne correspond pas a la source attendue."
     }
     if (-not (Test-SameDirectoryLink -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory)) {
-        throw "Le lien .codex créé ne correspond pas à la source attendue."
+        throw "Le lien .codex cree ne correspond pas a la source attendue."
     }
 
     if (-not $SkipValidation) {
@@ -396,18 +396,18 @@ catch {
 $gitRoot = & git.exe -C $destinationRoot rev-parse --show-toplevel
 
 Write-Host ''
-Write-Host 'Installation terminée.'
+Write-Host 'Installation terminee.'
 Write-Host "Racine : $destinationRoot"
 Write-Host "Racine Git : $gitRoot"
-Write-Host "AGENTS.md : synchronisé avec $sourceAgentsFile"
-Write-Host ".agents : synchronisé avec $sourceSkillsDirectory"
-Write-Host ".codex : synchronisé avec $sourceCodexDirectory"
+Write-Host "AGENTS.md : synchronise avec $sourceAgentsFile"
+Write-Host ".agents : synchronise avec $sourceSkillsDirectory"
+Write-Host ".codex : synchronise avec $sourceCodexDirectory"
 if (Test-Path -LiteralPath (Join-Path $destinationRoot 'AGENTS.md.lnk')) {
-    Write-Host 'Note : AGENTS.md.lnk a été conservé. Codex utilise le vrai fichier AGENTS.md créé à côté.'
+    Write-Host 'Note : AGENTS.md.lnk a ete conserve. Codex utilise le vrai fichier AGENTS.md cree a cote.'
 }
 Write-Host ''
-Write-Host 'Étapes manuelles restantes :'
+Write-Host 'Etapes manuelles restantes :'
 Write-Host '1. Fermer toute session Codex ouverte sur ce dossier.'
-Write-Host '2. Rouvrir le dossier comme workspace et le déclarer fiable.'
-Write-Host '3. Exécuter /hooks, relire puis approuver les trois hooks.'
-Write-Host '4. Exécuter /skills et vérifier la présence de skill-gate et des skills Octacom.'
+Write-Host '2. Rouvrir le dossier comme workspace et le declarer fiable.'
+Write-Host '3. Executer /hooks, relire puis approuver les trois hooks.'
+Write-Host '4. Executer /skills et verifier la presence de skill-gate et des skills Octacom.'
