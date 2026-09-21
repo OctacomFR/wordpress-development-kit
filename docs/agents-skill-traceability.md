@@ -69,6 +69,7 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Injection du rappel de préflight à chaque prompt et démarrage de sous-agent, sans fausse promesse de contrôle absolu | `.codex/hooks.json`; `.codex/hooks/inject_skill_gate.py`; `skill-gate/references/enforcement-and-tests.md` |
 | Validation statique du catalogue local, de ses références déclarées, de la configuration Codex et des scripts d'injection | `skill-gate/scripts/validate_workflow.py`; `skill-gate/scripts/test_workflow.py` |
 | Limite assumée : aucun exécuteur strict, permis, `PreToolUse` ou `Stop`; scénarios stricts conservés comme exigences futures, pas comme tests passés | `skill-gate/references/enforcement-and-tests.md`; `README.md` |
+| Installation synchronisée et idempotente du kit dans un workspace choisi, sans écrasement des configurations existantes | `scripts/install-wordpress-development-kit.ps1`; `README.md` |
 
 ## Contrôles de non-perte
 

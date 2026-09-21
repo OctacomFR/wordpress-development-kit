@@ -2,6 +2,27 @@
 
 Kit Octacom pour les projets WordPress et Oxygen 6.x.
 
+## Installer le kit dans un workspace
+
+Exécuter l'installateur depuis PowerShell en lui donnant le dossier choisi :
+
+```powershell
+& 'C:\Users\DEV\Documents\Octacom\wordpress-development-kit\scripts\install-wordpress-development-kit.ps1' `
+    -Destination 'C:\chemin\vers\le\workspace'
+```
+
+L'installateur :
+
+- refuse d'écraser un `AGENTS.md`, `.agents` ou `.codex` existant qui provient d'une autre source ;
+- initialise une racine Git exacte lorsque nécessaire pour la résolution des hooks ;
+- crée un hardlink pour `AGENTS.md` et des junctions pour `.agents` et `.codex` ;
+- conserve automatiquement les futures mises à jour du kit dans les workspaces installés ;
+- valide le catalogue, les références et les hooks, puis exécute les tests d'injection.
+
+Lancer de nouveau la même commande est sans effet destructif. L'installateur reconnaît les liens déjà en place et revalide le workspace.
+
+Après installation, fermer l'ancienne session Codex, ouvrir le workspace, le déclarer fiable, puis utiliser `/hooks` pour approuver les hooks et `/skills` pour contrôler les skills détectés. Ces étapes interactives ne sont pas automatisées.
+
 ## Préflight des skills
 
 Le dépôt configure un rappel automatique du préflight `skill-gate` au démarrage ou à la reprise, après compactage, au début de chaque prompt Codex et de chaque sous-agent. Après ajout ou modification des hooks, ouvrir une nouvelle session dans ce projet de confiance, lancer `/hooks`, relire les commandes de `.codex/hooks.json`, puis les approuver.
