@@ -23,6 +23,8 @@ Installez ces outils au niveau global du poste :
 - [Chat GPT Desktop](https://chatgpt.com/fr-FR/download/) ou [T3 code](https://t3.codes/download), facilement contrôler les agents avec une ui ;
 - la dernière version LTS de [Node.js](https://nodejs.org/en/download), avec `npm` et `npx`, nécessaire pour installer les skills externes et exécuter certains MCP ;
 - la dernière version stable de [Python pour Windows](https://www.python.org/downloads/windows/), installée globalement avec le lanceur `py.exe`, nécessaire aux hooks et aux tests du kit ;
+- la dernière version stable de [FFmpeg](https://ffmpeg.org/download.html), installée globalement et ajoutée au `PATH`, nécessaire au traitement des vidéos et de certains médias ;
+- la dernière version stable d'[ImageMagick pour Windows](https://imagemagick.org/script/download.php#windows), installée globalement avec la commande `magick` disponible dans le `PATH`, nécessaire aux conversions et optimisations d'images ;
 - Google Chrome à jour ;
 - le mode développeur Windows, recommandé pour créer un lien symbolique durable vers `AGENTS.md`. Ouvrez ses réglages avec `start ms-settings:developers`.
 
@@ -36,7 +38,11 @@ npm --version
 npx --version
 python --version
 py --version
+ffmpeg -version
+magick -version
 ```
+
+ImageMagick et Imagick ne désignent pas la même installation. ImageMagick fournit la commande locale `magick`. Imagick est l'extension PHP utilisée côté serveur. Lorsqu'un workflow WordPress en dépend, vérifiez séparément la présence de l'extension Imagick dans la santé du site ou dans la configuration PHP du serveur.
 
 `npx skills` installe les skills. Codex CLI les charge ensuite. La première commande `npx skills` peut télécharger le CLI [`skills`](https://github.com/antfu/skills-cli).
 
