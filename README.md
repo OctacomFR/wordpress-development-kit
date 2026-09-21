@@ -15,7 +15,7 @@ L'installateur :
 
 - refuse d'écraser un `AGENTS.md`, `.agents` ou `.codex` existant qui provient d'une autre source ;
 - initialise une racine Git exacte lorsque nécessaire pour la résolution des hooks ;
-- crée un hardlink pour `AGENTS.md` et des junctions pour `.agents` et `.codex` ;
+- crée un hardlink pour `AGENTS.md` sur le même volume (sinon un lien symbolique) et des junctions pour `.agents` et `.codex` ;
 - conserve automatiquement les futures mises à jour du kit dans les workspaces installés ;
 - valide le catalogue, les références et les hooks, puis exécute les tests d'injection.
 
