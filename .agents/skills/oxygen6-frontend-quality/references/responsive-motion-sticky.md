@@ -1,6 +1,6 @@
 # Responsive, motion et sticky
 
-Référence extraite sans réécriture du snapshot `docs/AGENTS.pre-skills-snapshot.md`.
+Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis mise à jour avec les animations d'apparition obligatoires d'Oxygen 6.
 
 <!-- Source : AGENTS.pre-skills-snapshot.md lignes 677-772 -->
 
@@ -74,6 +74,12 @@ Tout état hover important doit disposer d'un équivalent :
 
 ### 8.4. Motion
 
+Les animations d'apparition sont un critère de livraison obligatoire. Toute page construite ou refondue en comporte sur ses principaux blocs, notamment le hero, les entrées de section et les groupes de contenu lorsque leur animation sert la hiérarchie visuelle. Cette règle s'applique même lorsque la charte, Figma ou les annotations ne prévoient aucune animation. Leur absence bloque la livraison.
+
+Utiliser d'abord l'onglet Animations natif d'Oxygen 6. Il permet de régler le type d'entrée, la durée, le délai, la distance, l'easing et la répétition. Réserver les Interactions aux déclencheurs ou actions qui dépassent une animation d'entrée native.
+
+Lorsque Figma définit le mouvement, reprendre ses paramètres. Dans le cas contraire, définir un système sobre et cohérent avec la direction artistique. Éviter d'animer chaque élément ou d'introduire des flips, zooms et déplacements marqués sans justification visuelle.
+
 Pour les animations non essentielles :
 
 ```css
@@ -82,11 +88,11 @@ Pour les animations non essentielles :
 }
 ```
 
-Utiliser d'abord l'Interactions Engine Oxygen. Le style par défaut de tout élément animé doit être son état final visible. Appliquer l'état initial masqué ou décalé uniquement après l'initialisation réussie du mécanisme d'animation. Ne jamais enregistrer dans Oxygen un contenu essentiel durablement en `opacity: 0`, `visibility: hidden`, `display: none` ou hors écran dans l'attente d'un script.
+Le style par défaut de tout élément animé doit être son état final visible. Appliquer l'état initial masqué ou décalé uniquement après l'initialisation réussie du mécanisme d'animation. Ne jamais enregistrer dans Oxygen un contenu essentiel durablement en `opacity: 0`, `visibility: hidden`, `display: none` ou hors écran dans l'attente d'un script.
 
 Une animation d'apparition ne doit jamais laisser le contenu invisible si JavaScript est désactivé, bloqué, en erreur ou si son observer ne se déclenche pas. Tester le chargement direct, le retour arrière, le mobile, `prefers-reduced-motion` et la page avec JavaScript désactivé.
 
-Ne pas ajouter des animations décoratives qui n'existent pas dans Figma juste pour « faire premium ».
+Avant livraison, vérifier dans le navigateur que les animations d'apparition se déclenchent réellement au chargement et au scroll avec le mouvement normal. Refaire le contrôle avec `prefers-reduced-motion: reduce` et avec JavaScript désactivé. Le contenu doit rester visible dans ces deux derniers cas.
 
 ### 8.5. Sticky ciblé
 

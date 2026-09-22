@@ -63,6 +63,9 @@ Vérifier :
 Avant de déclarer terminé :
 
 - toutes les annotations du périmètre possèdent un statut `vérifiée` et une preuve, ou un blocage utilisateur explicite qui empêche la livraison ;
+- chaque page construite ou refondue possède des animations d'apparition sur ses principaux blocs ;
+- animations d'apparition testées avec le mouvement normal au chargement et au scroll, sur desktop et mobile ;
+- comportement testé avec `prefers-reduced-motion: reduce` : le mouvement est réduit ou désactivé et le contenu reste visible ;
 - page testée avec JavaScript désactivé : tout le contenu, la navigation et les actions essentielles restent clairs et visibles ;
 - animations testées sans JavaScript et en cas d'échec de déclenchement : aucun élément ne reste masqué ;
 - aucune erreur JS console liée aux modifications ;

@@ -16,6 +16,7 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 - [ ] Couleurs conformes.
 - [ ] Espacements contrôlés.
 - [ ] États hover/interactions conformes.
+- [ ] Chaque page construite ou refondue possède des animations d'apparition cohérentes sur ses principaux blocs, même si la charte ou Figma n'en prévoit aucune.
 - [ ] Toutes les annotations du périmètre ont été lues intégralement et reliées à leur node/frame/composant/section.
 - [ ] Chaque annotation applicable et ses effets indirects ont été vérifiés sur le front, aux breakpoints et états concernés.
 - [ ] La matrice d'annotations contient un statut et une preuve pour chaque ligne ; aucune annotation inaccessible, ambiguë ou contradictoire ne reste sans décision utilisateur.
@@ -95,6 +96,8 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 - [ ] Front contrôlé avec navigateur si disponible.
 - [ ] Builder Oxygen contrôlé.
+- [ ] Animations d'apparition déclenchées et contrôlées au chargement et au scroll avec le mouvement normal, sur desktop et mobile.
+- [ ] Avec `prefers-reduced-motion: reduce`, le mouvement est réduit ou désactivé et tout le contenu reste visible.
 - [ ] Site contrôlé avec JavaScript désactivé : contenu, navigation et actions essentielles visibles et utilisables.
 - [ ] Animations défaillantes ou non initialisées ne masquent aucun contenu.
 - [ ] Console sans erreur liée au dev.

@@ -22,6 +22,7 @@ Lire uniquement les références utiles à la tâche ; pour une revue front comp
 - Conserver un ordre DOM logique et éviter les hauteurs fixes sur le texte.
 - Toute information disponible au hover l'est aussi au clavier et au tactile.
 - Le contenu, la navigation et les actions essentielles sont clairs et utilisables sans JavaScript.
+- Toute page construite ou refondue possède des animations d'apparition cohérentes sur ses principaux blocs, même si la charte ou Figma n'en prévoit aucune. Utiliser d'abord l'onglet Animations natif d'Oxygen 6. Réserver les Interactions aux déclencheurs ou actions que cet onglet ne couvre pas.
 - Une animation part de l'état final visible ; elle ne masque l'élément qu'après initialisation réussie. Respecter `prefers-reduced-motion`.
 - L'attribut `alt` est obligatoire sur chaque image : descriptif si informative, vide si décorative, nom pertinent pour un logo informatif.
 - Tout raster maîtrisé affiché sur le site est converti en WebP avant import ou utilisation. Les logos, icônes, pictogrammes, formes et illustrations vectorielles utilisent au maximum un SVG optimisé et assaini.

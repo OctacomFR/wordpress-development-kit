@@ -179,6 +179,7 @@ Utiliser `octacom-parallel-delivery` pour la procédure complète, les barrière
 17. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
 18. **Single Article et 404 toujours présents.** Tout site livré possède un Template Oxygen 6 pour les articles et un Template Oxygen 6 spécial `404 Not Found`, même si la mission initiale porte sur la home ou si aucun article n'est encore publié. Auditer et réutiliser les templates conformes existants ; ne jamais créer de doublon.
 19. **Expéditeur email sur domaine client uniquement.** Le `From Email`, le Sender et l'envelope sender des formulaires utilisent toujours une adresse d'un domaine personnalisé appartenant au client et correctement authentifié. Gmail, Outlook, Hotmail, Yahoo et tout autre domaine grand public ou tiers sont interdits comme expéditeurs, même lorsqu'ils sont affichés publiquement comme contact du client.
+20. **Animations d'apparition obligatoires.** Toute page construite ou refondue possède un système cohérent d'animations d'apparition sur ses principaux blocs. Cette obligation s'applique même lorsque la charte, Figma ou les annotations ne prévoient aucune animation. Leur absence ou leur validation incomplète bloque la livraison. Utiliser d'abord l'onglet Animations natif d'Oxygen 6. Reprendre les paramètres Figma lorsqu'ils existent. Si aucune source visuelle ne fixe le mouvement, définir un système sobre. La réduction ou la désactivation demandée par `prefers-reduced-motion` reste obligatoire et ne constitue pas un échec de ce critère.
 
 ---
 
@@ -296,6 +297,7 @@ Avant de déclarer terminé, utiliser `wordpress-oxygen-qa` et vérifier au mini
 - Oxygen éditable après rechargement ;
 - responsive, largeurs intermédiaires et absence d'overflow ;
 - contenu, navigation et actions utilisables sans JavaScript ;
+- animations d'apparition présentes sur les principaux blocs de chaque page construite ou refondue, puis testées avec mouvement normal, `prefers-reduced-motion` et JavaScript désactivé ;
 - alt, focus, clavier, hover/tactile et reduced motion ;
 - liens, téléphone, email, CTA et permaliens ;
 - contenu dynamique, cas zéro/un/plusieurs ;

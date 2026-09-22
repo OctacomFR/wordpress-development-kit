@@ -90,6 +90,12 @@ Principes retenus : le MCP fournit contexte de design, screenshots, styles/varia
   <https://oxygenbuilder.com/documentation/builder/basics/responsive-design/>
 - Oxygen — Working With Elements / semantic HTML tags
   <https://oxygenbuilder.com/documentation/builder/basics/working-with-elements/>
+- Oxygen — Builder Panels / onglet Animations
+  <https://oxygenbuilder.com/documentation/builder/basics/builder-panels/>
+- Oxygen — Oxygen 6 Is Now Available / animations d'entrée
+  <https://oxygenbuilder.com/oxygen-6-is-now-available/>
+- Oxygen — Animation Not Working / `prefers-reduced-motion`
+  <https://oxygenbuilder.com/documentation/troubleshooting/animation-not-working/>
 
 Ne jamais utiliser la documentation `classic.oxygenbuilder.com` pour décider d'une implémentation Oxygen 6.x, sauf comparaison/migration explicitement demandée.
 

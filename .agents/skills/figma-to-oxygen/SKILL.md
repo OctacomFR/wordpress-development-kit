@@ -39,5 +39,5 @@ Pour une maquette riche, déléguer en parallèle et en lecture seule : inventai
 - Dans l'analyse Figma : instruction explicite de la tâche, annotations, structure/propriétés réelles, rendu visuel, puis interprétation personnelle.
 - Les documents métier priment sur Figma pour le contenu lorsqu'ils sont la source validée.
 - Une annotation fait partie des spécifications. Ne jamais l'écarter parce que le rendu visuel paraît différent.
-- Ne pas ajouter d'effets, sections, CTA, textes ou animations pour « améliorer » la charte.
+- Ne pas ajouter d'effets, sections, CTA ou textes pour « améliorer » la charte. Les animations d'apparition restent obligatoires, même si la charte ou la maquette n'en prévoit aucune. Reprendre celles de Figma ou définir un système sobre si la maquette ne les précise pas.
 - Signaler un contraste manifestement insuffisant et proposer une correction minimale au lieu de modifier silencieusement la charte.

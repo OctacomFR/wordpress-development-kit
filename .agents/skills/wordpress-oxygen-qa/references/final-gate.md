@@ -31,6 +31,8 @@ Est-ce que tous les liens ont une destination réelle ?
 Est-ce que téléphone/email sont cliquables ?
 Est-ce que la correction locale a laissé les autres pages intactes ?
 Est-ce que la page tient à 320 px sans casser ?
+Est-ce que chaque page construite ou refondue possède des animations d'apparition sur ses principaux blocs ?
+Est-ce que ces animations ont été vues au chargement et au scroll avec le mouvement normal, puis contrôlées avec `prefers-reduced-motion: reduce` et JavaScript désactivé ?
 Est-ce que le H1 est unique ?
 Est-ce que Yoast n'est pas doublonné ?
 Est-ce que l'image LCP n'est pas lazy ?

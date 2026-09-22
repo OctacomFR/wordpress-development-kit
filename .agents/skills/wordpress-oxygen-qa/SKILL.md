@@ -36,6 +36,9 @@ Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle
 - vérifier que chaque annotation du périmètre est recensée, implémentée et validée, que ses effets indirects sont contrôlés et qu'aucun blocage ne reste silencieux ;
 - tester au minimum 320, 360, 390, 480, 768, 1024, 1280, 1440 et 1920 px lorsque le site est destiné aux viewports standards, puis une largeur intermédiaire proche de chaque changement de layout ;
 - tester le site avec JavaScript désactivé ;
+- vérifier sur chaque page construite ou refondue que les animations d'apparition des principaux blocs se déclenchent réellement au chargement et au scroll avec le mouvement normal, même si la charte ou Figma n'en prévoit aucune ;
+- bloquer la livraison si ces animations sont absentes ou défaillantes ;
+- refaire ce contrôle avec `prefers-reduced-motion: reduce` et vérifier que le contenu reste visible lorsque le mouvement est réduit ou désactivé ;
 - tester Header sticky, menu, liens, formulaires, CTA, médias, états et absence de boucle ;
 - ouvrir Oxygen, sélectionner les éléments, modifier/annuler une propriété et recharger après mutation externe ;
 - inspecter console, erreurs de ressources, placeholders, liens factices, assets Figma temporaires, alt, Hn, métadonnées et canonical ;
