@@ -86,6 +86,26 @@ class SkillGateInjectionTests(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0)
             self.assertIn("référence absente", result.stderr)
 
+    def test_shared_agent_reference_is_accepted(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            fixture = Path(temp_dir) / "repo"
+            shutil.copytree(REPO / ".agents", fixture / ".agents")
+            shutil.copytree(REPO / ".codex", fixture / ".codex")
+            shutil.copy2(REPO / "AGENTS.md", fixture / "AGENTS.md")
+            skill_file = fixture / ".agents" / "skills" / "skill-gate" / "SKILL.md"
+            skill_file.write_text(
+                skill_file.read_text(encoding="utf-8")
+                + "\n[Procédure média partagée](../../references/media-tooling.md)\n",
+                encoding="utf-8",
+            )
+            result = subprocess.run(
+                [sys.executable, str(VALIDATOR), "--repo", str(fixture)],
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()

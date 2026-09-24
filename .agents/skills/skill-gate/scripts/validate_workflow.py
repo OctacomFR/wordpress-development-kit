@@ -12,7 +12,7 @@ from pathlib import Path
 
 FRONTMATTER = re.compile(r"\A---\s*\n(?P<header>.*?)\n---\s*\n", re.DOTALL)
 FIELD = re.compile(r"^(?P<key>[a-zA-Z0-9_-]+):\s*(?P<value>.*)$")
-REFERENCE = re.compile(r"references/[A-Za-z0-9._/-]+\.md")
+REFERENCE = re.compile(r"(?P<target>(?:\.\./)*references/[A-Za-z0-9._/-]+\.md)")
 EXPECTED_HOOK_EVENTS = {"SessionStart", "UserPromptSubmit", "SubagentStart"}
 
 
@@ -39,13 +39,14 @@ def parse_frontmatter(path: Path) -> dict[str, str]:
 def validate_skill_references(skill_file: Path, repo: Path) -> list[str]:
     errors: list[str] = []
     skill_root = skill_file.parent.resolve()
+    shared_references_root = (repo / ".agents" / "references").resolve()
     label = skill_file.relative_to(repo)
 
     if skill_file.is_symlink():
         return [f"{label}: SKILL.md ne doit pas être un symlink"]
 
     text = skill_file.read_text(encoding="utf-8")
-    for target in sorted(set(REFERENCE.findall(text))):
+    for target in sorted({match.group("target") for match in REFERENCE.finditer(text)}):
         raw_path = skill_file.parent / Path(target)
         try:
             resolved = raw_path.resolve(strict=True)
@@ -53,19 +54,11 @@ def validate_skill_references(skill_file: Path, repo: Path) -> list[str]:
             errors.append(f"{label}: référence absente {target}")
             continue
 
-        try:
-            relative_parts = raw_path.relative_to(skill_file.parent).parts
-        except ValueError:
-            errors.append(f"{label}: référence hors du skill {target}")
-            continue
-
-        cursor = skill_file.parent
-        if any((cursor := cursor / part).is_symlink() for part in relative_parts):
-            errors.append(f"{label}: symlink interdit dans la référence {target}")
-            continue
-
-        if not resolved.is_relative_to(skill_root):
-            errors.append(f"{label}: référence hors du skill {target}")
+        if not (
+            resolved.is_relative_to(skill_root)
+            or resolved.is_relative_to(shared_references_root)
+        ):
+            errors.append(f"{label}: référence hors du skill ou des références partagées {target}")
         elif not resolved.is_file():
             errors.append(f"{label}: référence non fichier {target}")
 
