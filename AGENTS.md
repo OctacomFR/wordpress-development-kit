@@ -98,21 +98,21 @@ Quand ils sont disponibles, invoquer `caveman`, `unslop` et `frontend-design` su
 
 Utiliser les skills spécialisés suivants dès que leur description correspond :
 
-| Besoin | Skill |
-|---|---|
-| Préflight, sélection et chargement des skills | `skill-gate` |
-| Cadrage, ERP, audit et sauvegarde | `octacom-project-start` |
-| Orchestration intensive et sûre des sous-agents | `octacom-parallel-delivery` |
-| Lecture et traduction de Figma | `figma-to-oxygen` |
-| Fondations et objets globaux Oxygen 6 | `oxygen6-architecture` |
-| Page d'accueil | `oxygen6-homepage` |
-| Pages internes | `oxygen6-inner-pages` |
-| Responsive, images, accessibilité, performance et sans-JS | `oxygen6-frontend-quality` |
-| Loops, articles et contenus WordPress | `wordpress-dynamic-content` |
-| SEO et Yoast | `wordpress-seo` |
-| Formulaires, CAPTCHA et WP Mail SMTP | `wordpress-forms-deliverability` |
-| Pages légales et Complianz | `wordpress-legal-consent` |
-| Recette et rapport final | `wordpress-oxygen-qa` |
+| Besoin                                                     | Skill                              |
+| ---------------------------------------------------------- | ---------------------------------- |
+| Préflight, sélection et chargement des skills            | `skill-gate`                     |
+| Cadrage, ERP, audit et sauvegarde                          | `octacom-project-start`          |
+| Orchestration intensive et sûre des sous-agents           | `octacom-parallel-delivery`      |
+| Lecture et traduction de Figma                             | `figma-to-oxygen`                |
+| Fondations et objets globaux Oxygen 6                      | `oxygen6-architecture`           |
+| Page d'accueil                                             | `oxygen6-homepage`               |
+| Pages internes                                             | `oxygen6-inner-pages`            |
+| Responsive, images, accessibilité, performance et sans-JS | `oxygen6-frontend-quality`       |
+| Loops, articles et contenus WordPress                      | `wordpress-dynamic-content`      |
+| SEO et Yoast                                               | `wordpress-seo`                  |
+| Formulaires, CAPTCHA et WP Mail SMTP                       | `wordpress-forms-deliverability` |
+| Pages légales et Complianz                                | `wordpress-legal-consent`        |
+| Recette et rapport final                                   | `wordpress-oxygen-qa`            |
 
 Combiner le minimum de skills métier qui couvre réellement la tâche, en plus de `skill-gate`. Une construction de site complète utilise normalement le démarrage, l'orchestration parallèle, Figma, l'architecture, le skill accueil ou pages internes, les spécialités applicables, puis la QA.
 
