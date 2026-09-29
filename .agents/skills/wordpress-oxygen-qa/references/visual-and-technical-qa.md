@@ -13,8 +13,8 @@ Lorsque l'environnement fournit un navigateur ou outil de preview, il doit être
 Pour chaque section :
 
 1. ouvrir la page front ;
-2. régler le viewport sur la largeur Figma de référence ;
-3. comparer à la capture Figma ;
+2. régler le viewport sur la largeur exacte de la frame Figma desktop, puis sur 1920 px ;
+3. comparer le front à la capture Figma correspondante et au relevé des propriétés des nodes ; si Figma n'a pas de référence à 1920 px, contrôler ce viewport sans inventer une comparaison pixel à pixel ;
 4. croiser la section avec toutes les lignes de la matrice d'annotations qui concernent le node, ses parents, ses variantes et ses autres occurrences ;
 5. contrôler :
    - dimensions globales ;
@@ -31,10 +31,11 @@ Pour chaque section :
    - décorations ;
    - états hover ;
 6. vérifier ordre, visibilité, responsive, sticky, interactions, destinations, Components et effets indirects demandés par les annotations ;
-7. corriger ;
-8. recharger et comparer à nouveau, puis joindre la preuve à la matrice.
+7. consigner les écarts précis par section et corriger ;
+8. recharger et comparer à nouveau jusqu'à correspondance visuelle vérifiée, puis joindre les captures et les éventuels écarts non résolus à la matrice.
 
 Ne pas tout juger « à l'œil » depuis le code.
+Pour la page d'accueil, achever ce contrôle desktop avant de valider les réglages responsive.
 
 ### 18.2. Responsive QA
 

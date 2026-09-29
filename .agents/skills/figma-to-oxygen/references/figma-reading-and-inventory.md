@@ -32,13 +32,17 @@ Si le MCP utilisé n'expose pas les annotations requises ou si leur exhaustivit�
 
 ### Phase C — Inventaire de design
 
-Avant d'implémenter, établir mentalement ou dans une note temporaire :
+Avant d'implémenter, consigner un relevé vérifiable de la frame desktop entière, section par section. Lire les dimensions et propriétés des nodes Figma, leurs contraintes et leur Auto Layout lorsqu'ils existent. Pour chaque bloc visible, noter sa position et sa taille dans la frame, les alignements, les marges, paddings et gaps, les dimensions et retours à la ligne du texte, les images et leur cadrage, les découpes, masques et superpositions. Inclure le Header et le Footer visibles. Une capture seule ne remplace pas les propriétés mesurables ; signaler toute mesure requise inaccessible au lieu de l'estimer.
+
+Noter la largeur exacte de la frame et la source de chaque mesure. La comparaison se fait à cette largeur et à 1920 px. Si la frame n'est pas à 1920 px et qu'aucune référence Figma n'existe à cette largeur, distinguer le contrôle du rendu à 1920 px de la comparaison fidèle à la frame native. Ne pas attribuer à Figma une géométrie à 1920 px qu'il ne spécifie pas.
+
+Compléter ce relevé avec l'inventaire suivant :
 
 ```text
 Typography
 - polices
 - poids réellement utilisés
-- tailles / line-height
+- tailles / line-height / letter-spacing / largeur des blocs et retours à la ligne
 
 Colors
 - fonds
@@ -47,14 +51,16 @@ Colors
 - gradients
 
 Geometry
-- max-width
+- largeur et hauteur des frames, sections, conteneurs et éléments
+- positions et alignements dans la frame
+- max-width et contraintes de redimensionnement
 - rayons
 - bordures
 - ombres
 
 Spacing
-- padding sections
-- gaps
+- marges et paddings des sections et éléments
+- gaps horizontaux et verticaux
 - rythme vertical
 
 Components
@@ -75,5 +81,7 @@ Interactions
 - slider/carrousel
 - accordéons
 ```
+
+Mesurer le résultat, puis reconstruire les rapports de placement avec les contrôles Oxygen adaptés. Les coordonnées Figma servent à vérifier le rendu desktop ; elles ne deviennent pas automatiquement des `left`, `top`, largeurs ou hauteurs fixes dans le CSS.
 
 S'il n'y a pas de variables Figma, ne pas considérer chaque valeur isolée comme un token. Regrouper seulement les valeurs réellement répétées.

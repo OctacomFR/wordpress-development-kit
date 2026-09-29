@@ -44,8 +44,9 @@ Conserver dans la home les compositions uniques, décorations propres au hero et
 5. Components dont la répétition est confirmée.
 6. Contenus dynamiques.
 7. Interactions et états.
-8. Responsive et rendu sans JavaScript.
-9. SEO, builder et QA visuelle/fonctionnelle.
+8. Comparaison de chaque section desktop au Figma à la largeur de la frame ; contrôler aussi 1920 px et comparer directement si une frame Figma existe à cette largeur. Corriger dimensions, alignements, typographie, cadrages, découpes et superpositions jusqu'à correspondance visuelle vérifiée.
+9. Après validation du desktop, responsive et rendu sans JavaScript.
+10. SEO, builder et QA visuelle/fonctionnelle.
 
 Après chaque gros bloc, sauvegarder, ouvrir le front et vérifier avant de poursuivre.
 
@@ -55,4 +56,4 @@ Pendant que le propriétaire unique écrit, utiliser intensivement des spéciali
 
 ## Critère de stabilité
 
-La barrière `HOME_STABLE` est franchie lorsque toutes les annotations du périmètre et leurs effets indirects sont appliqués et vérifiés, la conformité Figma et les contenus sont contrôlés, les patterns locaux et globaux sont séparés, Header/Footer fonctionnent, le responsive et le sans-JS sont contrôlés, le builder reste éditable et les fondations peuvent être consommées par des pages internes sans refonte immédiate.
+La barrière `HOME_STABLE` est franchie lorsque toutes les annotations du périmètre et leurs effets indirects sont appliqués et vérifiés, le relevé desktop couvre la frame entière, la comparaison section par section est vérifiée à la largeur de référence, le rendu à 1920 px est contrôlé, les contenus sont contrôlés, les patterns locaux et globaux sont séparés, Header/Footer fonctionnent, le responsive et le sans-JS sont contrôlés, le builder reste éditable et les fondations peuvent être consommées par des pages internes sans refonte immédiate. Un écart visuel significatif non résolu bloque cette barrière ; consigner tout écart restant au lieu d'affirmer une reproduction à l'identique.
