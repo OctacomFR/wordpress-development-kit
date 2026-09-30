@@ -1,7 +1,14 @@
 project_doc_max_bytes = 32768
 
+sandbox_mode = "workspace-write"
+web_search = "live"
+model_verbosity = "high"
+model_reasoning_summary = "detailed"
 [features]
 hooks = true
 
 [skills]
 max_context_tokens = 10000
+
+[sandbox_workspace_write]
+network_access = true
