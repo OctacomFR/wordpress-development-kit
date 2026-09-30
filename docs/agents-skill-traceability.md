@@ -66,9 +66,9 @@ Les séparateurs Markdown qui occupaient les lignes intermédiaires ne contenaie
 | Expéditeur obligatoire sur un domaine personnalisé du client, adresses personnelles limitées à l'affichage/Reply-To/redirection, et branche `redirection vers` préparée avec une vraie boîte SMTP OVH et les paramètres de l'offre réelle, sans intervention dans la console OVH | `AGENTS.md`; `octacom-project-start`; `wordpress-forms-deliverability`; `wordpress-oxygen-qa` |
 | Page **Politique de protection des données** générée par Complianz puis rendue directement dans Oxygen avec une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]` | `AGENTS.md`; `wordpress-legal-consent`; `wordpress-oxygen-qa` |
 | Préflight obligatoire des skills par unité d'exécution, réévaluation lors d'un changement de périmètre et préflight indépendant de chaque sous-agent | `AGENTS.md`; `skill-gate/SKILL.md`; `octacom-parallel-delivery/SKILL.md` |
-| Injection du rappel de préflight à chaque prompt et démarrage de sous-agent, sans fausse promesse de contrôle absolu | `.codex/hooks.json`; `.codex/hooks/inject_skill_gate.py`; `skill-gate/references/enforcement-and-tests.md` |
+| Rappel de préflight et relance bornée d'une demande d'action sans outil local observé, sans promesse de contrôle absolu | `.codex/hooks.json`; `.codex/hooks/inject_skill_gate.py`; `.codex/hooks/tool_use_gate.py`; `skill-gate/references/enforcement-and-tests.md` |
 | Validation statique du catalogue local, de ses références déclarées, de la configuration Codex et des scripts d'injection | `skill-gate/scripts/validate_workflow.py`; `skill-gate/scripts/test_workflow.py` |
-| Limite assumée : aucun exécuteur strict, permis, `PreToolUse` ou `Stop`; scénarios stricts conservés comme exigences futures, pas comme tests passés | `skill-gate/references/enforcement-and-tests.md`; `README.md` |
+| Limite assumée : aucun exécuteur strict, permis ou `PreToolUse` ; le contrôle `Stop` est borné et les scénarios stricts restent des exigences futures | `skill-gate/references/enforcement-and-tests.md`; `README.md` |
 | Installation synchronisée et idempotente du kit dans un workspace choisi, sans écrasement des configurations existantes | `scripts/install-wordpress-development-kit.ps1`; `README.md` |
 
 ## Contrôles de non-perte

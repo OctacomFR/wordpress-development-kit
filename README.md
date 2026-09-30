@@ -22,7 +22,7 @@ Installez ces outils au niveau global du poste :
 - [Codex CLI](https://learn.chatgpt.com/docs/codex/cli?translationFallback=fr-FR), nécessaire pour lancer l'agent dans le projet ;
 - [Chat GPT Desktop](https://chatgpt.com/fr-FR/download/) ou [T3 code](https://t3.codes/download), facilement contrôler les agents avec une ui ;
 - la dernière version LTS de [Node.js](https://nodejs.org/en/download), avec `npm` et `npx`, nécessaire pour installer les skills externes et exécuter certains MCP ;
-- la dernière version stable de [Python pour Windows](https://www.python.org/downloads/windows/), installée globalement avec le lanceur `py.exe`, nécessaire aux hooks et aux tests du kit ;
+- [Python pour Windows](https://www.python.org/downloads/windows/) 3.11 ou plus récent, accessible par `python.exe`, nécessaire aux hooks et aux tests du kit ;
 - la dernière version stable de [FFmpeg](https://ffmpeg.org/download.html), installée globalement et ajoutée au `PATH`, nécessaire au traitement des vidéos et de certains médias ;
 - la dernière version stable d'[ImageMagick pour Windows](https://imagemagick.org/script/download.php#windows), installée globalement avec la commande `magick` disponible dans le `PATH`, nécessaire aux conversions et optimisations d'images ;
 - Google Chrome à jour ;
@@ -147,7 +147,7 @@ Après l'installation :
 1. Fermez toute session Codex déjà ouverte sur ce dossier.
 2. Ouvrez le dossier de développement, pas le clone du kit.
 3. Déclarez ce workspace fiable.
-4. Exécutez `/hooks`, relisez les trois hooks et approuvez-les.
+4. Exécutez `/hooks`, relisez les cinq événements de hooks et approuvez-les.
 5. Exécutez `/skills` et vérifiez `skill-gate` ainsi que les skills Octacom.
 6. Exécutez `codex mcp list` et vérifiez uniquement les MCP nécessaires au projet.
 
@@ -163,11 +163,11 @@ Installe le WordPress development kit Octacom dans mon workspace.
 Clone ou source du kit : <KIT_ROOT>
 Workspace de développement séparé : <WORKSPACE_ROOT>
 
-Lis d'abord le README du kit et exécute le préflight skill-gate. Vérifie Git, Codex CLI, Node.js LTS, npm/npx, Python et py.exe. Ne devine aucun chemin et ne remplace aucun AGENTS.md, .agents ou .codex existant qui ne vient pas de ce kit.
+Lis d'abord le README du kit et exécute le préflight skill-gate. Vérifie Git, Codex CLI, Node.js LTS, npm/npx et Python 3.11+ accessible par python.exe. Ne devine aucun chemin et ne remplace aucun AGENTS.md, .agents ou .codex existant qui ne vient pas de ce kit.
 
 Si le kit n'est pas encore cloné, clone https://github.com/OctacomFR/wordpress-development-kit.git dans <KIT_ROOT>. Utilise ensuite scripts/install-wordpress-development-kit.ps1 avec -Destination <WORKSPACE_ROOT>. Préfère le lien symbolique pour AGENTS.md. Si Windows refuse sa création, arrête-toi et demande-moi soit d'activer le mode développeur, soit d'autoriser explicitement -AllowHardLinkFallback.
 
-Après l'installation, valide tous les skills déclarés, les tests du skill-gate, les trois hooks et la racine Git exacte. Ne configure aucun secret et ne modifie aucun projet ERP. Indique-moi ensuite les étapes humaines restantes : rouvrir le workspace, le déclarer fiable, approuver /hooks et vérifier /skills.
+Après l'installation, valide tous les skills déclarés, les tests du skill-gate, les cinq événements de hooks et la racine Git exacte. Ne configure aucun secret et ne modifie aucun projet ERP. Indique-moi ensuite les étapes humaines restantes : rouvrir le workspace, le déclarer fiable, approuver /hooks et vérifier /skills.
 ```
 
 Pour créer ensuite la connexion WordPress du site, fournissez séparément à l'agent l'URL exacte du site, le nom attendu du connecteur et la méthode d'authentification autorisée. Fournissez aussi l'URL Figma node-specific, les identifiants entreprise et projet Octacom et le domaine public final. Une information requise manquante bloque la configuration qui en dépend.
@@ -210,22 +210,22 @@ npx skills update --global --yes
 
 ## Préflight des skills
 
-Le dépôt configure un rappel automatique du préflight `skill-gate` au démarrage ou à la reprise, après compactage, au début de chaque prompt Codex et de chaque sous-agent. Après ajout ou modification des hooks, ouvrir une nouvelle session dans ce projet de confiance, lancer `/hooks`, relire les commandes de `.codex/hooks.json`, puis les approuver.
+Le dépôt rappelle `skill-gate` au démarrage, après compactage, à chaque prompt et pour chaque sous-agent. Un contrôle de fin relance une fois les demandes d'action reconnues si aucun appel d'outil local n'a été observé. Après ajout ou modification des hooks, ouvrir une nouvelle session dans ce projet de confiance, lancer `/hooks`, relire les commandes de `.codex/hooks.json`, puis les approuver.
 
 Valider le workflow après toute modification des skills, de `AGENTS.md` ou des hooks :
 
 ```powershell
-py -3 .agents/skills/skill-gate/scripts/validate_workflow.py
-py -3 .agents/skills/skill-gate/scripts/test_workflow.py
+python .agents/skills/skill-gate/scripts/validate_workflow.py
+python .agents/skills/skill-gate/scripts/test_workflow.py
 ```
 
-Ces commandes valident statiquement le catalogue local, ses références déclarées, la configuration et le texte injecté. Elles ne testent pas le runtime Codex ni le blocage d'une action.
+Ces commandes valident le catalogue local, la configuration et le texte injecté, puis simulent les événements du contrôle d'usage des outils. Elles ne prouvent pas son fonctionnement dans Codex.
 
 Recette manuelle après activation :
 
-1. Contrôler dans `/hooks` que les trois événements du dépôt sont approuvés et actifs.
+1. Contrôler dans `/hooks` que `SessionStart`, `UserPromptSubmit`, `SubagentStart`, `PostToolUse` et `Stop` sont approuvés et actifs.
 2. Envoyer une tâche simple et vérifier que le préflight est injecté avant le premier outil.
 3. Lancer un sous-agent en lecture seule et vérifier que son retour indique `skill-gate` et ses skills métier.
 4. Modifier temporairement le hook sur une branche de test et confirmer que Codex exige une nouvelle approbation ; annuler ensuite cette modification.
 
-Les hooks injectent des instructions sans bloquer les actions. Aucun contrôle `PreToolUse`, `Stop`, permis single-use ou exécuteur strict n'est fourni ici. Ils ne remplacent ni les permissions, ni les blocages d'information, ni le propriétaire unique des objets WordPress/Oxygen partagés.
+Le contrôle `Stop` ne vérifie que l'absence d'appel d'outil local sur une demande d'action reconnue. Il ne prouve ni le bon choix de l'outil, ni la lecture d'un skill, et ne couvre pas tous les outils hébergés ou spécialisés. Aucun permis single-use ou exécuteur strict n'est fourni ; les permissions, les blocages d'information et le propriétaire unique restent requis.

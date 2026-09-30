@@ -8,9 +8,9 @@ Lire cette référence avant de modifier les hooks, de créer un mécanisme de p
 2. **Injection de contexte** : `UserPromptSubmit` et `SubagentStart` rappellent automatiquement la règle. Cela améliore le routage, sans prouver son application.
 3. **Exécuteur strict** : un orchestrateur externe contrôle chaque effet, l'action exacte, les permissions et la consommation atomique d'une autorisation. Ce niveau n'est pas implémenté dans ce dépôt.
 
-**État actuel du kit : niveaux 1 et 2 uniquement.** Les scripts fournis valident la configuration statique et le texte d'injection. Ils ne bloquent aucun outil, ne contrôlent pas la réponse finale et ne démontrent ni permis, ni hash d'action, ni expiration, ni single-use, ni concurrence. Tous les scénarios de la section « Tests avant activation d'un mode strict » sont des exigences pour un futur exécuteur, pas des tests actuellement réussis.
+**État actuel du kit : niveaux 1 et 2, plus un contrôle de fin borné.** `tool_use_gate.py` marque les demandes d'action reconnues par une liste de verbes, observe les appels d'outils locaux via `PostToolUse`, puis utilise `Stop` pour relancer une fois un tour sans appel observé. Il conserve uniquement deux marqueurs temporaires par session et tour, jamais le prompt ni les arguments. Une question explicative est dispensée. Ce contrôle ne prouve pas qu'un outil pertinent a été choisi, qu'un skill a été lu, ni que le résultat a été vérifié. Le format du transcript n'est pas utilisé. Les tests simulent les événements ; le fonctionnement dans Codex exige encore l'approbation et l'activation des hooks dans `/hooks`.
 
-Les hooks `PreToolUse` couvrent de nombreux outils locaux, mais pas tous les chemins possibles. Les outils hébergés et certains outils spécialisés peuvent les contourner. `write_stdin` sur une session existante ne relance pas le hook de l'appel initial. Traiter les hooks comme des garde-fous, pas comme une frontière universelle.
+Les hooks d'outils couvrent de nombreux outils locaux, mais pas tous les chemins possibles. Les outils hébergés et certains outils spécialisés peuvent les contourner. Un faux positif ou un appel d'outil non couvert peut provoquer une relance inutile ; `stop_hook_active` empêche la boucle. Traiter ce contrôle comme un garde-fou, pas comme une frontière universelle.
 
 ## Pourquoi aucun permis local global n'est utilisé
 

@@ -13,7 +13,9 @@ from pathlib import Path
 FRONTMATTER = re.compile(r"\A---\s*\n(?P<header>.*?)\n---\s*\n", re.DOTALL)
 FIELD = re.compile(r"^(?P<key>[a-zA-Z0-9_-]+):\s*(?P<value>.*)$")
 REFERENCE = re.compile(r"(?P<target>(?:\.\./)*references/[A-Za-z0-9._/-]+\.md)")
-EXPECTED_HOOK_EVENTS = {"SessionStart", "UserPromptSubmit", "SubagentStart"}
+INJECTION_EVENTS = {"SessionStart", "UserPromptSubmit", "SubagentStart"}
+TOOL_GATE_EVENTS = {"UserPromptSubmit", "PostToolUse", "Stop"}
+EXPECTED_HOOK_EVENTS = INJECTION_EVENTS | TOOL_GATE_EVENTS
 
 
 def repository_root() -> Path:
@@ -110,6 +112,7 @@ def validate(repo: Path) -> list[str]:
     config_file = repo / ".codex" / "config.toml"
     hooks_file = repo / ".codex" / "hooks.json"
     injector_file = repo / ".codex" / "hooks" / "inject_skill_gate.py"
+    tool_gate_file = repo / ".codex" / "hooks" / "tool_use_gate.py"
     manifest_file = skills_root / "skill-gate" / "agents" / "openai.yaml"
 
     try:
@@ -162,15 +165,18 @@ def validate(repo: Path) -> list[str]:
             for handler in group.get("hooks", [])
             if isinstance(handler, dict)
         ]
-        if not any("inject_skill_gate.py" in str(item.get("command", "")) for item in handlers):
-            errors.append(f"hook {event}: inject_skill_gate.py non appelé")
-        if not any(
-            "inject_skill_gate.py" in str(item.get("commandWindows", ""))
-            for item in handlers
-        ):
-            errors.append(f"hook {event}: commande Windows absente")
+        required_scripts = []
+        if event in INJECTION_EVENTS:
+            required_scripts.append("inject_skill_gate.py")
+        if event in TOOL_GATE_EVENTS:
+            required_scripts.append("tool_use_gate.py")
+        for script in required_scripts:
+            if not any(script in str(item.get("command", "")) for item in handlers):
+                errors.append(f"hook {event}: {script} non appelé")
+            if not any(script in str(item.get("commandWindows", "")) for item in handlers):
+                errors.append(f"hook {event}: commande Windows pour {script} absente")
 
-    for required in (injector_file, manifest_file):
+    for required in (injector_file, tool_gate_file, manifest_file):
         if not required.is_file():
             errors.append(f"fichier requis absent: {required.relative_to(repo)}")
 

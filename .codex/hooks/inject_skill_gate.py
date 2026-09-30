@@ -5,9 +5,13 @@ from __future__ import annotations
 import sys
 
 
-POLICY = """SKILL PREFLIGHT REQUIRED
-Before the next observable execution unit, use the available `skill-gate` skill. Select the minimum applicable domain skills from the real catalog, read every selected SKILL.md and its mandatory references, then verify scope, target, permissions, ownership, blockers, rollback needs, and expected evidence. If no domain skill applies, keep `skill-gate` alone. Re-run the preflight when objective, target, action class, permissions, owner, or applicable skills change. A subagent must perform its own preflight; a parent's suggested skills do not grant permission. Skill selection never expands user authorization. Missing required information blocks dependent writes. Hooks inject context only and are not a complete security boundary.
-"""
+POLICY = (
+    "SKILL PREFLIGHT REQUIRED: read skill-gate and only the applicable skills and "
+    "mandatory references before this work unit. Confirm scope, permissions, blockers "
+    "and evidence; recheck when the unit changes. Use Codex/MCP tools when the task "
+    "needs real state. Missing required information blocks dependent writes. "
+    "A subagent performs its own preflight. Hooks are reminders, not proof.\n"
+)
 
 
 def main() -> int:

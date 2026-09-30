@@ -262,9 +262,9 @@ function Invoke-PythonValidation {
         [string]$InstalledRoot
     )
 
-    $pythonLauncher = Get-Command py.exe -ErrorAction SilentlyContinue
-    if (-not $pythonLauncher) {
-        throw "Python Launcher 'py.exe' est requis pour valider l'installation. Utilisez -SkipValidation uniquement si vous prevoyez une validation manuelle."
+    $pythonExecutable = Get-Command python.exe -ErrorAction SilentlyContinue
+    if (-not $pythonExecutable) {
+        throw "Python 'python.exe' est requis pour valider l'installation et executer les hooks."
     }
 
     $validator = Join-Path $InstalledRoot '.agents\skills\skill-gate\scripts\validate_workflow.py'
@@ -274,7 +274,7 @@ function Invoke-PythonValidation {
     try {
         $env:PYTHONIOENCODING = 'utf-8'
 
-        & $pythonLauncher.Source -3 $validator --repo $InstalledRoot
+        & $pythonExecutable.Source $validator --repo $InstalledRoot
         if ($LASTEXITCODE -ne 0) {
             throw "La validation statique du workflow a echoue."
         }
@@ -288,13 +288,13 @@ function Invoke-PythonValidation {
         }
     }
 
-    & $pythonLauncher.Source -3 $tests
+    & $pythonExecutable.Source $tests
     if ($LASTEXITCODE -ne 0) {
         throw "Les tests d'injection du skill-gate ont echoue."
     }
 
     $injector = Join-Path $InstalledRoot '.codex\hooks\inject_skill_gate.py'
-    $injectedPolicy = '{}' | & $pythonLauncher.Source -3 $injector
+    $injectedPolicy = '{}' | & $pythonExecutable.Source $injector
     if ($LASTEXITCODE -ne 0 -or ($injectedPolicy -join "`n") -notmatch 'SKILL PREFLIGHT REQUIRED') {
         throw "L'injecteur skill-gate n'a pas produit la politique attendue depuis le workspace installe."
     }
@@ -317,7 +317,8 @@ $installerRequirements = @(
     (Join-Path $sourceCodexDirectory 'hooks.json'),
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\SKILL.md'),
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\validate_workflow.py'),
-    (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\test_workflow.py')
+    (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\test_workflow.py'),
+    (Join-Path $sourceCodexDirectory 'hooks\tool_use_gate.py')
 )
 
 foreach ($requiredPath in $installerRequirements) {
@@ -330,8 +331,8 @@ if (-not (Get-Command git.exe -ErrorAction SilentlyContinue)) {
     throw "Git est requis afin que les hooks puissent resoudre la racine du projet."
 }
 
-if (-not $SkipValidation -and -not (Get-Command py.exe -ErrorAction SilentlyContinue)) {
-    throw "Python Launcher 'py.exe' est requis pour la validation. Installez Python ou utilisez -SkipValidation en assumant la recette manuelle."
+if (-not (Get-Command python.exe -ErrorAction SilentlyContinue)) {
+    throw "Python 'python.exe' est requis pour les hooks et la validation."
 }
 
 if ($destinationRoot -ieq $kitRoot) {
@@ -483,5 +484,5 @@ Write-Host ''
 Write-Host 'Etapes manuelles restantes :'
 Write-Host '1. Fermer toute session Codex ouverte sur ce dossier.'
 Write-Host '2. Rouvrir le dossier comme workspace et le declarer fiable.'
-Write-Host '3. Executer /hooks, relire puis approuver les trois hooks.'
+Write-Host '3. Executer /hooks, relire puis approuver les cinq evenements de hooks.'
 Write-Host '4. Executer /skills et verifier la presence de skill-gate et des skills Octacom.'
