@@ -1,5 +1,5 @@
 {
-  "description": "Rappelle le préflight skill-gate au démarrage, à chaque tour utilisateur et à chaque sous-agent.",
+  "description": "Rappelle le préflight skill-gate et vérifie des préconditions observables avant les mutations Oxygen reconnues.",
   "hooks": {
     "SessionStart": [
       {
@@ -50,6 +50,19 @@
         ]
       }
     ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*oxygen_(change_|create_|delete_|edit_|html_to_page$|import_|insert_|mark_|set_)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/oxygen_site_gate.py\"",
+            "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/oxygen_site_gate.py')\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": ".*",
@@ -58,6 +71,17 @@
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/tool_use_gate.py\"",
             "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*oxygen_site_info$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/.codex/hooks/oxygen_site_gate.py\"",
+            "commandWindows": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/oxygen_site_gate.py')\"",
             "timeout": 10
           }
         ]

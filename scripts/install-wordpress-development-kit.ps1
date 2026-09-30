@@ -318,7 +318,8 @@ $installerRequirements = @(
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\SKILL.md'),
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\validate_workflow.py'),
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\test_workflow.py'),
-    (Join-Path $sourceCodexDirectory 'hooks\tool_use_gate.py')
+    (Join-Path $sourceCodexDirectory 'hooks\tool_use_gate.py'),
+    (Join-Path $sourceCodexDirectory 'hooks\oxygen_site_gate.py')
 )
 
 foreach ($requiredPath in $installerRequirements) {
@@ -484,5 +485,5 @@ Write-Host ''
 Write-Host 'Etapes manuelles restantes :'
 Write-Host '1. Fermer toute session Codex ouverte sur ce dossier.'
 Write-Host '2. Rouvrir le dossier comme workspace et le declarer fiable.'
-Write-Host '3. Executer /hooks, relire puis approuver les cinq evenements de hooks.'
+Write-Host '3. Executer /hooks, relire puis approuver les six evenements de hooks.'
 Write-Host '4. Executer /skills et verifier la presence de skill-gate et des skills Octacom.'

@@ -96,6 +96,8 @@ Pour toute demande qui exige l'état réel d'un dépôt, d'un site ou d'une sour
 
 Les hooks de `.codex/hooks.json` rappellent le préflight. Sur les demandes d'action reconnues, `UserPromptSubmit`, `PostToolUse` et `Stop` relancent une fois un tour terminé sans appel d'outil local observé. Ce contrôle ne prouve ni le choix du bon outil ni l'application d'un skill ; les outils hébergés et certains chemins spécialisés échappent aux hooks. Relire et approuver ces hooks avec `/hooks` dans un projet de confiance. Aucun exécuteur strict ni permis d'action n'est fourni.
 
+Pour les mutations Oxygen reconnues, `PreToolUse` exige d'abord une réponse réussie de `oxygen_site_info` sur le même connecteur MCP pendant la session. L'agent doit encore comparer le site et la version retournés aux paramètres du projet ; le hook ne peut pas établir cette concordance.
+
 Quand ils sont disponibles, invoquer `caveman`, `unslop` et `frontend-design` sur chaque tour de conception, code ou correction visuelle. Ne jamais prétendre avoir utilisé un skill indisponible.
 
 Utiliser les skills spécialisés suivants dès que leur description correspond :

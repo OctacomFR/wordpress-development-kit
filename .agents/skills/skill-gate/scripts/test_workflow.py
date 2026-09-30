@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import importlib.util
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,10 +18,15 @@ REPO = Path(__file__).resolve().parents[4]
 INJECTOR = REPO / ".codex" / "hooks" / "inject_skill_gate.py"
 VALIDATOR = Path(__file__).with_name("validate_workflow.py")
 TOOL_GATE = REPO / ".codex" / "hooks" / "tool_use_gate.py"
+OXYGEN_GATE = REPO / ".codex" / "hooks" / "oxygen_site_gate.py"
 
 spec = importlib.util.spec_from_file_location("tool_use_gate", TOOL_GATE)
 tool_gate = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(tool_gate)
+
+oxygen_spec = importlib.util.spec_from_file_location("oxygen_site_gate", OXYGEN_GATE)
+oxygen_gate = importlib.util.module_from_spec(oxygen_spec)
+oxygen_spec.loader.exec_module(oxygen_gate)
 
 
 class SkillGateInjectionTests(unittest.TestCase):
@@ -172,6 +178,79 @@ class ToolUseGateTests(unittest.TestCase):
             self.assertEqual(json.loads(result.stdout), {})
             state_root = Path(temp_dir) / "octacom-codex-tool-gate"
             self.assertEqual(len(list(state_root.glob("*.required"))), 1)
+
+
+class OxygenSiteGateTests(unittest.TestCase):
+    def event(self, kind: str, tool: str, **extra: object) -> dict:
+        return {
+            "session_id": "session-1",
+            "cwd": str(REPO),
+            "hook_event_name": kind,
+            "tool_name": tool,
+            **extra,
+        }
+
+    def test_site_info_precedes_mutation_on_same_connector(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            edit = self.event("PreToolUse", "mcp__codex_apps__site_a_oxygen_edit_post")
+            self.assertEqual(
+                oxygen_gate.handle(edit, root)["hookSpecificOutput"]["permissionDecision"],
+                "deny",
+            )
+            info = self.event(
+                "PostToolUse",
+                "mcp__codex_apps__site_a_oxygen_site_info",
+                tool_response={"content": [{"type": "text", "text": "site info"}]},
+            )
+            self.assertEqual(oxygen_gate.handle(info, root), {})
+            self.assertEqual(oxygen_gate.handle(edit, root), {})
+
+    def test_other_connector_does_not_satisfy_site_check(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            info = self.event(
+                "PostToolUse",
+                "mcp__site_a__oxygen_site_info",
+                tool_response={"content": [{"type": "text", "text": "site info"}]},
+            )
+            oxygen_gate.handle(info, root)
+            edit = self.event("PreToolUse", "mcp__site_b__oxygen_edit_post")
+            self.assertEqual(
+                oxygen_gate.handle(edit, root)["hookSpecificOutput"]["permissionDecision"],
+                "deny",
+            )
+
+    def test_failed_site_info_does_not_satisfy_site_check(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            info = self.event(
+                "PostToolUse",
+                "mcp__site__oxygen_site_info",
+                tool_response={"isError": True, "content": [{"type": "text", "text": "error"}]},
+            )
+            oxygen_gate.handle(info, root)
+            edit = self.event("PreToolUse", "mcp__site__oxygen_create_template")
+            self.assertEqual(
+                oxygen_gate.handle(edit, root)["hookSpecificOutput"]["permissionDecision"],
+                "deny",
+            )
+
+    def test_unlisted_tool_is_not_blocked(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            event = self.event("PreToolUse", "mcp__site__oxygen_get_post_tree")
+            self.assertEqual(oxygen_gate.handle(event, Path(temp_dir)), {})
+
+    def test_hook_matchers_cover_known_mutations(self) -> None:
+        hooks = json.loads((REPO / ".codex" / "hooks.json").read_text(encoding="utf-8"))["hooks"]
+        mutation_matchers = [group["matcher"] for group in hooks["PreToolUse"]]
+        info_matchers = [group["matcher"] for group in hooks["PostToolUse"]]
+        for suffix in oxygen_gate.MUTATIONS:
+            name = f"mcp__codex_apps__site_" + suffix
+            self.assertTrue(any(re.search(pattern, name) for pattern in mutation_matchers), name)
+        self.assertTrue(
+            any(re.search(pattern, "mcp__codex_apps__site_oxygen_site_info") for pattern in info_matchers)
+        )
 
 
 if __name__ == "__main__":
