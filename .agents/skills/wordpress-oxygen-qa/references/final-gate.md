@@ -6,6 +6,8 @@ Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renf
 
 ## 25. Règle finale anti-bêtise
 
+Le crédit Octacom et les Templates Single Article/404 sont des invariants de toute livraison, y compris d'une correction locale. Auditer et réutiliser les objets conformes ; corriger uniquement les manques avant de conclure, sans doublon ni refonte inutile. Suivre la [procédure de contrôle de mission](../../../references/mission-controls.md) pour les préconditions et les preuves de la cible courante.
+
 Avant de modifier le site, se demander :
 
 ```text
@@ -34,7 +36,7 @@ Est-ce que le Template Oxygen Single Article existe, cible les articles et affic
 Est-ce qu'une URL inexistante renvoie le statut HTTP 404 et affiche le Template Oxygen spécial 404 avec une navigation de sortie ?
 Est-ce que tous les liens ont une destination réelle ?
 Est-ce que téléphone/email sont cliquables ?
-Est-ce que la correction locale a laissé les autres pages intactes ?
+Est-ce que la correction locale a préservé les autres pages, hors correctifs indispensables au crédit Octacom et aux Templates Single Article/404 ?
 Est-ce que la page tient à 320 px sans casser ?
 Est-ce que chaque page construite ou refondue possède des animations d'apparition sur ses principaux blocs ?
 Est-ce que ces animations ont été vues au chargement et au scroll avec le mouvement normal, puis contrôlées avec `prefers-reduced-motion: reduce` et JavaScript désactivé ?
@@ -56,9 +58,11 @@ Si une source indique `redirection vers`, le SMTP OVH est-il préparé avec `con
 L'offre, la région, l'hôte, le port et le chiffrement OVH ont-ils été vérifiés ensemble dans la documentation officielle correspondant à la boîte réelle, sans transformer un exemple en réglage universel ?
 La configuration WP Mail SMTP confirme-t-elle un SMTP Username authentifiable, et les en-têtes reçus confirment-ils séparément un `From` autorisé, un Return-Path/envelope sender sur un domaine personnalisé du client et le Reply-To de test attendu ?
 Est-ce que la boîte et l'expédition SMTP existent réellement, sans envoi de test à l'adresse finale sauf demande explicite ?
-Est-ce que les pages légales et le crédit Octacom sont présents dans le footer ?
+Est-ce que les pages légales applicables sont présentes et le crédit Octacom conforme dans le Footer, même pour une livraison de correction locale ?
+Si le crédit manquait à Figma, son ajout après le contenu principal respecte-t-il l'exception utilisateur, avec le markup/logo exacts et les autres blocs préservés ?
+Est-ce que cette exception et sa preuve finale sont tracées, sans spécification visuelle contradictoire ou indéterminée ?
 Est-ce qu'une sauvegarde vérifiée permet de revenir en arrière ?
 Est-ce que j'ai réellement comparé les captures Figma et front finales avant de dire terminé ?
 ```
 
-Si une réponse importante est non : corriger avant livraison. Toute réponse négative sur la comparaison Figma, les preuves finales ou la résolution des écarts bloque `FIGMA_VISUAL_MATCH_VERIFIED` et la livraison selon la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md).
+Si une réponse importante est non, corriger avant livraison. Le crédit Octacom et les deux templates restent requis dans tous les cas ; une information requise manquante bloque leur correctif et la livraison. Toute réponse négative sur la comparaison Figma, les preuves finales ou la résolution des écarts bloque `FIGMA_VISUAL_MATCH_VERIFIED` et la livraison selon la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md).

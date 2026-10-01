@@ -1,0 +1,176 @@
+{
+  "generated_at_utc": "2026-10-01T08:53:34.257162+00:00",
+  "mode": "protocol",
+  "model_requested": null,
+  "fixture_sha256": "16274f4a4ed91fa80de31dbb924ebd5f6245388fe1bfcd3753dce0274d767570",
+  "runner_sha256": "20a645d6893bf74075c07b684fb7f36dfea5bd789bdd36dd3fc0920b73ac83d6",
+  "official_docs": [
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://learn.chatgpt.com/docs/config-file/config-reference",
+    "https://learn.chatgpt.com/docs/extend/mcp?surface=cli"
+  ],
+  "results": [
+    {
+      "scenario": "wrong_site",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "wrong_site",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 1,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    },
+    {
+      "scenario": "annotations_absent",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "annotations_absent",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 1,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    },
+    {
+      "scenario": "tool_failed",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "tool_failed",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 1,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    },
+    {
+      "scenario": "builder_stale",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "builder_stale",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 0,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    },
+    {
+      "scenario": "sources_conflict",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "sources_conflict",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 1,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    },
+    {
+      "scenario": "false_fidelity",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "false_fidelity",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 1,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    },
+    {
+      "scenario": "positive",
+      "mode": "stdio_protocol",
+      "passed": true,
+      "received_tools": 7,
+      "ledger": {
+        "scenario": "positive",
+        "calls": [
+          {
+            "tool": "oxygen_site_info",
+            "arguments": {}
+          }
+        ],
+        "edit_attempts": 0,
+        "saved_edits": 0,
+        "builder_saves": 0,
+        "builder_reloads": 0,
+        "saved_revision": 1,
+        "opened_revision": 1,
+        "text": "Titre initial",
+        "network_effects": 0
+      }
+    }
+  ],
+  "all_passed": true
+}

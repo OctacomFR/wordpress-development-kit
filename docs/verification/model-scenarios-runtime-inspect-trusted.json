@@ -1,0 +1,510 @@
+{
+  "generated_at_utc": "2026-10-01T09:25:47.997144+00:00",
+  "mode": "inspect",
+  "cli_version_observed": null,
+  "model_requested": null,
+  "fixture_sha256": "16274f4a4ed91fa80de31dbb924ebd5f6245388fe1bfcd3753dce0274d767570",
+  "runner_sha256": "04fd150783fa5654a0039a1387509894a8f553f40165e724885d275488eb0237",
+  "official_docs": [
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://learn.chatgpt.com/docs/config-file/config-reference",
+    "https://learn.chatgpt.com/docs/extend/mcp?surface=cli"
+  ],
+  "scenarios_not_run": [],
+  "results": [
+    {
+      "scenario": "runtime_discovery",
+      "mode": "app_server_read_only_no_model",
+      "passed": true,
+      "effective_config": {
+        "features": {
+          "network_proxy": null,
+          "apps": false,
+          "browser_use": false,
+          "browser_use_external": false,
+          "hooks": true,
+          "in_app_browser": false,
+          "multi_agent": false,
+          "plugins": false,
+          "remote_plugin": false,
+          "api_key_model_discovery": false,
+          "auth_elicitation": true,
+          "background_paginated_rollout_migration": false,
+          "codex_apps_mcp_2026_07_28": false,
+          "mcp_2026_07_28": false,
+          "memories": false,
+          "mentions_v2": true,
+          "remote_control": false,
+          "tool_suggest": true,
+          "windows_sandbox_service": false
+        },
+        "sandbox_mode": "workspace-write",
+        "skills": {
+          "max_context_tokens": 10000
+        },
+        "approval_policy": null
+      },
+      "layers": [
+        {
+          "name": {
+            "type": "sessionFlags"
+          },
+          "disabledReason": null
+        },
+        {
+          "name": {
+            "type": "project",
+            "dotCodexFolder": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex"
+          },
+          "disabledReason": null
+        },
+        {
+          "name": {
+            "type": "user",
+            "file": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\config.toml",
+            "profile": null
+          },
+          "disabledReason": null
+        },
+        {
+          "name": {
+            "type": "system",
+            "file": "C:\\ProgramData\\OpenAI\\Codex\\config.toml"
+          },
+          "disabledReason": null
+        }
+      ],
+      "hooks": {
+        "data": [
+          {
+            "cwd": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace",
+            "hooks": [
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:pre_tool_use:0:0",
+                "eventName": "preToolUse",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/oxygen_site_gate.py')\"",
+                "async": false,
+                "matcher": "^mcp__.*_oxygen_",
+                "timeoutSec": 10,
+                "statusMessage": null,
+                "additionalContextLimit": null,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 0,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:d719c34178492ef143f03acc5ac8d8ee812cf4acc81787f827ea006ccf6338c6",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:post_tool_use:0:0",
+                "eventName": "postToolUse",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+                "async": false,
+                "matcher": ".*",
+                "timeoutSec": 10,
+                "statusMessage": null,
+                "additionalContextLimit": null,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 1,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:81c4085d0986d0e7593cfde70a4095ce8b2a589263ed7c1b26e9a228e1f1787c",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:post_tool_use:1:0",
+                "eventName": "postToolUse",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/oxygen_site_gate.py')\"",
+                "async": false,
+                "matcher": "^mcp__.*_oxygen_",
+                "timeoutSec": 10,
+                "statusMessage": null,
+                "additionalContextLimit": null,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 2,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:5c0380b3a1a0d47cebbfbef10b972260ca455564081f36c17a13d7abc9a26a36",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:session_start:0:0",
+                "eventName": "sessionStart",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+                "async": false,
+                "matcher": "startup|resume|clear|compact",
+                "timeoutSec": 10,
+                "statusMessage": "Chargement du préflight des skills",
+                "additionalContextLimit": 1000,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 3,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:cb8871e661f545f18615747fbd7f81bfed8dceb72f26e6d004bc4886040d4f56",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:user_prompt_submit:0:0",
+                "eventName": "userPromptSubmit",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+                "async": false,
+                "matcher": null,
+                "timeoutSec": 10,
+                "statusMessage": "Chargement du préflight des skills",
+                "additionalContextLimit": 1000,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 4,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:6a6b125f6ac100d9cf60d80f13fe601c57d5a8ac4c126877c2ed6b9c1aa4d425",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:user_prompt_submit:0:1",
+                "eventName": "userPromptSubmit",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+                "async": false,
+                "matcher": null,
+                "timeoutSec": 10,
+                "statusMessage": null,
+                "additionalContextLimit": null,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 5,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:1c8786d26d2c34ecced50379b77be62d34138b9296b9b8625d63905793291440",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:subagent_start:0:0",
+                "eventName": "subagentStart",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+                "async": false,
+                "matcher": null,
+                "timeoutSec": 10,
+                "statusMessage": "Chargement du préflight des skills",
+                "additionalContextLimit": 1000,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 6,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:27f300f277295394f1d26d710bd8953fb6c7eba4be8535f6cc7eb5a132ebce33",
+                "trustStatus": "untrusted"
+              },
+              {
+                "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json:stop:0:0",
+                "eventName": "stop",
+                "handlerType": "command",
+                "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+                "async": false,
+                "matcher": null,
+                "timeoutSec": 10,
+                "statusMessage": null,
+                "additionalContextLimit": null,
+                "sourcePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.codex\\hooks.json",
+                "source": "project",
+                "pluginId": null,
+                "displayOrder": 7,
+                "enabled": true,
+                "isManaged": false,
+                "currentHash": "sha256:94bc46341bf414084ad4d0446fa2722ee9c82bbef6217ea4a429808f490293c2",
+                "trustStatus": "untrusted"
+              }
+            ],
+            "warnings": [],
+            "errors": []
+          }
+        ]
+      },
+      "skills": {
+        "data": [
+          {
+            "cwd": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace",
+            "skills": [
+              {
+                "name": "figma-to-oxygen",
+                "description": "Lire une maquette Figma et traduire ses frames, annotations, assets, variables et interactions en structure Oxygen 6 fidèle, durable et éditable, sans copier le code généré brut.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\figma-to-oxygen\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "octacom-parallel-delivery",
+                "description": "Orchestrer intensivement des sous-agents sur un projet WordPress/Oxygen comportant plusieurs sources, pages, spécialités ou contrôles, tout en empêchant les conflits d'écriture sur les objets partagés.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\octacom-parallel-delivery\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "octacom-project-start",
+                "description": "Cadrer un projet WordPress/Oxygen Octacom avant toute mutation : sources, ERP en lecture seule, domaine final, audit WordPress/Oxygen et sauvegarde. À utiliser au démarrage d'un site, d'une refonte ou d'une reprise importante.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\octacom-project-start\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "oxygen6-architecture",
+                "description": "Créer ou modifier le socle partagé Oxygen 6 : Variables, Classes, Selectors, Components, Templates, Header, Footer, éditabilité, mutations MCP et code custom de dernier recours.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\oxygen6-architecture\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "oxygen6-frontend-quality",
+                "description": "Concevoir ou corriger le responsive, les médias, animations, états, accessibilité, performance, widgets et rendu sans JavaScript d'une page Oxygen 6.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\oxygen6-frontend-quality\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "oxygen6-homepage",
+                "description": "Construire ou refondre une page d'accueil Oxygen 6 à partir de Figma, en calibrant la direction visuelle, les fondations partagées, les parcours et les contenus dynamiques du site.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\oxygen6-homepage\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "oxygen6-inner-pages",
+                "description": "Construire ou corriger des pages internes Oxygen 6 en réutilisant le socle validé, sans recopier la home ni introduire de régression globale.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\oxygen6-inner-pages\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "skill-gate",
+                "description": "Évaluer, sélectionner et charger les skills applicables avant toute unité d'exécution observable, puis refaire ce préflight quand l'objectif, la cible, les permissions ou le périmètre changent. Utiliser avant outils, mutations, délégations, actions externes et réponse finale.",
+                "interface": {
+                  "displayName": "Skill Gate",
+                  "shortDescription": "Sélectionne et charge les skills avant d'agir.",
+                  "iconSmall": null,
+                  "iconLarge": null,
+                  "iconSmallUrl": null,
+                  "iconLargeUrl": null,
+                  "brandColor": null,
+                  "defaultPrompt": "Évalue l'unité d'exécution, sélectionne les skills applicables, lis leurs instructions et vérifie les blocages avant toute action."
+                },
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\skill-gate\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "wordpress-dynamic-content",
+                "description": "Construire des actualités, listes, loops, archives et templates WordPress/Oxygen avec les données réelles, les bonnes requêtes et des états limites explicites.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\wordpress-dynamic-content\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "wordpress-forms-deliverability",
+                "description": "Construire et tester un formulaire WordPress/Oxygen avec consentement, CAPTCHA, sécurité, WP Mail SMTP et preuve de réception réelle sur le domaine final.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\wordpress-forms-deliverability\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "wordpress-legal-consent",
+                "description": "Créer ou compléter les pages légales WordPress, configurer Complianz pour le domaine final et maintenir le menu légal réel du Footer sans inventer de données juridiques.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\wordpress-legal-consent\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "wordpress-oxygen-qa",
+                "description": "Effectuer la recette finale d'un site WordPress/Oxygen sur le front et dans le builder : visuel, responsive, sans-JS, SEO, médias, formulaires, conformité et rapport vérifiable.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\wordpress-oxygen-qa\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "wordpress-seo",
+                "description": "Vérifier ou configurer la structure HTML, les titres, métadonnées, canonical, Yoast, indexabilité, liens crawlables et Schema d'un site WordPress/Oxygen.",
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\workspace\\.agents\\skills\\wordpress-seo\\SKILL.md",
+                "scope": "repo",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "capacity",
+                "description": "Discovers available Azure OpenAI model capacity across regions and projects. Analyzes quota limits, compares availability, and recommends optimal deployment locations based on capacity requirements. USE FOR: find capacity, check quota, where can I deploy, capacity discovery, best region for capacity, multi-project capacity search, quota analysis, model availability, region comparison, check TPM availability. DO NOT USE FOR: actual deployment (hand off to preset or customize after discovery), quota increase requests (direct user to Azure Portal), listing existing deployments.",
+                "path": "C:\\Users\\DEV\\.agents\\skills\\microsoft-foundry\\models\\deploy-model\\capacity\\SKILL.md",
+                "scope": "user",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "customize",
+                "description": "Interactive guided deployment flow for Azure OpenAI models with full customization control. Step-by-step selection of model version, SKU (GlobalStandard/Standard/ProvisionedManaged), capacity, RAI policy (content filter), and advanced options (dynamic quota, priority processing, spillover). USE FOR: custom deployment, customize model deployment, choose version, select SKU, set capacity, configure content filter, RAI policy, deployment options, detailed deployment, advanced deployment, PTU deployment, provisioned throughput. DO NOT USE FOR: quick deployment to optimal region (use preset).",
+                "path": "C:\\Users\\DEV\\.agents\\skills\\microsoft-foundry\\models\\deploy-model\\customize\\SKILL.md",
+                "scope": "user",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "deploy-model",
+                "description": "Unified Azure OpenAI model deployment skill with intelligent intent-based routing. Handles quick preset deployments, fully customized deployments (version/SKU/capacity/RAI policy), and capacity discovery across regions and projects. USE FOR: deploy model, deploy gpt, create deployment, model deployment, deploy openai model, set up model, provision model, find capacity, check model availability, where can I deploy, best region for model, capacity analysis. DO NOT USE FOR: listing existing deployments (use foundry_models_deployments_list MCP tool), deleting deployments, agent creation (use agent/create), project creation (use project/create).",
+                "path": "C:\\Users\\DEV\\.agents\\skills\\microsoft-foundry\\models\\deploy-model\\SKILL.md",
+                "scope": "user",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "finetuning",
+                "description": "Fine-tune models on Microsoft Foundry using SFT (supervised), DPO (preference), or RFT (reinforcement with graders). Covers dataset preparation, training job submission, deployment, and evaluation. USE FOR: fine-tune, SFT, DPO, RFT, training data, grader, distillation, fine-tuned model, training job, large file upload, calibrate grader, deploy fine-tuned model, evaluate fine-tuned model. DO NOT USE FOR: general model deployment without fine-tuning (use deploy-model), agent creation (use agents), prompt optimization without training (use prompt-optimizer).",
+                "path": "C:\\Users\\DEV\\.agents\\skills\\microsoft-foundry\\finetuning\\SKILL.md",
+                "scope": "user",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "microsoft-foundry",
+                "description": "Build, deploy, evaluate, optimize, fine-tune, and manage Microsoft Foundry agents, models, and resources end to end. USE FOR: foundry, azd ai agent, azd provision/deploy, hosted agent scaffold/develop/run/deploy/troubleshoot, prompt agent create, create agent, update agent, add tool to agent, invoke agent, agent.yaml, agent insights, pull agent insights, evaluate agent, batch eval, continuous eval, continuous monitoring, agent CI/CD, optimize prompt, improve prompt, prompt optimizer, optimize agent instructions, Agent Optimizer scaffold, dataset curation from traces, deploy model, model fine-tuning (SFT/DPO/RFT), Foundry project, RBAC, role assignment, permissions, quota, capacity, region, deployment failure, AI Services, create Foundry resource, knowledge index, customize deployment, onboard, availability, training-data, grader, distillation, large file upload. DO NOT USE FOR: Azure Functions, App Service, general Azure deploy (use azure-deploy), general Azure prep (use azure-prepare).",
+                "path": "C:\\Users\\DEV\\.agents\\skills\\microsoft-foundry\\SKILL.md",
+                "scope": "user",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "preset",
+                "description": "Intelligently deploys Azure OpenAI models to optimal regions by analyzing capacity across all available regions. Automatically checks current region first and shows alternatives if needed. USE FOR: quick deployment, optimal region, best region, automatic region selection, fast setup, multi-region capacity check, high availability deployment, deploy to best location. DO NOT USE FOR: custom SKU selection (use customize), specific version selection (use customize), custom capacity configuration (use customize), PTU deployments (use customize).",
+                "path": "C:\\Users\\DEV\\.agents\\skills\\microsoft-foundry\\models\\deploy-model\\preset\\SKILL.md",
+                "scope": "user",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "imagegen",
+                "description": "Generate or edit raster images when the task benefits from AI-created bitmap visuals such as photos, illustrations, textures, sprites, mockups, or transparent-background cutouts. Use when Codex should create a brand-new image, transform an existing image, or derive visual variants from references, and the output should be a bitmap asset rather than repo-native code or vector. Do not use when the task is better handled by editing existing SVG/vector/code-native assets, extending an established icon or logo system, or building the visual directly in HTML/CSS/canvas.",
+                "interface": {
+                  "displayName": "Image Gen",
+                  "shortDescription": "Generate or edit images for websites, games, and more",
+                  "iconSmall": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\imagegen\\assets\\imagegen-small.svg",
+                  "iconLarge": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\imagegen\\assets\\imagegen.png",
+                  "iconSmallUrl": null,
+                  "iconLargeUrl": null,
+                  "brandColor": null,
+                  "defaultPrompt": "Use $imagegen to make or edit an image for this project."
+                },
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\imagegen\\SKILL.md",
+                "scope": "system",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "openai-docs",
+                "description": "Use for Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, customization, automations, and self-knowledge—including 'you,' 'your,' 'this app,' or 'this coding agent' when they refer to Codex—and for OpenAI APIs/products and ChatGPT Work. Also use for model choice/migration, prompting, SDKs, Responses, Realtime, agents, evals, and Chat/Work/Codex comparisons. Do not use for generic app/software tasks that merely mention Codex.",
+                "shortDescription": "Codex models/pricing, scheduled tasks, skills, settings, setup, troubleshooting, and self-knowledge; OpenAI APIs and ChatGPT Work. 'You'/'this app' means Codex only.",
+                "interface": {
+                  "displayName": "OpenAI Docs",
+                  "shortDescription": "OpenAI and Codex docs for models, skills, tasks, and setup",
+                  "iconSmall": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\openai-docs\\assets\\openai-small.svg",
+                  "iconLarge": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\openai-docs\\assets\\openai.png",
+                  "iconSmallUrl": null,
+                  "iconLargeUrl": null,
+                  "brandColor": null,
+                  "defaultPrompt": "Use OpenAI Docs for official docs lookup, questions about Codex itself or Codex surfaces, model selection, model migration, and prompt-upgrade work."
+                },
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\openai-docs\\SKILL.md",
+                "scope": "system",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "review-agent",
+                "description": "Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions.",
+                "interface": {
+                  "displayName": "Review Agent",
+                  "shortDescription": "Find actionable bugs in code changes",
+                  "iconSmall": null,
+                  "iconLarge": null,
+                  "iconSmallUrl": null,
+                  "iconLargeUrl": null,
+                  "brandColor": null,
+                  "defaultPrompt": "Use $review-agent to review the requested code changes and return actionable findings."
+                },
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\review-agent\\SKILL.md",
+                "scope": "system",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "skill-creator",
+                "description": "Create or update a Codex skill with appropriately scoped instructions and any needed supporting resources.",
+                "shortDescription": "Create or update a skill",
+                "interface": {
+                  "displayName": "Skill Creator",
+                  "shortDescription": "Create or update a skill",
+                  "iconSmall": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\skill-creator\\assets\\skill-creator-small.svg",
+                  "iconLarge": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\skill-creator\\assets\\skill-creator.png",
+                  "iconSmallUrl": null,
+                  "iconLargeUrl": null,
+                  "brandColor": null,
+                  "defaultPrompt": null
+                },
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\skill-creator\\SKILL.md",
+                "scope": "system",
+                "enabled": true,
+                "pluginId": null
+              },
+              {
+                "name": "skill-installer",
+                "description": "Install Codex skills into $CODEX_HOME/skills from a curated list or a GitHub repo path. Use when a user asks to list installable skills, install a curated skill, or install a skill from another repo (including private repos).",
+                "shortDescription": "Install curated skills from openai/skills or other repos",
+                "interface": {
+                  "displayName": "Skill Installer",
+                  "shortDescription": "Install curated skills from openai/skills or other repos",
+                  "iconSmall": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\skill-installer\\assets\\skill-installer-small.svg",
+                  "iconLarge": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\skill-installer\\assets\\skill-installer.png",
+                  "iconSmallUrl": null,
+                  "iconLargeUrl": null,
+                  "brandColor": null,
+                  "defaultPrompt": null
+                },
+                "path": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-inspect-u_x4661b\\home\\skills\\.system\\skill-installer\\SKILL.md",
+                "scope": "system",
+                "enabled": true,
+                "pluginId": null
+              }
+            ],
+            "errors": []
+          }
+        ]
+      },
+      "model_runs": 0,
+      "home": "isolated TEMP without authentication"
+    }
+  ],
+  "all_passed": true
+}

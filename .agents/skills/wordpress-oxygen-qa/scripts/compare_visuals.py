@@ -36,7 +36,12 @@ def inspect_png(magick: str, path: Path) -> tuple[int, int]:
     return int(match[1]), int(match[2])
 
 
-def compare_visuals(figma: Path, front: Path, output_dir: Path, *, magick: str = "magick") -> dict:
+def compare_visuals(figma: Path, front: Path, output_dir: Path, *, magick: str = "magick", provenance: dict | None = None) -> dict:
+    if provenance is not None:
+        required = {"mission_digest", "resource", "observed_revision", "epoch", "figma_reference", "figma_version", "state", "front_url", "viewport"}
+        if not isinstance(provenance, dict) or set(provenance) != required:
+            raise ValueError("Provenance complète requise pour une preuve versionnée")
+        provenance = json.loads(json.dumps(provenance, allow_nan=False))
     executable = shutil.which(magick)
     if executable is None:
         raise ValueError("ImageMagick est requis : commande magick introuvable")
@@ -108,6 +113,7 @@ def compare_visuals(figma: Path, front: Path, output_dir: Path, *, magick: str =
         "rmse": {"absolute": float(match[1]), "normalized": float(match[2])},
         "commands": commands,
         "visual_review_required": True,
+        "provenance": provenance,
     }
     (output_dir / "comparison.json").write_text(
         json.dumps(evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
@@ -120,9 +126,11 @@ def main() -> int:
     parser.add_argument("--figma", required=True, type=Path)
     parser.add_argument("--front", required=True, type=Path)
     parser.add_argument("--output-dir", required=True, type=Path)
+    parser.add_argument("--provenance", type=Path, help="JSON de contexte de capture lié à la fiche et aux versions observées")
     args = parser.parse_args()
     try:
-        compare_visuals(args.figma, args.front, args.output_dir)
+        provenance = json.loads(args.provenance.read_text(encoding="utf-8-sig")) if args.provenance else None
+        compare_visuals(args.figma, args.front, args.output_dir, provenance=provenance)
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

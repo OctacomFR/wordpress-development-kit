@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-01",
+  "mode": "live_not_started",
+  "model_requested": "gpt-6.1-sol",
+  "model_runs": 0,
+  "model_usage_observed": null,
+  "fixture_dispatches_live": 0,
+  "action": "python -B scripts/evaluate-control-scenarios.py --mode live --scenario positive --output docs/verification/model-scenarios-positive.json --model gpt-6.1-sol --timeout 300",
+  "decision": "auto_review_rejected_before_launch",
+  "reason_observed": "The command launches an authenticated live Codex model run, which can transmit the isolated kit internal AGENTS, skills, hook/configuration, mission, and fixture context to the external model service. The automatic reviewer requires explicit authorization for that export.",
+  "reason_is_summary": true,
+  "authorization_status": "User subsequently replied Oui, lancer les sept scenarios to the explicit request covering export of the isolated kit context; authorized trials are archived separately",
+  "scenarios_not_run": ["positive", "wrong_site", "annotations_absent", "tool_failed", "builder_stale", "sources_conflict", "false_fidelity"],
+  "cli_version_observed": "codex-cli 0.159.2"
+}

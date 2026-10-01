@@ -62,6 +62,8 @@ Dans l'analyse d'un périmètre Figma, appliquer cet ordre interne : instruction
 
 Le rendu final doit reproduire Figma à l'identique, à 100 %, pour chaque frame et état fournis dans le périmètre. Seuls les effets hover peuvent être interprétés ; cette liberté ne concerne ni l'état au repos, ni les autres états spécifiés. Toute divergence imposée par une source prioritaire doit être tracée avec sa décision explicite. Si son effet visuel reste indéterminé, appliquer le blocage ci-dessous avant l'écriture concernée. `frontend-design`, l'existant et les préférences de l'agent ne permettent pas de réinterpréter la maquette.
 
+L'ajout du crédit Octacom absent de Figma constitue une exception visuelle explicitement autorisée par l'utilisateur selon la section 6. Conserver cette décision dans le registre des écarts ; elle n'autorise aucune autre réinterprétation.
+
 Si deux sources du même niveau se contredisent, signaler le conflit et demander laquelle fait foi avant publication. Ne jamais choisir silencieusement.
 
 ### Information requise introuvable : blocage
@@ -96,7 +98,9 @@ Chaque sous-agent refait son propre préflight. La sélection suggérée par le 
 
 Pour toute demande qui exige l'état réel d'un dépôt, d'un site ou d'une source externe, utiliser les outils Codex ou MCP pertinents après lecture des skills applicables. Une réponse fondée sur une supposition ou la seule lecture d'un skill ne vaut pas vérification. Si l'outil requis manque, signaler le blocage précis.
 
-Les hooks de `.codex/hooks.json` rappellent le préflight. Sur les demandes d'action reconnues, `UserPromptSubmit`, `PostToolUse` et `Stop` relancent une fois un tour terminé sans appel d'outil local observé. Ce contrôle ne prouve ni le choix du bon outil ni l'application d'un skill ; les outils hébergés et certains chemins spécialisés échappent aux hooks. Relire et approuver ces hooks avec `/hooks` dans un projet de confiance. Aucun exécuteur strict ni permis d'action n'est fourni.
+Avant une mutation, une reprise ou une livraison, lire la [procédure de contrôle de mission](.agents/references/mission-controls.md) et vérifier l'activation dans l'interface utilisée selon [la compatibilité des runtimes](.agents/references/runtime-compatibility.md). L'état `.octacom` appartient au workspace du site : dossier local réel, lié à la mission et aux sessions des agents, jamais une jonction vers le kit ni un permis global partagé.
+
+Les hooks de `.codex/hooks.json` rappellent le préflight. Sur les demandes d'action reconnues, `UserPromptSubmit`, `PostToolUse` et `Stop` relancent une fois un tour terminé sans appel d'outil local observé. Ce contrôle ne prouve ni le choix du bon outil ni l'application d'un skill ; sa portée dépend des chemins réellement dispatchés par l'interface. Les tests de scripts, la découverte des hooks et l'observation de leur exécution sont des preuves distinctes.
 
 Pour les mutations Oxygen reconnues, `PreToolUse` exige d'abord une réponse réussie de `oxygen_site_info` sur le même connecteur MCP pendant la session. L'agent doit encore comparer le site et la version retournés aux paramètres du projet ; le hook ne peut pas établir cette concordance.
 
@@ -139,7 +143,7 @@ Pour tout travail non trivial avec sous-agents disponibles, utiliser `octacom-pa
 3. **Une donnée requise manquante bloque.** Demander l'information à l'utilisateur et suspendre toute implémentation qui en dépend.
 4. **Annotations Figma avant implémentation.** Lire toutes les annotations du périmètre, leurs cibles et leurs effets indirects. Une annotation inaccessible ou non résolue bloque toute écriture dépendante.
 5. **Préserver le contenu validé.** Ne pas reformuler textes, avis, horaires, tarifs ou mentions légales sans demande.
-6. **Respecter le périmètre.** Une demande sur la home n'autorise pas la refonte des autres pages.
+6. **Respecter le périmètre.** Une demande sur la home n'autorise pas la refonte des autres pages. Les correctifs indispensables au crédit Octacom et aux Templates Single Article/404 restent obligatoires avant toute livraison, y compris celle d'une correction locale ; réutiliser l'existant conforme et limiter ces correctifs au manque constaté.
 7. **Une correction locale reste locale.** Aucun sélecteur global large pour résoudre un cas ponctuel.
 8. **Oxygen 6.x reste éditable.** Un front fidèle mais cassé dans le builder est refusé.
 9. **Oxygen natif d'abord.** Élément natif, Component existant, composition Oxygen, puis code custom ciblé en dernier recours avec HTML sémantique et WAI-ARIA applicable.
@@ -151,7 +155,7 @@ Pour tout travail non trivial avec sous-agents disponibles, utiliser `octacom-pa
 15. **Un seul état d'édition fait foi.** Après une mutation MCP ou externe, recharger Oxygen avant toute sauvegarde depuis un éditeur déjà ouvert.
 16. **Sauvegarder selon le risque.** Lire l'état et préparer un retour arrière vérifié avant une mutation importante.
 17. **Tester réellement.** Ne jamais annoncer fidélité, responsive, SEO, réception email ou conformité sans contrôle correspondant.
-18. **Single Article et 404 toujours présents.** Tout site livré possède un Template Oxygen 6 pour les articles et un Template Oxygen 6 spécial `404 Not Found`, même si la mission initiale porte sur la home ou si aucun article n'est encore publié. Auditer et réutiliser les templates conformes existants ; ne jamais créer de doublon.
+18. **Single Article et 404 toujours présents.** Toute livraison de site, page ou correction locale exige un Template Oxygen 6 pour les articles et un Template Oxygen 6 spécial `404 Not Found`, même sans article publié. Auditer et réutiliser les templates conformes ; corriger leur absence ou non-conformité avant de conclure, sans doublon ni refonte inutile. Une information requise manquante bloque le correctif concerné et la livraison.
 19. **Expéditeur email sur domaine client uniquement.** Le `From Email`, le Sender et l'envelope sender des formulaires utilisent toujours une adresse d'un domaine personnalisé appartenant au client et correctement authentifié. Gmail, Outlook, Hotmail, Yahoo et tout autre domaine grand public ou tiers sont interdits comme expéditeurs, même lorsqu'ils sont affichés publiquement comme contact du client.
 20. **Animations d'apparition obligatoires.** Toute page construite ou refondue possède un système cohérent d'animations d'apparition sur ses principaux blocs. Cette obligation s'applique même lorsque la charte, Figma ou les annotations ne prévoient aucune animation. Leur absence ou leur validation incomplète bloque la livraison. Utiliser d'abord l'onglet Animations natif d'Oxygen 6. Reprendre les paramètres Figma lorsqu'ils existent. Si aucune source visuelle ne fixe le mouvement, définir un système sobre. La réduction ou la désactivation demandée par `prefers-reduced-motion` reste obligatoire et ne constitue pas un échec de ce critère.
 21. **Rendu Figma identique avant livraison.** Appliquer la [procédure de fidélité visuelle](.agents/references/figma-visual-fidelity.md) pendant la construction et avant de terminer. Capturer réellement Figma et le front à la même largeur, comparer la page entière puis chaque section, corriger et recapturer jusqu'à zéro écart visuel non autorisé, même minime. Une ressemblance, un score global, une preuve absente ou un écart simplement consigné ne valident jamais la barrière `FIGMA_VISUAL_MATCH_VERIFIED`. Sans cette barrière pour chaque cible Figma, la livraison reste bloquée.
@@ -168,7 +172,7 @@ Pour tout travail non trivial avec sous-agents disponibles, utiliser `octacom-pa
 
 ### Templates obligatoires
 
-Le Single Article et le 404 imposés en section 5 appartiennent au socle global. Suivre `oxygen6-architecture` pour leurs données dynamiques, Location, Conditions, Priority et contrôles front/builder ; réutiliser les templates conformes existants.
+Le Single Article et le 404 imposés en section 5 appartiennent au socle global de toute livraison, corrections locales comprises. Suivre `oxygen6-architecture` pour leurs données dynamiques, Location, Conditions, Priority et contrôles front/builder ; réutiliser les templates conformes et corriger uniquement les manques.
 
 ### Header
 
@@ -177,6 +181,8 @@ Le Header Oxygen dédié utilise le menu WordPress réel et reste sticky à tous
 ### Footer et légal
 
 Le Footer Oxygen global utilise le menu WordPress réel pour **Politique de protection des données**, **Mentions légales** et les **Conditions générales de vente** seulement si elles sont validées ou applicables selon le client. L'unique page de politique vient de Complianz et exécute dans Oxygen une seule occurrence de `[cmplz-document type="cookie-statement" region="eu"]`. Ne jamais inventer de données légales. Suivre `wordpress-legal-consent` pour la procédure et `oxygen6-architecture` pour le crédit Octacom obligatoire, même absent de Figma.
+
+Le crédit Octacom est requis avant toute livraison, correction locale comprise. S'il manque à Figma, l'utilisateur autorise son ajout dans le Footer natif, après son contenu principal, avec le markup et le logo exacts fournis dans `oxygen6-architecture`. Préserver la composition, les couleurs et la géométrie des éléments existants ; seul cet ajout est autorisé. Auditer et réutiliser un crédit conforme. Si une spécification exacte rend la disposition ou la variante de logo contradictoire ou indéterminée, demander la décision visuelle avant l'écriture dépendante. Tracer l'exception et vérifier le Footer final, sans inventer de contenu ni refondre les autres blocs.
 
 ### Images et médias
 
@@ -213,7 +219,7 @@ La home calibre le socle partagé ; utiliser `oxygen6-homepage` pour la construi
 
 ## 9. Fin de travail
 
-Avant de déclarer le site terminé, charger `wordpress-oxygen-qa` et exécuter sa définition de fin et son contrôle final, y compris annotations Figma, rendu final identique avec `FIGMA_VISUAL_MATCH_VERIFIED`, Templates Single Article/404, front/builder, responsive, sans-JS, animations, médias, SEO, formulaire/SMTP, légal et retour arrière. Le rapport distingue implémenté, réutilisable, dynamique, testé et non vérifié. Joindre les références Figma, les captures front finales, les comparaisons et le registre des écarts clos. Toute comparaison impossible ou différence non autorisée bloque la livraison ; un rapport de blocage ne vaut pas livraison. Pour un développement complet, détailler temps/tokens/coût par modèle seulement depuis les journaux accessibles ; ne jamais estimer une métrique absente.
+Avant toute livraison, correction locale comprise, charger `wordpress-oxygen-qa` et exécuter sa définition de fin et son contrôle final. Le crédit Octacom et les Templates Single Article/404 sont toujours requis ; vérifier aussi les annotations Figma, le rendu final avec `FIGMA_VISUAL_MATCH_VERIFIED`, front/builder, responsive, sans-JS, animations, médias, SEO, formulaire/SMTP, légal et retour arrière selon leur applicabilité. Le rapport distingue implémenté, réutilisable, dynamique, testé et non vérifié. Joindre les références Figma, les captures front finales, les comparaisons et le registre des écarts clos. Toute comparaison impossible ou différence non autorisée bloque la livraison ; un rapport de blocage ne vaut pas livraison. Pour un développement complet, détailler temps/tokens/coût par modèle seulement depuis les journaux accessibles ; ne jamais estimer une métrique absente.
 
 ---
 

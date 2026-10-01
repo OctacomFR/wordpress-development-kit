@@ -1,0 +1,26 @@
+{
+  "format": 1,
+  "mission_id": "example-read-only-until-confirmed",
+  "authorization_source": "REPLACE_WITH_USER_INSTRUCTION_REFERENCE",
+  "scope": "REPLACE_WITH_EXACT_REQUEST",
+  "completion_criteria": ["Render each confirmed frame and state", "Verify builder and delivery invariants"],
+  "target": {
+    "site_url": "https://staging.example.invalid",
+    "final_domain": "example.invalid",
+    "connector": "mcp__octacom_fixture__",
+    "builder_version": "6.0.0",
+    "consistency": "serial_observed"
+  },
+  "max_observation_age_seconds": 120,
+  "sources": [{"id": "business", "reference": "REPLACE_WITH_CONFIRMED_SOURCE", "version": "REPLACE_WITH_VERSION"}],
+  "unresolved_conflicts": [],
+  "figma": {
+    "required": true,
+    "annotations_status": "missing",
+    "annotations_evidence": null,
+    "references": [{"id": "home-desktop", "file_key": "REPLACE", "node_id": "REPLACE", "version": "REPLACE", "states": ["rest-1440"]}]
+  },
+  "resources": {
+    "post:42": {"owner": "coordinator", "front_url": "https://staging.example.invalid/", "operations": ["oxygen_edit_post", "oxygen_set_element_animations"]}
+  }
+}

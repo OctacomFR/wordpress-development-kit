@@ -1,0 +1,298 @@
+{
+  "cwd": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit",
+  "config": {
+    "features": {
+      "network_proxy": null,
+      "hooks": true,
+      "js_repl": false,
+      "api_key_model_discovery": false,
+      "auth_elicitation": true,
+      "background_paginated_rollout_migration": false,
+      "codex_apps_mcp_2026_07_28": false,
+      "mcp_2026_07_28": false,
+      "memories": false,
+      "mentions_v2": true,
+      "remote_control": false,
+      "remote_plugin": true,
+      "tool_suggest": true,
+      "windows_sandbox_service": false
+    },
+    "skills": {
+      "max_context_tokens": 10000
+    },
+    "project_doc_max_bytes": 32768
+  },
+  "layers": [
+    {
+      "name": {
+        "type": "project",
+        "dotCodexFolder": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex"
+      },
+      "disabledReason": null
+    },
+    {
+      "name": {
+        "type": "user",
+        "file": "C:\\Users\\DEV\\.codex\\config.toml",
+        "profile": null
+      },
+      "disabledReason": null
+    },
+    {
+      "name": {
+        "type": "system",
+        "file": "C:\\ProgramData\\OpenAI\\Codex\\config.toml"
+      },
+      "disabledReason": null
+    }
+  ],
+  "hooks": {
+    "data": [
+      {
+        "cwd": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit",
+        "hooks": [
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:pre_tool_use:0:0",
+            "eventName": "preToolUse",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/oxygen_site_gate.py')\"",
+            "async": false,
+            "matcher": "^mcp__.*_oxygen_",
+            "timeoutSec": 10,
+            "statusMessage": null,
+            "additionalContextLimit": null,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 0,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:d719c34178492ef143f03acc5ac8d8ee812cf4acc81787f827ea006ccf6338c6",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:post_tool_use:0:0",
+            "eventName": "postToolUse",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+            "async": false,
+            "matcher": ".*",
+            "timeoutSec": 10,
+            "statusMessage": null,
+            "additionalContextLimit": null,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 1,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:81c4085d0986d0e7593cfde70a4095ce8b2a589263ed7c1b26e9a228e1f1787c",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:post_tool_use:1:0",
+            "eventName": "postToolUse",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/oxygen_site_gate.py')\"",
+            "async": false,
+            "matcher": "^mcp__.*_oxygen_",
+            "timeoutSec": 10,
+            "statusMessage": null,
+            "additionalContextLimit": null,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 2,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:5c0380b3a1a0d47cebbfbef10b972260ca455564081f36c17a13d7abc9a26a36",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:session_start:0:0",
+            "eventName": "sessionStart",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+            "async": false,
+            "matcher": "startup|resume|clear|compact",
+            "timeoutSec": 10,
+            "statusMessage": "Chargement du préflight des skills",
+            "additionalContextLimit": 1000,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 3,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:cb8871e661f545f18615747fbd7f81bfed8dceb72f26e6d004bc4886040d4f56",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:user_prompt_submit:0:0",
+            "eventName": "userPromptSubmit",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+            "async": false,
+            "matcher": null,
+            "timeoutSec": 10,
+            "statusMessage": "Chargement du préflight des skills",
+            "additionalContextLimit": 1000,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 4,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:6a6b125f6ac100d9cf60d80f13fe601c57d5a8ac4c126877c2ed6b9c1aa4d425",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:user_prompt_submit:0:1",
+            "eventName": "userPromptSubmit",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+            "async": false,
+            "matcher": null,
+            "timeoutSec": 10,
+            "statusMessage": null,
+            "additionalContextLimit": null,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 5,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:1c8786d26d2c34ecced50379b77be62d34138b9296b9b8625d63905793291440",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:subagent_start:0:0",
+            "eventName": "subagentStart",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/inject_skill_gate.py')\"",
+            "async": false,
+            "matcher": null,
+            "timeoutSec": 10,
+            "statusMessage": "Chargement du préflight des skills",
+            "additionalContextLimit": 1000,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 6,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:27f300f277295394f1d26d710bd8953fb6c7eba4be8535f6cc7eb5a132ebce33",
+            "trustStatus": "trusted"
+          },
+          {
+            "key": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json:stop:0:0",
+            "eventName": "stop",
+            "handlerType": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"python (Join-Path (git rev-parse --show-toplevel) '.codex/hooks/tool_use_gate.py')\"",
+            "async": false,
+            "matcher": null,
+            "timeoutSec": 10,
+            "statusMessage": null,
+            "additionalContextLimit": null,
+            "sourcePath": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.codex\\hooks.json",
+            "source": "project",
+            "pluginId": null,
+            "displayOrder": 7,
+            "enabled": true,
+            "isManaged": false,
+            "currentHash": "sha256:94bc46341bf414084ad4d0446fa2722ee9c82bbef6217ea4a429808f490293c2",
+            "trustStatus": "trusted"
+          }
+        ],
+        "warnings": [],
+        "errors": []
+      }
+    ]
+  },
+  "skills": [
+    {
+      "cwd": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit",
+      "errors": [],
+      "skills": [
+        {
+          "name": "figma-to-oxygen",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\figma-to-oxygen\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "octacom-parallel-delivery",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\octacom-parallel-delivery\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "octacom-project-start",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\octacom-project-start\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "oxygen6-architecture",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\oxygen6-architecture\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "oxygen6-frontend-quality",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\oxygen6-frontend-quality\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "oxygen6-homepage",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\oxygen6-homepage\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "oxygen6-inner-pages",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\oxygen6-inner-pages\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "skill-gate",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\skill-gate\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "wordpress-dynamic-content",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\wordpress-dynamic-content\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "wordpress-forms-deliverability",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\wordpress-forms-deliverability\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "wordpress-legal-consent",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\wordpress-legal-consent\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "wordpress-oxygen-qa",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\wordpress-oxygen-qa\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        },
+        {
+          "name": "wordpress-seo",
+          "path": "C:\\Users\\DEV\\Documents\\Octacom\\wordpress-development-kit\\.agents\\skills\\wordpress-seo\\SKILL.md",
+          "enabled": true,
+          "scope": "repo"
+        }
+      ]
+    }
+  ]
+}

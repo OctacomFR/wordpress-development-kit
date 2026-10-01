@@ -5,10 +5,13 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sqlite3
 import sys
 import tempfile
 import unicodedata
 from pathlib import Path
+
+from mission_guard import finish_unobserved_attempts
 
 
 ACTION = re.compile(
@@ -44,6 +47,7 @@ def state_paths(event: dict, root: Path) -> tuple[Path, Path] | None:
 
 
 def handle(event: dict, root: Path = STATE_ROOT) -> dict:
+    finish_unobserved_attempts(event)
     paths = state_paths(event, root)
     if paths is None:
         return {}
@@ -86,7 +90,7 @@ def main() -> int:
     try:
         event = json.loads(sys.stdin.buffer.read().decode("utf-8"))
         result = handle(event)
-    except (OSError, ValueError, TypeError, AttributeError) as exc:
+    except (OSError, ValueError, TypeError, KeyError, AttributeError, sqlite3.Error) as exc:
         result = {"systemMessage": f"Contrôle d'usage des outils indisponible : {type(exc).__name__}"}
     sys.stdout.buffer.write(json.dumps(result, ensure_ascii=True).encode("utf-8"))
     return 0

@@ -84,6 +84,19 @@ class VisualComparisonTests(unittest.TestCase):
             compare_visuals(self.figma, self.front, self.output, magick="octacom-missing-magick")
         self.assertFalse(self.output.exists())
 
+    def test_provenance_is_preserved_without_a_visual_verdict(self) -> None:
+        provenance = {"mission_digest": "m1", "resource": "post:42", "observed_revision": "r1", "epoch": 3,
+            "figma_reference": "home", "figma_version": "f1", "state": "rest-1440", "front_url": "https://fixture.invalid/",
+            "viewport": {"width": 1440, "height": 900, "dpr": 1, "zoom": 100}}
+        result = compare_visuals(self.figma, self.front, self.output, provenance=provenance)
+        self.assertEqual(result["provenance"], provenance)
+        self.assertTrue(result["visual_review_required"])
+
+    def test_incomplete_provenance_is_refused_before_generation(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Provenance complète"):
+            compare_visuals(self.figma, self.front, self.output, provenance={"mission_digest": "m1"})
+        self.assertFalse(self.output.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

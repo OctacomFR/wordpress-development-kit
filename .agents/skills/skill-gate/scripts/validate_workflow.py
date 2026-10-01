@@ -3,16 +3,26 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import re
 import sys
 import tomllib
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 
 FRONTMATTER = re.compile(r"\A---\s*\n(?P<header>.*?)\n---\s*\n", re.DOTALL)
 FIELD = re.compile(r"^(?P<key>[a-zA-Z0-9_-]+):\s*(?P<value>.*)$")
-REFERENCE = re.compile(r"(?P<target>(?:\.\./)*references/[A-Za-z0-9._/-]+\.md)")
+REFERENCE = re.compile(r"(?<![A-Za-z0-9_./\\-])(?P<target>(?:\.\./)*references/[A-Za-z0-9._/-]+\.md)")
+MARKDOWN_LINK = re.compile(r"\[[^\]\n]*\]\(<?(?P<target>[^\s)<>]+)>?[^)]*\)")
+UNIX_HOOK_COMMAND = re.compile(
+    r'python3?\s+"\$\(git rev-parse --show-toplevel\)/\.codex/hooks/(?P<script>[a-zA-Z0-9_-]+\.py)"'
+)
+WINDOWS_HOOK_COMMAND = re.compile(
+    r'''powershell\.exe -NoProfile -ExecutionPolicy Bypass -Command "python '''
+    r'''\(Join-Path \(git rev-parse --show-toplevel\) '\.codex/hooks/(?P<script>[a-zA-Z0-9_-]+\.py)'\)"'''
+)
 INJECTION_EVENTS = {"SessionStart", "UserPromptSubmit", "SubagentStart"}
 TOOL_GATE_EVENTS = {"UserPromptSubmit", "PostToolUse", "Stop"}
 OXYGEN_GATE_EVENTS = {"PreToolUse", "PostToolUse"}
@@ -48,23 +58,127 @@ def validate_skill_references(skill_file: Path, repo: Path) -> list[str]:
     if skill_file.is_symlink():
         return [f"{label}: SKILL.md ne doit pas être un symlink"]
 
-    text = skill_file.read_text(encoding="utf-8")
-    for target in sorted({match.group("target") for match in REFERENCE.finditer(text)}):
-        raw_path = skill_file.parent / Path(target)
-        try:
-            resolved = raw_path.resolve(strict=True)
-        except OSError:
-            errors.append(f"{label}: référence absente {target}")
+    pending = [skill_file]
+    visited: set[Path] = set()
+    while pending:
+        source = pending.pop()
+        if source.resolve() in visited:
             continue
+        visited.add(source.resolve())
+        text = source.read_text(encoding="utf-8")
+        targets = {match.group("target") for match in REFERENCE.finditer(text)}
+        targets.update(match.group("target") for match in MARKDOWN_LINK.finditer(text))
+        for target in sorted(targets):
+            url = urlsplit(target)
+            if url.netloc or url.scheme in {"http", "https", "mailto"}:
+                continue
+            if url.scheme:
+                errors.append(f"{source.relative_to(repo)}: référence hors du skill ou des références partagées {target}")
+                continue
+            path = unquote(url.path)
+            if not path.endswith(".md"):
+                continue
+            raw_path = source.parent / path
+            resolved = raw_path.resolve()
+            source_label = source.relative_to(repo)
+            if not (
+                resolved.is_relative_to(skill_root)
+                or resolved.is_relative_to(shared_references_root)
+            ):
+                errors.append(f"{source_label}: référence hors du skill ou des références partagées {target}")
+            elif not resolved.is_file():
+                errors.append(f"{source_label}: référence absente {target}")
+            else:
+                pending.append(raw_path)
 
-        if not (
-            resolved.is_relative_to(skill_root)
-            or resolved.is_relative_to(shared_references_root)
+    return errors
+
+
+def oxygen_mutations(path: Path) -> set[str]:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == "MUTATIONS" for target in node.targets
         ):
-            errors.append(f"{label}: référence hors du skill ou des références partagées {target}")
-        elif not resolved.is_file():
-            errors.append(f"{label}: référence non fichier {target}")
+            value = node.value
+            if isinstance(value, ast.Call) and isinstance(value.func, ast.Name) and value.func.id == "frozenset":
+                mutations = ast.literal_eval(value.args[0])
+                if isinstance(mutations, set) and all(isinstance(item, str) for item in mutations):
+                    return mutations
+    raise ValueError("liste MUTATIONS littérale absente du contrôle Oxygen")
 
+
+def validate_hooks(hook_map: dict, repo: Path, mutations: set[str]) -> list[str]:
+    errors: list[str] = []
+    configured: dict[str, list[tuple[str | None, str]]] = {}
+    for event, groups in hook_map.items():
+        if not isinstance(groups, list) or not groups:
+            errors.append(f"hook {event}: aucun groupe configuré")
+            continue
+        for group in groups:
+            if not isinstance(group, dict):
+                errors.append(f"hook {event}: groupe invalide")
+                continue
+            matcher = group.get("matcher")
+            if matcher is not None:
+                try:
+                    if not isinstance(matcher, str):
+                        raise TypeError
+                    re.compile(matcher)
+                except (TypeError, re.error):
+                    errors.append(f"hook {event}: matcher invalide")
+                    continue
+            if event in {"UserPromptSubmit", "SubagentStart", "Stop"} and matcher not in {None, "", ".*"}:
+                errors.append(f"hook {event}: matcher global restrictif")
+            handlers = group.get("hooks")
+            if not isinstance(handlers, list) or not handlers:
+                errors.append(f"hook {event}: aucun handler configuré")
+                continue
+            for handler in handlers:
+                if not isinstance(handler, dict):
+                    errors.append(f"hook {event}: handler invalide")
+                    continue
+                if handler.get("type") != "command":
+                    errors.append(f"hook {event}: type doit être command")
+                timeout = handler.get("timeout")
+                if type(timeout) is not int or not 1 <= timeout <= 60:
+                    errors.append(f"hook {event}: timeout doit être un entier de 1 à 60 secondes")
+                scripts = []
+                for field, pattern in (("command", UNIX_HOOK_COMMAND), ("commandWindows", WINDOWS_HOOK_COMMAND)):
+                    command = handler.get(field)
+                    match = pattern.fullmatch(command) if isinstance(command, str) else None
+                    if match is None:
+                        errors.append(f"hook {event}: {field} doit appeler directement un script Python de .codex/hooks")
+                    else:
+                        scripts.append(match["script"])
+                        if not (repo / ".codex" / "hooks" / match["script"]).is_file():
+                            errors.append(f"hook {event}: script absent {match['script']}")
+                if len(scripts) == 2:
+                    if scripts[0] != scripts[1]:
+                        errors.append(f"hook {event}: commandes Unix et Windows ciblent des scripts différents")
+                    else:
+                        configured.setdefault(event, []).append((matcher, scripts[0]))
+
+    for event in EXPECTED_HOOK_EVENTS:
+        required: dict[str, list[str]] = {}
+        if event in INJECTION_EVENTS:
+            required["inject_skill_gate.py"] = (
+                ["startup", "resume", "clear", "compact"] if event == "SessionStart" else [""]
+            )
+        if event in TOOL_GATE_EVENTS:
+            required["tool_use_gate.py"] = [""]
+        if event in OXYGEN_GATE_EVENTS:
+            operations = mutations if event == "PreToolUse" else {"oxygen_site_info"}
+            required["oxygen_site_gate.py"] = [f"mcp__site__{operation}" for operation in sorted(operations)]
+        for script, samples in required.items():
+            handlers = [(matcher, name) for matcher, name in configured.get(event, []) if name == script]
+            if script == "tool_use_gate.py" and event == "PostToolUse":
+                covered = any(matcher in {None, "", ".*"} for matcher, _ in handlers)
+            else:
+                covered = all(any(matcher in {None, ""} or re.search(matcher, sample)
+                                  for matcher, _ in handlers) for sample in samples)
+            if not covered:
+                errors.append(f"hook {event}: commande ou couverture requise absente pour {script}")
     return errors
 
 
@@ -117,6 +231,9 @@ def validate(repo: Path) -> list[str]:
     oxygen_gate_file = repo / ".codex" / "hooks" / "oxygen_site_gate.py"
     manifest_file = skills_root / "skill-gate" / "agents" / "openai.yaml"
 
+    if not agents_file.is_file():
+        errors.append("fichier requis absent: AGENTS.md")
+
     try:
         config = tomllib.loads(config_file.read_text(encoding="utf-8"))
     except (OSError, UnicodeError, tomllib.TOMLDecodeError) as exc:
@@ -155,30 +272,12 @@ def validate(repo: Path) -> list[str]:
     if missing_events:
         errors.append(f"hooks obligatoires absents: {sorted(missing_events)}")
 
-    for event in EXPECTED_HOOK_EVENTS & configured_events:
-        groups = hook_map.get(event)
-        if not isinstance(groups, list) or not groups:
-            errors.append(f"hook {event}: aucun groupe configuré")
-            continue
-        handlers = [
-            handler
-            for group in groups
-            if isinstance(group, dict)
-            for handler in group.get("hooks", [])
-            if isinstance(handler, dict)
-        ]
-        required_scripts = []
-        if event in INJECTION_EVENTS:
-            required_scripts.append("inject_skill_gate.py")
-        if event in TOOL_GATE_EVENTS:
-            required_scripts.append("tool_use_gate.py")
-        if event in OXYGEN_GATE_EVENTS:
-            required_scripts.append("oxygen_site_gate.py")
-        for script in required_scripts:
-            if not any(script in str(item.get("command", "")) for item in handlers):
-                errors.append(f"hook {event}: {script} non appelé")
-            if not any(script in str(item.get("commandWindows", "")) for item in handlers):
-                errors.append(f"hook {event}: commande Windows pour {script} absente")
+    try:
+        mutations = oxygen_mutations(oxygen_gate_file)
+    except (OSError, UnicodeError, ValueError, SyntaxError, IndexError) as exc:
+        errors.append(f"contrôle Oxygen invalide: {exc}")
+        mutations = set()
+    errors.extend(validate_hooks(hook_map, repo, mutations))
 
     for required in (injector_file, tool_gate_file, oxygen_gate_file, manifest_file):
         if not required.is_file():

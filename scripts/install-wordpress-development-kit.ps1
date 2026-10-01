@@ -191,11 +191,11 @@ function New-SynchronizedFileLink {
 
     if ($AllowHardLinkFallback -and $pathRoot -ieq $targetRoot) {
         New-Item -ItemType HardLink -Path $Path -Target $Target -ErrorAction Stop | Out-Null
-        Write-Warning "AGENTS.md utilise un hardlink de secours. Relancez l'installateur apres chaque git pull du kit, car un remplacement physique du fichier source peut rompre la synchronisation."
+        Write-Warning "'$Path' utilise un hardlink de secours. Relancez l'installateur apres un remplacement physique de sa source."
         return $true
     }
 
-    throw "Impossible de creer le lien symbolique AGENTS.md. Activez le mode developpeur Windows ou lancez PowerShell avec les droits requis. Le secours par hardlink est disponible sur le meme volume avec -AllowHardLinkFallback, mais il est moins fiable apres git pull. Detail : $symbolicLinkError"
+    throw "Impossible de creer le lien symbolique '$Path'. Activez le mode developpeur Windows ou les droits requis. Le secours sur le meme volume exige -AllowHardLinkFallback. Detail : $symbolicLinkError"
 }
 
 function New-SynchronizedDirectoryLink {
@@ -274,7 +274,7 @@ function Invoke-PythonValidation {
     try {
         $env:PYTHONIOENCODING = 'utf-8'
 
-        & $pythonExecutable.Source $validator --repo $InstalledRoot
+        & $pythonExecutable.Source -B $validator --repo $InstalledRoot
         if ($LASTEXITCODE -ne 0) {
             throw "La validation statique du workflow a echoue."
         }
@@ -288,16 +288,52 @@ function Invoke-PythonValidation {
         }
     }
 
-    & $pythonExecutable.Source $tests
+    & $pythonExecutable.Source -B $tests
     if ($LASTEXITCODE -ne 0) {
         throw "Les tests d'injection du skill-gate ont echoue."
     }
 
     $injector = Join-Path $InstalledRoot '.codex\hooks\inject_skill_gate.py'
-    $injectedPolicy = '{}' | & $pythonExecutable.Source $injector
+    $injectedPolicy = '{}' | & $pythonExecutable.Source -B $injector
     if ($LASTEXITCODE -ne 0 -or ($injectedPolicy -join "`n") -notmatch 'SKILL PREFLIGHT REQUIRED') {
         throw "L'injecteur skill-gate n'a pas produit la politique attendue depuis le workspace installe."
     }
+
+    $missionTests = Join-Path $kitRoot 'scripts\test-mission-controls.py'
+    if (Test-Path -LiteralPath $missionTests -PathType Leaf) {
+        & $pythonExecutable.Source -B $missionTests
+        if ($LASTEXITCODE -ne 0) { throw "Les tests des controles de mission ont echoue." }
+    }
+}
+
+function Assert-RealDirectory {
+    param([string]$Path)
+    if (Test-Path -LiteralPath $Path) {
+        $item = Get-Item -LiteralPath $Path -Force
+        if (-not $item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+            throw "Conflit : '$Path' doit etre un vrai dossier local, sans jonction."
+        }
+    }
+}
+
+function Remove-CreatedPath {
+    param([string]$Path, [switch]$Recursive)
+    $normalized = Get-NormalizedPath -Path $Path
+    if ($normalized -ine $destinationRoot -and -not $normalized.StartsWith($destinationPrefix, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Retour arriere hors destination refuse : '$Path'."
+    }
+    $item = Get-Item -LiteralPath $Path -Force -ErrorAction SilentlyContinue
+    if ($null -eq $item) { return }
+    if ($item.PSIsContainer) {
+        if ($Recursive -and -not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+            foreach ($child in (Get-ChildItem -LiteralPath $Path -Force)) {
+                Remove-CreatedPath -Path $child.FullName -Recursive
+            }
+        }
+        # Delete(false) retire seulement la jonction ou le dossier maintenant vide.
+        [IO.Directory]::Delete($Path, $false)
+    }
+    else { Remove-Item -LiteralPath $Path -Force }
 }
 
 $kitRoot = Get-NormalizedPath -Path $KitRoot
@@ -319,7 +355,12 @@ $installerRequirements = @(
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\validate_workflow.py'),
     (Join-Path $sourceSkillsDirectory 'skills\skill-gate\scripts\test_workflow.py'),
     (Join-Path $sourceCodexDirectory 'hooks\tool_use_gate.py'),
-    (Join-Path $sourceCodexDirectory 'hooks\oxygen_site_gate.py')
+    (Join-Path $sourceCodexDirectory 'hooks\oxygen_site_gate.py'),
+    (Join-Path $sourceCodexDirectory 'hooks\mission_guard.py'),
+    (Join-Path $kitRoot '.claude\settings.json'),
+    (Join-Path $kitRoot '.claude\CLAUDE.md'),
+    (Join-Path $kitRoot '.claude\hooks'),
+    (Join-Path $kitRoot '.opencode\plugins')
 )
 
 foreach ($requiredPath in $installerRequirements) {
@@ -352,17 +393,60 @@ if (Test-Path -LiteralPath $destinationRoot -PathType Leaf) {
     throw "La destination est un fichier : '$destinationRoot'."
 }
 
-if (-not (Test-Path -LiteralPath $destinationRoot)) {
-    New-Item -ItemType Directory -Path $destinationRoot -ErrorAction Stop | Out-Null
-}
-
 $destinationAgentsFile = Join-Path $destinationRoot 'AGENTS.md'
 $destinationSkillsDirectory = Join-Path $destinationRoot '.agents'
 $destinationCodexDirectory = Join-Path $destinationRoot '.codex'
+$localDirectories = @('.claude', '.opencode', '.octacom')
+$fileLinks = @(
+    @{ Path = (Join-Path $destinationRoot '.claude\settings.json'); Target = (Join-Path $kitRoot '.claude\settings.json') },
+    @{ Path = (Join-Path $destinationRoot '.claude\CLAUDE.md'); Target = (Join-Path $kitRoot '.claude\CLAUDE.md') }
+)
+$directoryLinks = @(
+    @{ Path = $destinationSkillsDirectory; Target = $sourceSkillsDirectory },
+    @{ Path = $destinationCodexDirectory; Target = $sourceCodexDirectory },
+    @{ Path = (Join-Path $destinationRoot '.claude\hooks'); Target = (Join-Path $kitRoot '.claude\hooks') },
+    @{ Path = (Join-Path $destinationRoot '.claude\skills'); Target = (Join-Path $kitRoot '.agents\skills') },
+    @{ Path = (Join-Path $destinationRoot '.opencode\plugins'); Target = (Join-Path $kitRoot '.opencode\plugins') }
+)
+$ignorePath = Join-Path $destinationRoot '.octacom\.gitignore'
+$ignoreContent = "*`n"
 
 # Verifier tous les conflits avant la premiere mutation du projet.
-Assert-PathAvailableOrLinked -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory -Kind Directory
-Assert-PathAvailableOrLinked -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory -Kind Directory
+Assert-RealDirectory -Path $destinationRoot
+$ancestor = Split-Path -Parent $destinationRoot
+while ($ancestor) {
+    Assert-RealDirectory -Path $ancestor
+    $parent = Split-Path -Parent $ancestor
+    if ($parent -eq $ancestor) { break }
+    $ancestor = $parent
+}
+foreach ($directory in $localDirectories) { Assert-RealDirectory -Path (Join-Path $destinationRoot $directory) }
+$stateDirectory = Join-Path $destinationRoot '.octacom'
+if (Test-Path -LiteralPath $stateDirectory) {
+    $pendingDirectories = [Collections.Generic.Queue[string]]::new()
+    $pendingDirectories.Enqueue($stateDirectory)
+    while ($pendingDirectories.Count -gt 0) {
+        foreach ($item in (Get-ChildItem -LiteralPath $pendingDirectories.Dequeue() -Force)) {
+            if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.LinkType) {
+                throw "Conflit : l'etat local contient un lien '$($item.FullName)'."
+            }
+            if ($item.PSIsContainer) { $pendingDirectories.Enqueue($item.FullName) }
+        }
+    }
+}
+foreach ($link in $fileLinks) { Assert-PathAvailableOrLinked -Path $link.Path -ExpectedTarget $link.Target -Kind File }
+foreach ($link in $directoryLinks) { Assert-PathAvailableOrLinked -Path $link.Path -ExpectedTarget $link.Target -Kind Directory }
+if (Test-Path -LiteralPath $ignorePath) {
+    $ignoreItem = Get-Item -LiteralPath $ignorePath -Force
+    if ($ignoreItem.PSIsContainer -or $ignoreItem.LinkType -or ($ignoreItem.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+        [IO.File]::ReadAllText($ignorePath) -cne $ignoreContent) {
+        throw "Conflit : '$ignorePath' contient une configuration etrangere."
+    }
+}
+$gitProbe = Get-GitRootProbe -Path $destinationRoot
+if ($gitProbe.ExitCode -eq 0 -and (Get-NormalizedPath $gitProbe.Root) -ine $destinationRoot) {
+    throw "La destination depend d'une racine Git parente : '$($gitProbe.Root)'."
+}
 
 if ($RefreshAgentLink -and (Test-Path -LiteralPath $destinationAgentsFile -PathType Leaf)) {
     if (-not (Test-SameDirectoryLink -Path $destinationSkillsDirectory -ExpectedTarget $sourceSkillsDirectory) -or
@@ -376,11 +460,36 @@ else {
 
 $createdPaths = New-Object System.Collections.Generic.List[string]
 $gitCreated = $false
+$gitExisted = Test-Path -LiteralPath (Join-Path $destinationRoot '.git')
 $agentsLinkBackupPath = $null
 $agentsLinkRefreshed = $false
 
 try {
+    if (-not (Test-Path -LiteralPath $destinationRoot)) {
+        $missingDirectories = [Collections.Generic.List[string]]::new()
+        $nextDirectory = $destinationRoot
+        while (-not (Test-Path -LiteralPath $nextDirectory)) {
+            $missingDirectories.Add($nextDirectory)
+            $nextDirectory = Split-Path -Parent $nextDirectory
+        }
+        # Aucun parent nouveau : garder le retour arriere confine a la destination nommee.
+        if ($missingDirectories.Count -ne 1) { throw "Le parent de la destination doit deja exister : '$nextDirectory'." }
+        New-Item -ItemType Directory -Path $destinationRoot | Out-Null
+        $createdPaths.Add($destinationRoot)
+    }
     $gitCreated = Ensure-ExactGitRoot -Path $destinationRoot
+
+    foreach ($directory in $localDirectories) {
+        $localPath = Join-Path $destinationRoot $directory
+        if (-not (Test-Path -LiteralPath $localPath)) {
+            New-Item -ItemType Directory -Path $localPath | Out-Null
+            $createdPaths.Add($localPath)
+        }
+    }
+    if (-not (Test-Path -LiteralPath $ignorePath)) {
+        [IO.File]::WriteAllText($ignorePath, $ignoreContent, [Text.UTF8Encoding]::new($false))
+        $createdPaths.Add($ignorePath)
+    }
 
     if ($RefreshAgentLink -and (Test-Path -LiteralPath $destinationAgentsFile -PathType Leaf)) {
         $agentsLinkBackupPath = Join-Path $destinationRoot ('.AGENTS.md.octacom-backup.' + [guid]::NewGuid().ToString('N'))
@@ -409,11 +518,15 @@ try {
         -AllowHardLinkFallback:$AllowHardLinkFallback) {
         $createdPaths.Add($destinationAgentsFile)
     }
-    if (New-SynchronizedDirectoryLink -Path $destinationSkillsDirectory -Target $sourceSkillsDirectory) {
-        $createdPaths.Add($destinationSkillsDirectory)
+    foreach ($link in $fileLinks) {
+        if (New-SynchronizedFileLink -Path $link.Path -Target $link.Target -AllowHardLinkFallback:$AllowHardLinkFallback) {
+            $createdPaths.Add($link.Path)
+        }
     }
-    if (New-SynchronizedDirectoryLink -Path $destinationCodexDirectory -Target $sourceCodexDirectory) {
-        $createdPaths.Add($destinationCodexDirectory)
+    foreach ($link in $directoryLinks) {
+        if (New-SynchronizedDirectoryLink -Path $link.Path -Target $link.Target) {
+            $createdPaths.Add($link.Path)
+        }
     }
 
     if (-not (Test-SameFileLink -Path $destinationAgentsFile -ExpectedTarget $sourceAgentsFile)) {
@@ -424,6 +537,12 @@ try {
     }
     if (-not (Test-SameDirectoryLink -Path $destinationCodexDirectory -ExpectedTarget $sourceCodexDirectory)) {
         throw "Le lien .codex cree ne correspond pas a la source attendue."
+    }
+    foreach ($link in $fileLinks) {
+        if (-not (Test-SameFileLink -Path $link.Path -ExpectedTarget $link.Target)) { throw "Lien invalide : '$($link.Path)'." }
+    }
+    foreach ($link in $directoryLinks) {
+        if (-not (Test-SameDirectoryLink -Path $link.Path -ExpectedTarget $link.Target)) { throw "Lien invalide : '$($link.Path)'." }
     }
 
     if (-not $SkipValidation) {
@@ -440,9 +559,7 @@ catch {
 
     for ($index = $createdPaths.Count - 1; $index -ge 0; $index--) {
         $createdPath = $createdPaths[$index]
-        if (Test-Path -LiteralPath $createdPath) {
-            Remove-Item -LiteralPath $createdPath -Force -ErrorAction SilentlyContinue
-        }
+        if ($createdPath -ine $destinationRoot) { Remove-CreatedPath -Path $createdPath }
     }
 
     if ($agentsLinkRefreshed -and $agentsLinkBackupPath -and (Test-Path -LiteralPath $agentsLinkBackupPath)) {
@@ -452,14 +569,17 @@ catch {
         Move-Item -LiteralPath $agentsLinkBackupPath -Destination $destinationAgentsFile -ErrorAction SilentlyContinue
     }
 
-    if ($gitCreated) {
+    if ($gitCreated -or (-not $gitExisted -and (Test-Path -LiteralPath (Join-Path $destinationRoot '.git')))) {
         $createdGitDirectory = Join-Path $destinationRoot '.git'
         $resolvedGitDirectory = Get-NormalizedPath -Path $createdGitDirectory
         if ($resolvedGitDirectory.StartsWith($destinationPrefix, [System.StringComparison]::OrdinalIgnoreCase) -and
             (Test-Path -LiteralPath $createdGitDirectory -PathType Container)) {
-            Remove-Item -LiteralPath $createdGitDirectory -Recurse -Force -ErrorAction SilentlyContinue
+            Assert-RealDirectory -Path $createdGitDirectory
+            Remove-CreatedPath -Path $createdGitDirectory -Recursive
         }
     }
+
+    if ($createdPaths.Contains($destinationRoot)) { Remove-CreatedPath -Path $destinationRoot }
 
     throw $installationError
 }
@@ -475,6 +595,9 @@ Write-Host "Racine Git : $gitRoot"
 Write-Host "AGENTS.md ($installedAgentsLinkType) : synchronise avec $sourceAgentsFile"
 Write-Host ".agents : synchronise avec $sourceSkillsDirectory"
 Write-Host ".codex : synchronise avec $sourceCodexDirectory"
+Write-Host '.claude : dossier local, settings/CLAUDE.md/hooks/skills synchronises'
+Write-Host '.opencode : dossier local, plugins synchronises'
+Write-Host '.octacom : etat local isole, ignore par Git'
 if ($installedAgentsLinkType -eq 'HardLink') {
     Write-Warning "AGENTS.md est un hardlink. Apres chaque git pull du kit, utilisez -RefreshAgentLink -AllowHardLinkFallback ou activez le mode developpeur puis utilisez -RefreshAgentLink."
 }
@@ -483,7 +606,6 @@ if (Test-Path -LiteralPath (Join-Path $destinationRoot 'AGENTS.md.lnk')) {
 }
 Write-Host ''
 Write-Host 'Etapes manuelles restantes :'
-Write-Host '1. Fermer toute session Codex ouverte sur ce dossier.'
-Write-Host '2. Rouvrir le dossier comme workspace et le declarer fiable.'
-Write-Host '3. Executer /hooks, relire puis approuver les six evenements de hooks.'
-Write-Host '4. Executer /skills et verifier la presence de skill-gate et des skills Octacom.'
+Write-Host '1. Rouvrir le workspace et verifier sa confiance dans chaque interface utilisee.'
+Write-Host '2. Suivre docs/compatibility-runtimes.md du kit pour Codex CLI/Desktop, Claude Code, OpenCode et T3.'
+Write-Host '3. Prouver configuration active, catalogue et dispatch dans cette interface ; les tests locaux ne suffisent pas.'

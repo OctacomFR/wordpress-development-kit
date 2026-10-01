@@ -40,12 +40,12 @@ Un Header/Footer global n'a pas besoin d'être dupliqué dans chaque Template. U
 
 #### Templates toujours obligatoires
 
-Chaque site possède ces deux objets Oxygen 6 avant livraison :
+Toute livraison de site, page ou correction locale exige ces deux objets Oxygen 6 conformes :
 
 1. **Single Article** : Template appliqué aux articles WordPress, utilisant les données dynamiques réelles pour le titre, la date, l'image à la une et le contenu. Utiliser `Template Content Area` lorsque le contenu propre à l'article doit être injecté dans la structure commune.
 2. **404 Not Found** : Template spécial ciblé par la Location Oxygen `404 Not Found`. Il conserve le Header et le Footer globaux, affiche un message compréhensible et propose au minimum un lien réel vers l'accueil ou une autre destination valide.
 
-Vérifier Location, Conditions et Priority. Si un template conforme existe, le réutiliser ; sinon le créer. Ne jamais en créer un doublon. L'absence d'articles publiés ne dispense pas de créer le Template Single Article : contrôler sa structure et ses liaisons dynamiques dans le builder sans inventer un article de test destiné à la livraison.
+Auditer les templates, leurs Location, Conditions et Priority. Réutiliser les objets conformes ; corriger leur absence ou non-conformité avant de conclure, même pour une correction locale. Limiter l'intervention au manque constaté, sans doublon ni refonte des autres pages. L'absence d'articles publiés ne dispense pas du Single Article : contrôler sa structure et ses liaisons dynamiques dans le builder sans inventer un article de test destiné à la livraison. Une information requise manquante bloque l'écriture dépendante et la livraison.
 
 ### 6.2. Template Content Area
 
@@ -103,7 +103,9 @@ Le footer doit :
 - réutiliser les réseaux sociaux réels ;
 - ne pas hard-coder l'année si une valeur dynamique propre existe déjà ;
 - utiliser le menu WordPress réel du footer pour afficher **Politique de protection des données**, **Mentions légales** et, lorsqu'elles existent ou sont applicables, les **Conditions générales de vente** ;
-- afficher le crédit de réalisation Octacom sur tous les sites, même si Figma ne le montre pas. Cette règle de livraison explicite prime sur l'absence du crédit dans la maquette.
+- afficher le crédit de réalisation Octacom avant toute livraison, correction locale comprise. Auditer et réutiliser un crédit conforme ; corriger seulement son absence ou non-conformité.
+
+Si Figma ne contient pas le crédit, l'utilisateur autorise explicitement son ajout dans le Footer natif après le contenu principal, avec le markup et le logo ci-dessous. Conserver la disposition, les couleurs et la géométrie des blocs existants ; cette exception autorise uniquement l'ajout du crédit. La tracer dans le registre des écarts, avec la preuve du Footer final. Si une spécification exacte rend sa disposition ou sa variante contradictoire ou indéterminée, demander la décision avant l'écriture dépendante. Cette règle ne permet ni d'inventer une donnée métier ni de refondre le Footer.
 
 Markup du crédit :
 

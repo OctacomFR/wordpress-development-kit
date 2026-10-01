@@ -1,0 +1,16 @@
+{
+  "interface": "Codex desktop",
+  "workspace": "C:/Users/DEV/Documents/Octacom/wordpress-development-kit",
+  "session_id": "01a0f67b-55cb-7b73-932e-02bd4a26626b",
+  "hook_event": "UserPromptSubmit",
+  "observed_at_utc": "2026-10-01T09:13:57.239903+00:00",
+  "kit_digest": "72570fd48d401a630b90050d412025c577fef023dbbd3641f0aa1bf1fc2aae6a",
+  "file_hashes": {
+    "AGENTS.md": "bcf1b59dabf2a9d8ea7fceee67c11ed8ac6f5d27b22fc5c5093b8f4ba5da037c",
+    ".agents/skills/skill-gate/SKILL.md": "5b84314df972baaf29f2e25a056201ff32967f3547d80ef7d1a7d55e66830d74",
+    ".codex/hooks.json": "98b2d8184595ab42485ded7255be8bde9d9adbb042384da34003c98456315bba"
+  },
+  "evidence": ["Receipt read from .octacom/runtime/", "Matching KIT FILES OBSERVED injection received in the active desktop conversation"],
+  "proves": "The preflight injection ran in this desktop conversation and read these three files",
+  "does_not_prove": ["Every instruction understood", "Every skill read", "Oxygen mutation interception", "Hosted or specialised tool coverage"]
+}

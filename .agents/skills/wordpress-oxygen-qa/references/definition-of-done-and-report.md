@@ -8,6 +8,8 @@ Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renf
 
 Le travail n'est terminé que si tous les points applicables sont vrais.
 
+Le crédit Octacom et les Templates Single Article/404 sont requis pour toute livraison, y compris celle d'une correction locale. Auditer et réutiliser les objets conformes, puis corriger leur absence ou non-conformité avant de conclure, sans doublon ni refonte inutile. Les sources requises restent obligatoires ; leur absence bloque le correctif et la livraison. Suivre la [procédure de contrôle de mission](../../../references/mission-controls.md) avant de finaliser.
+
 Pour toute cible référencée dans Figma, la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md) s'applique intégralement. Sans `FIGMA_VISUAL_MATCH_VERIFIED`, le site reste bloqué à la livraison, même si les autres contrôles passent.
 
 ### Design
@@ -130,7 +132,8 @@ Pour toute cible référencée dans Figma, la [procédure de fidélité visuelle
 - [ ] L'existence de la boîte et la capacité d'expédition SMTP ont été vérifiées ; aucun test n'a été envoyé à l'adresse finale sauf demande explicite.
 - [ ] Formulaire, consentement, CAPTCHA, honeypot et messages testés.
 - [ ] Mentions légales remplies avec des données validées et sans variable de template restante.
-- [ ] Crédit de réalisation Octacom présent dans le footer avec la bonne variante de logo.
+- [ ] Crédit de réalisation Octacom présent dans le Footer avec le markup fourni et la bonne variante de logo, quelle que soit la taille de la correction livrée.
+- [ ] Si Figma omet le crédit, ajout après le contenu principal conforme à l'exception utilisateur décrite dans l'architecture Footer, avec les autres blocs préservés et la décision tracée dans le registre des écarts.
 
 ---
 
@@ -153,6 +156,7 @@ QA effectuée
 - Preuves : captures Figma, captures front finales, comparaisons et registre des écarts clos
 - Responsive : ...
 - Oxygen builder : ...
+- Invariants de toute livraison : crédit Octacom et Templates Single Article/404 contrôlés, réutilisés ou corrigés sans doublon
 - SEO : ...
 - Performance : ...
 

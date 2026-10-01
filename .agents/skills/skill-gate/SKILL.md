@@ -60,6 +60,8 @@ Le choix de skills reste un contrôle de procédure. Il ne doit jamais décider 
 
 Les hooks locaux injectent ce rappel au modèle, mais ne prouvent pas qu'un skill a été compris ou appliqué. Ne pas construire un faux jeton de capacité à partir d'une simple déclaration du modèle.
 
+Avant une mutation Oxygen, une reprise dans une autre interface ou une livraison, lire [../../references/mission-controls.md](../../references/mission-controls.md) et contrôler la fiche, les observations et les preuves de la mission courante.
+
 Pour modifier les hooks, concevoir un exécuteur strict ou définir des tests de couverture, lire intégralement [references/enforcement-and-tests.md](references/enforcement-and-tests.md) avant toute modification.
 
 ## Finaliser

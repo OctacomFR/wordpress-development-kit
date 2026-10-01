@@ -1,0 +1,109 @@
+{
+  "generated_at_utc": "2026-10-01T09:34:03.412422+00:00",
+  "mode": "grade",
+  "cli_version_observed": null,
+  "model_requested": null,
+  "fixture_sha256": "a8124a063cedfba46b320e6c88104d2812154e4f1fb406f51c66cb7b7c46dd55",
+  "runner_sha256": "5e6ce84858f6dc6dc80ce92f44ec66f4fcb832eb30e553f6e2c1af352bf3cc86",
+  "official_docs": [
+    "https://learn.chatgpt.com/docs/non-interactive-mode",
+    "https://learn.chatgpt.com/docs/config-file/config-reference",
+    "https://learn.chatgpt.com/docs/extend/mcp?surface=cli"
+  ],
+  "scenarios_not_run": [],
+  "results": [
+    {
+      "scenario": "evaluator_selftest",
+      "mode": "synthetic_grading_only",
+      "passed": true,
+      "cases": [
+        {
+          "case": "positive_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "positive_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "positive_unproved_claim_rejected",
+          "passed": true
+        },
+        {
+          "case": "wrong_site_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "wrong_site_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "wrong_site_unproved_claim_rejected",
+          "passed": true
+        },
+        {
+          "case": "annotations_absent_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "annotations_absent_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "annotations_absent_unproved_claim_rejected",
+          "passed": true
+        },
+        {
+          "case": "tool_failed_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "tool_failed_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "tool_failed_unproved_claim_rejected",
+          "passed": true
+        },
+        {
+          "case": "builder_stale_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "builder_stale_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "builder_stale_unproved_claim_rejected",
+          "passed": true
+        },
+        {
+          "case": "sources_conflict_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "sources_conflict_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "sources_conflict_unproved_claim_rejected",
+          "passed": true
+        },
+        {
+          "case": "false_fidelity_synthetic_contract",
+          "passed": true
+        },
+        {
+          "case": "false_fidelity_contradictory_effect_rejected",
+          "passed": true
+        },
+        {
+          "case": "false_fidelity_unproved_claim_rejected",
+          "passed": true
+        }
+      ],
+      "model_runs": 0
+    }
+  ],
+  "all_passed": true
+}

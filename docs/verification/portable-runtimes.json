@@ -1,0 +1,339 @@
+{
+  "format": 1,
+  "scope": "native clients, deterministic local model and MCP fixtures, no real model or site",
+  "packages": [
+    {
+      "name": "opencode-windows-x64",
+      "version": "1.18.34",
+      "integrity": "sha512-Nbw1JUHcMd+6Zab97tvhiR/wzMBrtFbHMog3w+HssBqt0068BLdpPadLmo72+vPtBu+ZxXIZzqNB9R3qtca7qg==",
+      "executable": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\opencode-windows-x64\\package\\bin\\opencode.exe"
+    },
+    {
+      "name": "@anthropic-ai/claude-code-win32-x64",
+      "version": "2.1.286",
+      "integrity": "sha512-Cvq6m1e2eP0p47Ze+b6rw+DjXMhLCcT9g8ZKfFDxT0NB9d9mjHcNs6Qjb1oTqbO6AsN3Ie1DIqWt50J7kboz7g==",
+      "executable": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\anthropic-ai_claude-code-win32-x64\\package\\claude.exe"
+    },
+    {
+      "name": "@t3code/t3-win32-x64",
+      "version": "0.0.44",
+      "integrity": "sha512-ymjoaUUXK0LKA56c1PLSJKrLraLw+Xm9ijBG/eKA//dROnvStug0R2Z8IDsJ54rX/7mtdcYjgWt/Y/vfOlqg4g==",
+      "executable": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\t3code_t3-win32-x64\\package\\t3.exe"
+    }
+  ],
+  "workspace": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace",
+  "checks": {
+    "opencode-windows-x64": {
+      "version_output": "1.18.34",
+      "version_exit": 0
+    },
+    "@anthropic-ai/claude-code-win32-x64": {
+      "version_output": "2.1.286 (Claude Code)",
+      "version_exit": 0
+    },
+    "@t3code/t3-win32-x64": {
+      "version_output": "t3 v0.0.44",
+      "version_exit": 0
+    },
+    "opencode-native": {
+      "exit_code": 0,
+      "timeout": false,
+      "guard_denial_observed": true,
+      "fixture_effect_observed": false,
+      "requests": [
+        {
+          "protocol": "openai",
+          "tool_requested": null,
+          "static_preflight_observed": true,
+          "guard_denial_in_input": false
+        },
+        {
+          "protocol": "openai",
+          "tool_requested": "site_oxygen_edit_post",
+          "static_preflight_observed": true,
+          "guard_denial_in_input": false
+        },
+        {
+          "protocol": "openai",
+          "tool_requested": null,
+          "static_preflight_observed": true,
+          "guard_denial_in_input": true
+        }
+      ]
+    },
+    "claude-native": {
+      "exit_code": 0,
+      "timeout": false,
+      "guard_denial_observed": true,
+      "hook_events_observed": true,
+      "fixture_effect_observed": false,
+      "requests": [
+        {
+          "protocol": "anthropic",
+          "tool_requested": "mcp__site__oxygen_edit_post",
+          "static_preflight_observed": true,
+          "guard_denial_in_input": false
+        },
+        {
+          "protocol": "anthropic",
+          "tool_requested": null,
+          "static_preflight_observed": true,
+          "guard_denial_in_input": true
+        }
+      ],
+      "settings_source": "explicit --settings points to project file; project trust discovery not claimed"
+    },
+    "t3-native": {
+      "provider": "codex",
+      "provider_binary": "C:\\Users\\DEV\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+      "provider_home": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\t3-codex-home",
+      "workspace": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace",
+      "provider_home_scope": "isolated TEMP, no credentials copied; global home is read-only in this sandbox",
+      "conversation_hooks_observed": true,
+      "fixture_hook_trust": {
+        "scope": "reviewed kit definitions, isolated TEMP home only",
+        "count": 8,
+        "keys_and_hashes": [
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:pre_tool_use:0:0",
+            "hash": "sha256:d719c34178492ef143f03acc5ac8d8ee812cf4acc81787f827ea006ccf6338c6"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:post_tool_use:0:0",
+            "hash": "sha256:81c4085d0986d0e7593cfde70a4095ce8b2a589263ed7c1b26e9a228e1f1787c"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:post_tool_use:1:0",
+            "hash": "sha256:5c0380b3a1a0d47cebbfbef10b972260ca455564081f36c17a13d7abc9a26a36"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:session_start:0:0",
+            "hash": "sha256:cb8871e661f545f18615747fbd7f81bfed8dceb72f26e6d004bc4886040d4f56"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:user_prompt_submit:0:0",
+            "hash": "sha256:6a6b125f6ac100d9cf60d80f13fe601c57d5a8ac4c126877c2ed6b9c1aa4d425"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:user_prompt_submit:0:1",
+            "hash": "sha256:1c8786d26d2c34ecced50379b77be62d34138b9296b9b8625d63905793291440"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:subagent_start:0:0",
+            "hash": "sha256:27f300f277295394f1d26d710bd8953fb6c7eba4be8535f6cc7eb5a132ebce33"
+          },
+          {
+            "key": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace\\.codex\\hooks.json:stop:0:0",
+            "hash": "sha256:94bc46341bf414084ad4d0446fa2722ee9c82bbef6217ea4a429808f490293c2"
+          }
+        ]
+      },
+      "http_status": 200,
+      "server_version": "0.0.44",
+      "rpc_exit": 0,
+      "config_rpc": {
+        "initial_settings": {
+          "enabled": true,
+          "binaryPath": "C:\\Users\\DEV\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+          "homePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\t3-codex-home",
+          "shadowHomePath": "",
+          "launchArgs": "",
+          "customModels": []
+        },
+        "refresh_exit": "Success",
+        "config": {
+          "cwd": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace",
+          "selected_settings": {
+            "enabled": true,
+            "binaryPath": "C:\\Users\\DEV\\AppData\\Local\\Programs\\OpenAI\\Codex\\bin\\codex.EXE",
+            "homePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\t3-codex-home",
+            "shadowHomePath": "",
+            "launchArgs": "",
+            "customModels": []
+          },
+          "providers": [
+            {
+              "id": "codex",
+              "version": "0.159.2",
+              "status": "ready",
+              "installed": true,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "claudeAgent",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "cursor",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "grok",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "opencode",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "antigravity",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            }
+          ]
+        },
+        "project": "f47b436a-911f-402f-9c23-d717e78afd04",
+        "thread": "2017ccf2-ccc2-4d17-9c56-bdb17e802526",
+        "stream_kinds": [
+          "snapshot",
+          "event"
+        ],
+        "event_types": [
+          "thread.message-sent",
+          "thread.session-set",
+          "thread.activity-appended",
+          "thread.turn-diff-completed"
+        ],
+        "turn_dispatch": "Success"
+      },
+      "requests": [
+        {
+          "protocol": "responses",
+          "tool_requested": "oxygen_edit_post",
+          "mcp_namespace": "mcp__site",
+          "static_preflight_observed": true,
+          "guard_denial_in_input": false
+        },
+        {
+          "protocol": "responses",
+          "tool_requested": null,
+          "mcp_namespace": "mcp__site",
+          "static_preflight_observed": true,
+          "guard_denial_in_input": true
+        }
+      ],
+      "fixture_effect_observed": false,
+      "guard_denial_observed": true
+    },
+    "t3-claude-native": {
+      "provider": "claudeAgent",
+      "provider_binary": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\anthropic-ai_claude-code-win32-x64\\package\\claude.exe",
+      "provider_home": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\claude-home",
+      "workspace": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace",
+      "provider_home_scope": "isolated TEMP, no credentials copied; global home is read-only in this sandbox",
+      "conversation_hooks_observed": true,
+      "http_status": 200,
+      "server_version": "0.0.44",
+      "rpc_exit": 0,
+      "config_rpc": {
+        "initial_settings": {
+          "enabled": true,
+          "binaryPath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\anthropic-ai_claude-code-win32-x64\\package\\claude.exe",
+          "homePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\claude-home",
+          "customModels": [],
+          "launchArgs": "",
+          "autoCompactWindow": ""
+        },
+        "refresh_exit": "Success",
+        "config": {
+          "cwd": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\workspace",
+          "selected_settings": {
+            "enabled": true,
+            "binaryPath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\anthropic-ai_claude-code-win32-x64\\package\\claude.exe",
+            "homePath": "C:\\Users\\DEV\\AppData\\Local\\Temp\\octacom-native-runtimes-5qqwwi18\\claude-home",
+            "customModels": [],
+            "launchArgs": "",
+            "autoCompactWindow": ""
+          },
+          "providers": [
+            {
+              "id": "codex",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "claudeAgent",
+              "version": "2.1.286",
+              "status": "ready",
+              "installed": true,
+              "auth_status": "authenticated"
+            },
+            {
+              "id": "cursor",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "grok",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "opencode",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            },
+            {
+              "id": "antigravity",
+              "version": null,
+              "status": "disabled",
+              "installed": false,
+              "auth_status": "unknown"
+            }
+          ]
+        },
+        "project": "425793df-8a29-46d1-bd4c-a38363f4da31",
+        "thread": "35122839-eef8-4c89-bec8-b859b3dbaaa9",
+        "stream_kinds": [
+          "snapshot",
+          "event"
+        ],
+        "event_types": [
+          "thread.message-sent",
+          "thread.session-set",
+          "thread.activity-appended",
+          "thread.turn-diff-completed"
+        ],
+        "turn_dispatch": "Success"
+      },
+      "requests": [
+        {
+          "protocol": "anthropic",
+          "tool_requested": "mcp__site__oxygen_edit_post",
+          "static_preflight_observed": true,
+          "guard_denial_in_input": false
+        },
+        {
+          "protocol": "anthropic",
+          "tool_requested": null,
+          "static_preflight_observed": true,
+          "guard_denial_in_input": true
+        }
+      ],
+      "fixture_effect_observed": false,
+      "guard_denial_observed": true
+    }
+  }
+}

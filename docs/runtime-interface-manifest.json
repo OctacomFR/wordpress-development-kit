@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-10-01",
+  "scope": "repository adapters, no live site",
+  "adapter_contract_tests": {"count": 10, "command": "python -B scripts/test-runtime-adapters.py"},
+  "interfaces": [
+    {"id": "codex-cli", "adapter": ".codex/hooks.json", "native_validation": "Seven real Codex CLI 0.159.2 conversations pass against the final core and an isolated MCP fixture, including a positive scenario with an edit saved and reread, required blocks, failed-tool reconciliation, stale builder, source conflict and refusal of unproved fidelity. Requested model gpt-6.1-sol; actual model revision not exposed. Normal kit approval is separate: 8 enabled trusted handlers and 13 repository skills. Guided fixture scenarios do not certify every tool path or a live site", "model_requested": "gpt-6.1-sol", "actual_model_revision_observed": null, "evidence": ["docs/verification/model-scenarios-consolidated.json", "docs/verification/model-scenarios.md", "docs/verification/runtime-after-approval.json"]},
+    {"id": "codex-desktop", "adapter": ".codex/hooks.json", "native_validation": "Approved project configuration observed; UserPromptSubmit injection received in the active conversation; Oxygen dispatch scenarios not observed", "evidence": ["docs/verification/runtime-after-approval.json", "docs/verification/desktop-injection.json"]},
+    {"id": "claude-code", "adapter": ".claude/settings.json", "fixture_validation": "scripts/test-runtime-adapters.py", "native_validation": "Claude Code 2.1.286 portable, native hook deny observed using local protocol model and MCP fixture with explicit --settings, no effect; automatic project discovery and trust not proven", "evidence": "docs/verification/portable-runtimes.json"},
+    {"id": "opencode", "adapter": ".opencode/plugins/octacom-controls.js", "fixture_validation": "scripts/test-runtime-adapters.py", "native_validation": "OpenCode 1.18.34 portable, project plugin discovered, native hook deny observed using local protocol model and MCP fixture, no effect", "evidence": "docs/verification/portable-runtimes.json"},
+    {"id": "t3-codex", "adapter": "provider codex app-server", "native_validation": "T3 0.0.44 -> Codex 0.159.2 native conversation with loopback Responses model and MCP fixture: selected binary/cwd/isolated home confirmed, static preflight and native hook deny returned to the model, no MCP effect. Exact hook hashes trusted in TEMP only; real workspace scenarios remain required", "evidence": "docs/verification/portable-runtimes.json"},
+    {"id": "t3-claude", "adapter": "provider Claude Agent SDK", "native_validation": "T3 0.0.44 -> Claude Code 2.1.286 native SDK conversation with loopback Anthropic model and MCP fixture: static preflight and project hook deny returned to the model, no MCP effect. Healthcheck deliberately disables hooks and is a separate proof; real workspace scenarios remain required", "evidence": "docs/verification/portable-runtimes.json"}
+  ],
+  "claim": "Adapters share bounded controls. No universal tool interception or semantic certification is claimed."
+}

@@ -1,0 +1,44 @@
+{
+  "verified_at_utc": "2026-10-01T09:49:32.5547752Z",
+  "scope": "Local deterministic kit controls, no client site",
+  "results": [
+    {
+      "command": "python -B .agents/skills/skill-gate/scripts/test_workflow.py",
+      "tests": 32,
+      "exit_code": 0
+    },
+    {
+      "command": "python -B scripts/test-mission-controls.py",
+      "tests": 22,
+      "exit_code": 0
+    },
+    {
+      "command": "python -B scripts/test-runtime-adapters.py",
+      "tests": 10,
+      "exit_code": 0
+    },
+    {
+      "command": "python -B .agents/skills/wordpress-oxygen-qa/scripts/test_compare_visuals.py",
+      "tests": 9,
+      "exit_code": 0
+    },
+    {
+      "command": "pwsh -NoLogo -NoProfile -File scripts/test-installation.ps1",
+      "assertions": 79,
+      "executor": "independent installation agent",
+      "exit_code": 0
+    }
+  ],
+  "fingerprints": {
+    ".codex/hooks/mission_guard.py": "d03523114028b407acf6e02c5cd65026f810f951969b03921a2f0104fdf87301",
+    ".codex/hooks/oxygen_site_gate.py": "83ea7fd893399186d7a85c2b0279fc295e53d7b4f006ff601e900d9516392f57",
+    ".agents/skills/skill-gate/scripts/validate_workflow.py": "c9220c6456a59f836b6c9d4ed68c09905619729842a18ac02bd2cf39b3b05e76",
+    ".agents/skills/wordpress-oxygen-qa/scripts/compare_visuals.py": "0445d48252fea3cf80c820803524afd9ad3b8f5e38fef7f00a46b786a537da30",
+    "scripts/install-wordpress-development-kit.ps1": "7e2e605ce21e9bd066fa085cd2c576df2ce2ace0588321e56dc626c06c1a8b51",
+    ".claude/hooks/octacom_bridge.py": "0814a17eccefd0e72863f51476afbfdbbee9c16589062453dd6c875db62e4a38",
+    ".opencode/plugins/octacom-controls.mjs": "2ff8ed16ef4d8275ccb4e44bdbaf2098774913cd76a69fc596bfd0b92ac48007",
+    ".codex/hooks/tool_use_gate.py": "0fdad29383ac8e6533827f852cfb2a1856700b3dfb38e5f95626dfc69508c992"
+  },
+  "visual_certification": false,
+  "model_runs": 0
+}

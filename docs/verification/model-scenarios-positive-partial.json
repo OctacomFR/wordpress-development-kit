@@ -1,0 +1,9 @@
+{
+  "mode": "partial_live_evidence",
+  "passed": false,
+  "reason": "Runner SQLite read connection remained open during TEMP cleanup; CLI event trace was not archived",
+  "ledger": {},
+  "guard_state": {
+    "observed": false
+  }
+}

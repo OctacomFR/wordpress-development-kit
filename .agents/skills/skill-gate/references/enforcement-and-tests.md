@@ -2,17 +2,29 @@
 
 Lire cette référence avant de modifier les hooks, de créer un mécanisme de permis ou d'annoncer une garantie stricte de couverture.
 
+Pour une mutation, une reprise ou une livraison, lire aussi la [procédure de contrôle de mission](../../../references/mission-controls.md). Elle définit le contrat opérationnel courant. Vérifier son activation dans chaque interface selon [la compatibilité des runtimes](../../../references/runtime-compatibility.md).
+
 ## Trois niveaux à ne pas confondre
 
 1. **Instruction de workflow** : `AGENTS.md` et `skill-gate` exigent un préflight. Le modèle peut encore se tromper.
 2. **Injection de contexte** : `UserPromptSubmit` et `SubagentStart` rappellent automatiquement la règle. Cela améliore le routage, sans prouver son application.
 3. **Exécuteur strict** : un orchestrateur externe contrôle chaque effet, l'action exacte, les permissions et la consommation atomique d'une autorisation. Ce niveau n'est pas implémenté dans ce dépôt.
 
-**État actuel du kit : niveaux 1 et 2, plus un contrôle de fin borné.** `tool_use_gate.py` marque les demandes d'action reconnues par une liste de verbes, observe les appels d'outils locaux via `PostToolUse`, puis utilise `Stop` pour relancer une fois un tour sans appel observé. Il conserve uniquement deux marqueurs temporaires par session et tour, jamais le prompt ni les arguments. Une question explicative est dispensée. Ce contrôle ne prouve pas qu'un outil pertinent a été choisi, qu'un skill a été lu, ni que le résultat a été vérifié. Le format du transcript n'est pas utilisé. Les tests simulent les événements ; le fonctionnement dans Codex exige encore l'approbation et l'activation des hooks dans `/hooks`.
+**État du kit : instructions, rappels et garde-fous ciblés, sans exécuteur universel.** `tool_use_gate.py` marque les demandes d'action reconnues par une liste de verbes, observe les appels d'outils locaux via `PostToolUse`, puis utilise `Stop` pour relancer une fois un tour sans appel observé. Il conserve uniquement deux marqueurs temporaires par session et tour, jamais le prompt ni les arguments. Une question explicative est dispensée. Ce contrôle ne prouve ni pertinence de l'outil, ni lecture d'un skill, ni résultat vérifié. Il n'utilise pas le transcript.
 
-`oxygen_site_gate.py` ajoute un contrôle ciblé : `PostToolUse` marque une réponse non erronée et non vide de `oxygen_site_info` ; `PreToolUse` refuse ensuite les mutations Oxygen explicitement listées tant que ce marqueur manque pour le même connecteur MCP et la même session. Le marqueur ne contient ni URL ni résultat. Si le connecteur n'expose pas `oxygen_site_info`, ces mutations sont refusées jusqu'à résolution du manque de capacité. Ce contrôle impose l'ordre des appels observés, mais ne prouve pas que l'agent a comparé le site et la version aux paramètres du projet, ni que les annotations Figma, les IDs ou la sauvegarde ont été vérifiés. Les mutations absentes de la liste et les chemins d'outils non couverts restent hors de sa portée.
+Le garde-fou historique `oxygen_site_gate.py` impose une réponse non erronée et non vide de `oxygen_site_info` sur le même connecteur/session avant les mutations reconnues. Ce marqueur d'ordre d'appels ne constitue pas une identité confirmée. Les contrôles de mission doivent relier les attentes confirmées aux valeurs réellement lues : URL du site, version Oxygen, mission, acteur, objet et snapshot de lecture. Lire le contrat courant dans la procédure de mission ; un champ déclaré par le modèle ne suffit pas à établir ces faits.
+
+L'état `.octacom` est un dossier réel du workspace, séparé par mission et acteur, sans jonction vers le kit. Il enregistre les cibles et les preuves nécessaires aux garde-fous locaux. S'il reste modifiable par l'agent, il ne constitue ni une permission infalsifiable ni un service de confiance indépendant. Un changement de cible, d'objet ou d'état lu exige la revalidation correspondante ; les captures et comparaisons doivent rester liées aux versions finales, avec invalidation après mutation de page ou d'objet partagé.
+
+`serial_observed` exige une observation récente de la même session et une empreinte explicitement acceptée, mais une vérification suivie d'une écriture laisse une course possible avec un éditeur externe. Le mode `atomic_revision` bloque actuellement toute mutation : les outils exposés ne fournissent aucun CAS serveur. Ni une transaction locale ni la mention « batch atomique » dans la description d'Oxygen ne fournissent cette capacité à elles seules. Le contrôle de livraison retourne des assertions structurées de revue, avec `visual_certification: false` ; il ne certifie pas le rendu.
 
 Les hooks d'outils couvrent de nombreux outils locaux, mais pas tous les chemins possibles. Les outils hébergés et certains outils spécialisés peuvent les contourner. Une erreur ou un timeout du hook `PreToolUse` peut laisser passer l'appel. Un faux positif ou un appel d'outil non couvert peut provoquer une relance inutile ; `stop_hook_active` empêche la boucle. Traiter ce contrôle comme un garde-fou, pas comme une frontière universelle.
+
+### Prouver l'activation et le dispatch
+
+Les tests des scripts simulent leurs entrées ; ils ne prouvent pas leur invocation par le runtime. La sonde `scripts/probe-codex-runtime.py` lit réellement `config/read`, `hooks/list` et `skills/list` d'un app-server Codex. Son résultat établit la configuration effective et la découverte pour cette instance, pas l'exécution de chaque handler. Conserver les preuves propres à Codex CLI, Desktop, OpenCode, Claude Code et T3 ; une réussite dans une interface ne valide pas les autres.
+
+Observer ensuite sur une fixture isolée le handler exécuté, le nom et la réponse d'outil réellement reçus, la décision et l'absence d'effet après refus. Couvrir appel direct, appel imbriqué, sous-agent, reprise et contrôle indisponible selon les capacités de l'interface. Les scénarios avec modèle vérifient les décisions et les effets de la fixture ; les tests déterministes vérifient les contrats. Aucun de ces essais ne remplace la recette métier du site.
 
 ## Pourquoi aucun permis local global n'est utilisé
 

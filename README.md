@@ -2,7 +2,7 @@
 
 Kit Octacom pour les projets WordPress et Oxygen 6.x.
 
-Le dépôt du kit reste séparé des sites développés. Vous le clonez une fois, puis son installateur relie `AGENTS.md`, `.agents` et `.codex` à chaque workspace de développement.
+Le dépôt du kit reste séparé des sites développés. Vous le clonez une fois, puis son installateur relie les règles et adaptateurs partagés à chaque workspace de développement. L'état de mission `.octacom` reste un dossier réel propre au workspace, sans lien vers le kit.
 
 ## Comprendre les dossiers
 
@@ -13,6 +13,8 @@ Le dépôt du kit reste séparé des sites développés. Vous le clonez une fois
 | Répertoires globaux de Codex | Outils et skills personnels disponibles dans tous les projets du développeur. |
 
 Ne placez pas un workspace de site dans le clone du kit. Ne déplacez pas le clone après avoir installé des workspaces, car les liens Windows utilisent son chemin absolu.
+
+Codex CLI, Codex Desktop, OpenCode, Claude Code et T3 doivent chacun suivre [la procédure de compatibilité et d'activation](docs/compatibility-runtimes.md). Vérifier l'interface réellement utilisée ; la présence d'un adaptateur ou la réussite dans Codex CLI ne prouve pas son activation dans une autre interface.
 
 ## Installer les prérequis Windows
 
@@ -26,7 +28,7 @@ Installez ces outils au niveau global du poste :
 - la dernière version stable de [FFmpeg](https://ffmpeg.org/download.html), installée globalement et ajoutée au `PATH`, nécessaire au traitement des vidéos et de certains médias ;
 - la dernière version stable d'[ImageMagick pour Windows](https://imagemagick.org/script/download.php#windows), installée globalement avec la commande `magick` disponible dans le `PATH`, nécessaire aux conversions et optimisations d'images ;
 - Google Chrome à jour ;
-- le mode développeur Windows, recommandé pour créer un lien symbolique durable vers `AGENTS.md`. Ouvrez ses réglages avec `start ms-settings:developers`.
+- le mode développeur Windows, recommandé pour les liens symboliques vers `AGENTS.md`, les settings Claude et son fichier d'instructions. Ouvrez ses réglages avec `start ms-settings:developers`.
 
 Vérifiez le poste dans PowerShell :
 
@@ -101,7 +103,7 @@ git -C $kitRoot pull --ff-only
 
 ## Installer le kit dans un workspace de développement
 
-Le dossier de destination peut être vide ou être la racine Git exacte d'un site existant. Il doit rester séparé du clone du kit et ne doit pas dépendre d'une autre racine Git parente.
+Le dossier de destination peut être vide ou être la racine Git exacte d'un site existant. Son parent doit déjà exister. Il doit rester séparé du clone du kit et ne doit pas dépendre d'une autre racine Git parente.
 L'idée c'est d'avoir un dossier dédié pour l'ouvrir en tant que workspace dans Codex/T3 Code/Opencode etc. On pourra lui laisser la liberté de créer des fichiers et de lui en donner à dispo (par exemple de dossier d'intégration) sans mélanger avec le repo wordpress-development-kit.
 
 ```powershell
@@ -120,13 +122,16 @@ Set-ExecutionPolicy -Scope Process Bypass
 
 L'installateur :
 
-- refuse d'écraser un `AGENTS.md`, `.agents` ou `.codex` provenant d'une autre source ;
+- vérifie les conflits de règles et d'adaptateurs avant toute création et préserve les configurations étrangères ;
 - initialise une racine Git exacte si le dossier n'en possède pas ;
 - crée un lien symbolique `AGENTS.md` vers le clone du kit ;
 - crée des jonctions pour `.agents` et `.codex` ;
+- crée un vrai dossier `.claude`, avec liens de fichiers pour `settings.json` et `CLAUDE.md`, et jonctions pour `hooks` et `skills` ;
+- crée un vrai dossier `.opencode`, avec une jonction pour `plugins` ;
+- crée un vrai dossier `.octacom`, ignoré par Git, et refuse tout lien dans cet état local ;
 - valide le catalogue, les références et les hooks ;
 - exécute les tests d'injection du `skill-gate` ;
-- annule les liens créés pendant l'exécution si la validation échoue.
+- annule ses liens et dossiers nouveaux si la validation échoue, sans suivre les jonctions ni supprimer les fichiers préexistants.
 
 Le lien symbolique exige le mode développeur Windows ou une console disposant des droits requis. Si ces options sont impossibles, utilisez explicitement le mode dégradé :
 
@@ -136,9 +141,11 @@ Le lien symbolique exige le mode développeur Windows ou une console disposant d
     -AllowHardLinkFallback
 ```
 
-Le hardlink de secours ne garantit pas la propagation d'une mise à jour qui remplace physiquement `AGENTS.md`. La section « Mettre à jour le kit » indique comment le rafraîchir.
+Le hardlink de secours ne garantit pas la propagation d'une mise à jour qui remplace physiquement sa source. Cela concerne aussi les deux fichiers Claude. L'installateur signale alors un conflit ; vérifier le lien devenu ancien avant de le recréer. La section « Mettre à jour le kit » indique comment rafraîchir `AGENTS.md`.
 
 Lancer de nouveau la même commande est idempotent. L'installateur reconnaît les liens déjà en place et revalide le workspace.
+
+Depuis le kit, `pwsh -NoProfile -File scripts/test-installation.ps1` vérifie deux installations NTFS temporaires, leur isolation, les conflits et le retour arrière. La suite utilise explicitement le secours par hardlink et nettoie ses fixtures sans suivre les jonctions.
 
 ## Ouvrir le workspace pour la première fois
 
@@ -147,11 +154,11 @@ Après l'installation :
 1. Fermez toute session Codex déjà ouverte sur ce dossier.
 2. Ouvrez le dossier de développement, pas le clone du kit.
 3. Déclarez ce workspace fiable.
-4. Exécutez `/hooks`, relisez les six événements de hooks et approuvez-les.
-5. Exécutez `/skills` et vérifiez `skill-gate` ainsi que les skills Octacom.
-6. Exécutez `codex mcp list` et vérifiez uniquement les MCP nécessaires au projet.
+4. Suivez [l'activation propre à votre interface](docs/compatibility-runtimes.md). Dans Codex, relisez et approuvez les hooks avec `/hooks`, puis vérifiez les skills avec `/skills`.
+5. Contrôlez la configuration effective et la découverte des hooks/skills avec la sonde ci-dessous, puis observez le dispatch sur une fixture sans site réel.
+6. Vérifiez uniquement les MCP nécessaires au projet dans cette interface.
 
-La confiance du projet et l'approbation des hooks restent des actions humaines. Le script ne les contourne pas.
+La confiance du projet et l'approbation des hooks restent des actions humaines. L'installateur ne les contourne pas. Conservez leurs preuves et l'état de mission dans `.octacom` du workspace ; ce dossier ne doit pointer ni vers le kit ni vers l'état d'un autre site.
 
 ## Prompt à donner à l'agent pour l'installation
 
@@ -167,7 +174,7 @@ Lis d'abord le README du kit et exécute le préflight skill-gate. Vérifie Git,
 
 Si le kit n'est pas encore cloné, clone https://github.com/OctacomFR/wordpress-development-kit.git dans <KIT_ROOT>. Utilise ensuite scripts/install-wordpress-development-kit.ps1 avec -Destination <WORKSPACE_ROOT>. Préfère le lien symbolique pour AGENTS.md. Si Windows refuse sa création, arrête-toi et demande-moi soit d'activer le mode développeur, soit d'autoriser explicitement -AllowHardLinkFallback.
 
-Après l'installation, valide tous les skills déclarés, les tests du skill-gate, les six événements de hooks et la racine Git exacte. Ne configure aucun secret et ne modifie aucun projet ERP. Indique-moi ensuite les étapes humaines restantes : rouvrir le workspace, le déclarer fiable, approuver /hooks et vérifier /skills.
+Après l'installation, valide le catalogue local, les tests du skill-gate et la racine Git exacte. Suis .agents/references/runtime-compatibility.md pour l'interface utilisée et distingue les tests de scripts, la découverte par sonde et l'exécution observée des hooks. Conserve l'état local dans un vrai dossier .octacom du workspace. Ne configure aucun secret et ne modifie aucun projet ERP. Indique-moi les étapes humaines restantes de confiance et d'approbation propres à cette interface.
 ```
 
 Pour créer ensuite la connexion WordPress du site, fournissez séparément à l'agent l'URL exacte du site, le nom attendu du connecteur et la méthode d'authentification autorisée. Fournissez aussi l'URL Figma node-specific, les identifiants entreprise et projet Octacom et le domaine public final. Une information requise manquante bloque la configuration qui en dépend.
@@ -210,7 +217,7 @@ npx skills update --global --yes
 
 ## Préflight des skills
 
-Le dépôt rappelle `skill-gate` au démarrage, après compactage, à chaque prompt et pour chaque sous-agent. Un contrôle de fin relance une fois les demandes d'action reconnues si aucun appel d'outil local n'a été observé. Pour les mutations Oxygen reconnues, un contrôle préalable exige une réponse de `oxygen_site_info` sur le même connecteur MCP pendant la session. Après ajout ou modification des hooks, ouvrir une nouvelle session dans ce projet de confiance, lancer `/hooks`, relire les commandes de `.codex/hooks.json`, puis les approuver.
+Les adaptateurs rappellent `skill-gate` aux événements pris en charge par leur interface. Le contrôle de fin relance une fois les demandes d'action reconnues sans appel local observé. Pour une mutation, une reprise ou une livraison, suivre la [procédure de contrôle de mission](.agents/references/mission-controls.md). Après une modification d'adaptateur, revalider sa confiance, son approbation et son dispatch selon [la procédure de compatibilité](docs/compatibility-runtimes.md).
 
 Valider le workflow après toute modification des skills, de `AGENTS.md` ou des hooks :
 
@@ -219,22 +226,32 @@ python .agents/skills/skill-gate/scripts/validate_workflow.py
 python .agents/skills/skill-gate/scripts/test_workflow.py
 ```
 
-Ces commandes valident le catalogue local, la configuration et le texte injecté, puis simulent les événements du contrôle d'usage des outils. Elles ne prouvent pas son fonctionnement dans Codex.
+Ces commandes valident les fichiers et simulent des événements. Elles ne prouvent ni la découverte ni le dispatch dans une interface active.
 
-Recette manuelle après activation :
+Depuis le kit, lire l'état effectif d'un app-server Codex lancé pour le workspace :
 
-1. Contrôler dans `/hooks` que `SessionStart`, `UserPromptSubmit`, `SubagentStart`, `PreToolUse`, `PostToolUse` et `Stop` sont approuvés et actifs.
-2. Envoyer une tâche simple et vérifier que le préflight est injecté avant le premier outil.
-3. Lancer un sous-agent en lecture seule et vérifier que son retour indique `skill-gate` et ses skills métier.
-4. Modifier temporairement le hook sur une branche de test et confirmer que Codex exige une nouvelle approbation ; annuler ensuite cette modification.
+```powershell
+python scripts/probe-codex-runtime.py --cwd $workspace --output (Join-Path $workspace '.octacom/verification/runtime-codex.json')
+```
 
-Le contrôle `Stop` ne vérifie que l'absence d'appel d'outil local sur une demande d'action reconnue. Le contrôle Oxygen prouve seulement qu'un appel `oxygen_site_info` du même connecteur a répondu ; l'agent doit encore vérifier son contenu et toutes les autres préconditions métier. Les hooks ne couvrent pas tous les outils hébergés ou spécialisés. Aucun permis single-use ou exécuteur strict n'est fourni ; les permissions, les blocages d'information et le propriétaire unique restent requis.
+La sonde utilise `config/read`, `hooks/list` et `skills/list`. Vérifier les couches effectives, l'état actif et la confiance de chaque handler attendu, les erreurs et le catalogue découvert. Ce résultat concerne l'app-server interrogé ; pour Desktop, T3, OpenCode ou Claude Code, compléter les preuves propres à l'instance utilisée. T3 ne garantit pas à lui seul un backend Codex actif.
+
+Observer ensuite le dispatch sur une fixture isolée, sans appeler un site WordPress :
+
+1. Déclencher chaque événement pris en charge et conserver la preuve du handler réellement exécuté, y compris sur le chemin d'outil utilisé.
+2. Envoyer une tâche simple et contrôler le rappel avant le premier outil, puis les décisions sur cible et informations manquantes dans les scénarios de mission.
+3. Contrôler un sous-agent et une reprise après compaction avec le bon contexte, sans transférer une permission d'un autre acteur.
+4. Vérifier une action autorisée, une action refusée et l'indisponibilité du contrôle ; distinguer le résultat simulé, le résultat du runtime et le résultat métier.
+
+Le contrôle `Stop` ne prouve ni pertinence ni réussite. Les contrôles de mission vérifient les préconditions structurées qu'ils prennent en charge ; leur état local ne constitue pas une autorisation infalsifiable. Les chemins non dispatchés restent hors de leur portée. `serial_observed` vérifie les observations acceptées sans éliminer une écriture concurrente distante. Le mode `atomic_revision` bloque actuellement les mutations, car les outils exposés ne fournissent aucun CAS serveur. La [référence d'enforcement](.agents/skills/skill-gate/references/enforcement-and-tests.md) détaille ces limites.
 
 ## Vérifier le rendu Figma avant livraison
 
 Le kit exige un rendu final identique à Figma à 100 %. Seuls les effets hover peuvent être interprétés. La [procédure de fidélité visuelle](.agents/references/figma-visual-fidelity.md) impose des captures Figma et front à la largeur native de chaque frame, une comparaison de la page entière et de chaque section, puis des corrections et de nouvelles captures jusqu'à zéro écart visuel non autorisé. Les preuves doivent correspondre à la dernière version sauvegardée.
 
 `FIGMA_VISUAL_MATCH_VERIFIED` bloque la stabilisation des cibles Figma et la livraison tant que les comparaisons sont incomplètes, les preuves manquent ou un écart subsiste. L'absence de navigateur ou de référence produit un rapport de blocage. Un score automatique ne remplace pas l'examen des images.
+
+Toute livraison, correction locale comprise, exige le crédit Octacom et les Templates Single Article/404 conformes. Auditer et réutiliser l'existant, puis corriger uniquement les manques avant de conclure. L'ajout du crédit absent de Figma est une exception visuelle autorisée selon [AGENTS.md](AGENTS.md#footer-et-légal) et son [architecture Footer](.agents/skills/oxygen6-architecture/references/reusable-architecture.md). Une source métier ou une disposition requise manquante continue de bloquer l'écriture concernée.
 
 Produire les supports de comparaison avec Python et ImageMagick déjà requis par le kit :
 

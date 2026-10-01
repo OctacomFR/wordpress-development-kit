@@ -52,7 +52,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "mcp__.*oxygen_(change_|create_|delete_|edit_|html_to_page$|import_|insert_|mark_|set_)",
+        "matcher": "^mcp__.*_oxygen_",
         "hooks": [
           {
             "type": "command",
@@ -76,7 +76,7 @@
         ]
       },
       {
-        "matcher": "mcp__.*oxygen_site_info$",
+        "matcher": "^mcp__.*_oxygen_",
         "hooks": [
           {
             "type": "command",
