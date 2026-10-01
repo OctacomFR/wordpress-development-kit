@@ -74,11 +74,13 @@ Un seul architecte modifie successivement Variables, Classes/Selectors, Componen
 
 Barrière `GLOBALS_STABLE` : le Header sticky, le Footer, les Templates obligatoires Single Article et 404, les autres objets globaux et l'éditabilité sont validés.
 
+Tout objet de cette barrière disposant d'une référence Figma exige aussi `FIGMA_VISUAL_MATCH_VERIFIED` selon la [procédure de fidélité visuelle](../../references/figma-visual-fidelity.md). Le coordinateur examine les captures et comparaisons de la version réelle.
+
 ### 3. Accueil mono-écrivain
 
 Un propriétaire unique construit la home. En parallèle, des agents en lecture seule vérifient les contenus, assets, loops, Figma, responsive, accessibilité et rendu sans JavaScript.
 
-Barrière `HOME_STABLE` : l'accueil est calibré et les patterns réutilisables sont stabilisés.
+Barrière `HOME_STABLE` : l'accueil a franchi `FIGMA_VISUAL_MATCH_VERIFIED` sur toutes ses références, avec zéro écart visuel non autorisé, et les patterns réutilisables sont stabilisés.
 
 ### 4. Pages internes parallèles
 
@@ -86,7 +88,7 @@ Lorsque l'accueil est dans le périmètre, attendre `HOME_STABLE`. S'il est hors
 
 Attribuer chaque page ou groupe indépendant à un agent différent avec son ID, ses sources et ses objets autorisés. Un agent de page ne modifie jamais un objet global ; il remet une demande au propriétaire du socle.
 
-Barrière `PAGES_COMPLETE` : chaque propriétaire a testé localement sa cible et fourni ses preuves.
+Barrière `PAGES_COMPLETE` : chaque propriétaire a testé sa cible et fourni ses preuves ; chaque page référencée dans Figma a franchi `FIGMA_VISUAL_MATCH_VERIFIED`, sans écart visuel non autorisé ni preuve manquante.
 
 ### 5. Gel et QA parallèle
 
@@ -94,7 +96,7 @@ Fermer les mutations, puis lancer des audits indépendants : visuel, responsive,
 
 Barrière `MUTATIONS_CLOSED` : les agents QA signalent sans corriger. Le coordinateur déduplique les constats et réattribue les corrections aux propriétaires. Les pages ou fichiers distincts peuvent ensuite être corrigés en parallèle ; les objets partagés restent sérialisés.
 
-Barrière `QA_PASS` : corrections intégrées, contrôles concernés relancés et régressions globales vérifiées.
+Barrière `QA_PASS` : corrections intégrées, captures et comparaisons refaites après la dernière mutation, `FIGMA_VISUAL_MATCH_VERIFIED` confirmé pour toutes les cibles Figma, contrôles concernés relancés et régressions globales vérifiées. Tout écart visuel non autorisé, même minime, bloque cette barrière.
 
 ## Paquet de mission obligatoire
 
@@ -114,6 +116,7 @@ IDs WordPress/Oxygen concernés :
 Nodes/frames Figma concernés, si applicable :
 Annotations attendues et accessibles, si applicable :
 Statut FIGMA_ANNOTATIONS_REVIEWED, si applicable :
+Références visuelles, frames/états/largeurs à couvrir et preuves FIGMA_VISUAL_MATCH_VERIFIED attendues :
 Objets partagés interdits :
 Dépendances validées :
 Informations requises déjà confirmées :
@@ -136,6 +139,7 @@ SKILLS LUS ET APPLIQUÉS : `skill-gate` + skills métier réellement retenus
 LU : objets, URLs et IDs contrôlés
 MODIFIÉ : objets et IDs modifiés, ou aucun
 PREUVES : captures, URLs, valeurs ou résultats de tests
+FIDÉLITÉ FIGMA : cibles/frames/états contrôlés | captures finales et comparaisons | registre des écarts | statut FIGMA_VISUAL_MATCH_VERIFIED
 CONFLITS : sources contradictoires
 RISQUES : régressions possibles
 BLOCAGE D'INFORMATION : donnée exacte | sources et IDs/URLs vérifiés | objet/phase affecté | écritures suspendues | question exacte à poser à l'utilisateur

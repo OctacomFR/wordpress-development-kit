@@ -9,6 +9,7 @@ Vérifier l'artefact réel. Ne jamais déclarer « pixel perfect », « responsi
 
 ## Références à lire
 
+- Fidélité Figma à 100 % et barrière bloquante `FIGMA_VISUAL_MATCH_VERIFIED` : [../../references/figma-visual-fidelity.md](../../references/figma-visual-fidelity.md). Lire obligatoirement pour tout périmètre référencé dans Figma.
 - Procédure navigateur, responsive et technique : [references/visual-and-technical-qa.md](references/visual-and-technical-qa.md).
 - Definition of Done et rapport final : [references/definition-of-done-and-report.md](references/definition-of-done-and-report.md).
 - Questionnaire final : [references/final-gate.md](references/final-gate.md).
@@ -19,7 +20,7 @@ Vérifier l'artefact réel. Ne jamais déclarer « pixel perfect », « responsi
 
 Avant la QA initiale, fermer les mutations. Utiliser `octacom-parallel-delivery` pour lancer des auditeurs en lecture seule :
 
-- fidélité visuelle desktop ;
+- fidélité visuelle de chaque frame et état Figma, desktop, tablette et mobile, avec captures et comparaisons ;
 - annotations Figma, matrice de suivi et effets indirects ;
 - responsive et débordements ;
 - builder/editability ;
@@ -28,11 +29,13 @@ Avant la QA initiale, fermer les mutations. Utiliser `octacom-parallel-delivery`
 - performance, images et widgets ;
 - formulaires, SMTP, CAPTCHA, Complianz et pages légales.
 
-Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle de nouveau les mutations et relance les contrôles concernés. Aucun agent QA ne corrige pendant la passe d'observation.
+Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle de nouveau les mutations et relance les captures et comparaisons concernées. Il examine lui-même les preuves finales avant `FIGMA_VISUAL_MATCH_VERIFIED`. Aucun agent QA ne corrige pendant la passe d'observation.
 
 ## Vérifications indispensables
 
-- comparer le front à Figma au viewport de référence puis aux largeurs responsive et intermédiaires ;
+- capturer réellement Figma et le front final à la largeur native de chaque frame et état spécifié, comparer la page entière puis chaque section en côte à côte, superposition et différence ;
+- corriger et recapturer jusqu'à zéro écart visuel non autorisé, même minime, et conserver le registre clos ; sans références, navigateur, captures ou comparaison complète, bloquer la livraison ;
+- vérifier `FIGMA_VISUAL_MATCH_VERIFIED` après la dernière mutation pour chaque cible Figma, puis contrôler les largeurs responsive et intermédiaires sans référence comme des contrôles responsive ;
 - vérifier que chaque annotation du périmètre est recensée, implémentée et validée, que ses effets indirects sont contrôlés et qu'aucun blocage ne reste silencieux ;
 - tester au minimum 320, 360, 390, 480, 768, 1024, 1280, 1440 et 1920 px lorsque le site est destiné aux viewports standards, puis une largeur intermédiaire proche de chaque changement de layout ;
 - tester le site avec JavaScript désactivé ;
@@ -52,6 +55,6 @@ Le coordinateur déduplique les constats, les attribue aux propriétaires, gèle
 
 ## Rapport final
 
-Présenter brièvement : implémenté, réutilisable, dynamique, QA effectuée, limites réelles. Une vérification impossible est indiquée explicitement.
+Présenter brièvement : implémenté, réutilisable, dynamique, QA effectuée, limites réelles. Joindre la couverture des références Figma, les captures finales, les comparaisons et le registre clos. Une vérification visuelle impossible ou un écart non autorisé reste un blocage de livraison ; remettre un rapport de blocage et demander la capacité ou la décision manquante, sans déclarer le site terminé.
 
 Pour un développement complet, produire le récapitulatif temps/tokens/coût seulement depuis les journaux accessibles, détaillé par modèle et catégorie. Ne jamais estimer une donnée absente ; écrire `non disponible dans les journaux accessibles`. Citer la source et la date des tarifs utilisés.

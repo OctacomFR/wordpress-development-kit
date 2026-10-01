@@ -8,14 +8,21 @@ Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis renf
 
 Le travail n'est terminé que si tous les points applicables sont vrais.
 
+Pour toute cible référencée dans Figma, la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md) s'applique intégralement. Sans `FIGMA_VISUAL_MATCH_VERIFIED`, le site reste bloqué à la livraison, même si les autres contrôles passent.
+
 ### Design
 
+- [ ] Rendu final identique à Figma à 100 % pour toutes les frames et tous les états spécifiés, avec zéro écart visuel non autorisé, même minime.
+- [ ] Captures Figma et front final conservées à largeur et échelle identiques, pour la page entière et chaque section, Header et Footer compris.
+- [ ] Vues côte à côte, superpositions et différences examinées à taille native ; chaque signal de différence est résolu ou expliqué par des contrôles ciblés, sans score utilisé comme permission de laisser un écart.
+- [ ] Registre des écarts clos, décisions explicites traçables et preuves correspondant à la dernière version sauvegardée après toutes les corrections.
+- [ ] `FIGMA_VISUAL_MATCH_VERIFIED` confirmé pour chaque page et objet partagé référencé.
 - [ ] Structure des sections conforme à Figma.
 - [ ] Assets réels utilisés.
 - [ ] Typographies conformes.
 - [ ] Couleurs conformes.
 - [ ] Espacements contrôlés.
-- [ ] États hover/interactions conformes.
+- [ ] États spécifiés reproduits à l'identique ; seuls les effets hover peuvent être interprétés, avec équivalents clavier et tactile.
 - [ ] Chaque page construite ou refondue possède des animations d'apparition cohérentes sur ses principaux blocs, même si la charte ou Figma n'en prévoit aucune.
 - [ ] Toutes les annotations du périmètre ont été lues intégralement et reliées à leur node/frame/composant/section.
 - [ ] Chaque annotation applicable et ses effets indirects ont été vérifiés sur le front, aux breakpoints et états concernés.
@@ -94,7 +101,7 @@ Le travail n'est terminé que si tous les points applicables sont vrais.
 
 ### QA
 
-- [ ] Front contrôlé avec navigateur si disponible.
+- [ ] Front réel contrôlé avec navigateur ; pour toute cible Figma, les captures et comparaisons obligatoires sont disponibles et examinées.
 - [ ] Builder Oxygen contrôlé.
 - [ ] Animations d'apparition déclenchées et contrôlées au chargement et au scroll avec le mouvement normal, sur desktop et mobile.
 - [ ] Avec `prefers-reduced-motion: reduce`, le mouvement est réduit ou désactivé et tout le contenu reste visible.
@@ -142,7 +149,8 @@ Dynamique
 - ...
 
 QA effectuée
-- Figma desktop : ...
+- Fidélité Figma : frames/états/largeurs couverts et statut FIGMA_VISUAL_MATCH_VERIFIED par cible
+- Preuves : captures Figma, captures front finales, comparaisons et registre des écarts clos
 - Responsive : ...
 - Oxygen builder : ...
 - SEO : ...
@@ -154,7 +162,7 @@ Reste / limites
 
 Ne pas écrire « tout est bon » si une partie n'a pas été testée.
 
-Si le navigateur n'est pas disponible, écrire explicitement que la comparaison visuelle front n'a pas pu être effectuée.
+Si le navigateur, les références, les captures ou une comparaison complète ne sont pas disponibles, la livraison du périmètre Figma reste bloquée. Indiquer ce manque et demander la capacité ou la source exacte nécessaire. Un écart visuel non autorisé ou une preuve périmée produit le même blocage. Le rapport ne déclare ni le site terminé, ni une conformité à 100 %.
 
 Si les annotations Figma ne sont pas exposées ou si leur exhaustivité ne peut pas être vérifiée, l'implémentation dépendante reste bloquée. Le rapport indique la limite et la question posée à l'utilisateur ; il ne revendique pas une conformité Figma complète.
 

@@ -6,36 +6,15 @@ Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis harm
 
 ## 18. QA visuelle obligatoire avec navigateur
 
-Lorsque l'environnement fournit un navigateur ou outil de preview, il doit être utilisé.
+Utiliser un navigateur pour contrôler le front réel. Pour tout périmètre Figma, lire et appliquer obligatoirement la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md). Sans moyen fiable de capture et comparaison, la livraison est bloquée.
 
 ### 18.1. Workflow de comparaison
 
-Pour chaque section :
+Pour chaque page ou objet référencé, comparer ses captures Figma et front à la largeur native de chaque frame et état spécifié. Couvrir la page entière et toutes ses sections, Header et Footer compris. Examiner réellement les vues côte à côte, superpositions et différences, avec les mesures des nodes et la matrice d'annotations.
 
-1. ouvrir la page front ;
-2. régler le viewport sur la largeur exacte de la frame Figma desktop, puis sur 1920 px ;
-3. comparer le front à la capture Figma correspondante et au relevé des propriétés des nodes ; si Figma n'a pas de référence à 1920 px, contrôler ce viewport sans inventer une comparaison pixel à pixel ;
-4. croiser la section avec toutes les lignes de la matrice d'annotations qui concernent le node, ses parents, ses variantes et ses autres occurrences ;
-5. contrôler :
-   - dimensions globales ;
-   - max-width ;
-   - alignements ;
-   - gaps ;
-   - padding ;
-   - typo ;
-   - line-height ;
-   - couleurs ;
-   - rayons ;
-   - crops images ;
-   - overlays ;
-   - décorations ;
-   - états hover ;
-6. vérifier ordre, visibilité, responsive, sticky, interactions, destinations, Components et effets indirects demandés par les annotations ;
-7. consigner les écarts précis par section et corriger ;
-8. recharger et comparer à nouveau jusqu'à correspondance visuelle vérifiée, puis joindre les captures et les éventuels écarts non résolus à la matrice.
+Appliquer la boucle de correction et le registre de la procédure canonique jusqu'à zéro écart visuel non autorisé. Seuls les effets hover peuvent être interprétés. Aucune tolérance de score ou qualification d'écart « mineur » ne permet de terminer. Les preuves finales doivent dater d'après la dernière mutation affectant le rendu.
 
-Ne pas tout juger « à l'œil » depuis le code.
-Pour la page d'accueil, achever ce contrôle desktop avant de valider les réglages responsive.
+Franchir `FIGMA_VISUAL_MATCH_VERIFIED` avant de valider la QA. Un écart non résolu se consigne pendant le travail et bloque la livraison. Pour l'accueil, achever le contrôle desktop avant de valider les réglages responsive. Contrôler aussi 1920 px ; sans frame à cette largeur, documenter ce contrôle responsive sans lui attribuer une identité Figma non vérifiable.
 
 ### 18.2. Responsive QA
 
@@ -63,6 +42,7 @@ Vérifier :
 
 Avant de déclarer terminé :
 
+- `FIGMA_VISUAL_MATCH_VERIFIED` est franchi pour chaque cible Figma ; les captures et comparaisons de chaque frame et état spécifié ont été examinées, le registre est clos et les preuves correspondent au rendu final sauvegardé ;
 - toutes les annotations du périmètre possèdent un statut `vérifiée` et une preuve, ou un blocage utilisateur explicite qui empêche la livraison ;
 - chaque page construite ou refondue possède des animations d'apparition sur ses principaux blocs ;
 - animations d'apparition testées avec le mouvement normal au chargement et au scroll, sur desktop et mobile ;

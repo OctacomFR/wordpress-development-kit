@@ -2,7 +2,7 @@
 
 Guide racine générique pour développer des sites WordPress depuis Figma avec un MCP WordPress, le MCP Figma et, lorsqu'il est disponible, Yoast SEO.
 
-Objectif : produire des pages fidèles, éditables dans Oxygen 6.x, réutilisables, responsive, performantes, accessibles et propres pour le SEO, sans inventer de contenu ni transformer Figma en une accumulation de positions absolues.
+Objectif : produire des pages au rendu final identique à Figma à 100 %, éditables dans Oxygen 6.x, réutilisables, responsive, performantes, accessibles et propres pour le SEO, sans inventer de contenu ni transformer Figma en une accumulation de positions absolues.
 
 Les procédures détaillées vivent dans les skills repo-scoped de `.agents/skills/`. Ce fichier conserve seulement les règles qui doivent influencer presque tous les travaux.
 
@@ -59,6 +59,8 @@ En cas de conflit :
 Pour le design : dernière correction visuelle, puis Figma avec lecture obligatoire de toutes les annotations du périmètre, puis `frontend-design`, puis l'existant compatible, puis les règles génériques. L'impossibilité d'accéder aux annotations bloque toute implémentation Figma dépendante.
 
 Dans l'analyse d'un périmètre Figma, appliquer cet ordre interne : instruction explicite de la tâche, annotations Figma, structure et propriétés réelles des nodes/components, rendu visuel, puis interprétation personnelle. Une annotation explicite prévaut sur une lecture fondée uniquement sur l'apparence.
+
+Le rendu final doit reproduire Figma à l'identique, à 100 %, pour chaque frame et état fournis dans le périmètre. Seuls les effets hover peuvent être interprétés ; cette liberté ne concerne ni l'état au repos, ni les autres états spécifiés. Toute divergence imposée par une source prioritaire doit être tracée avec sa décision explicite. Si son effet visuel reste indéterminé, appliquer le blocage ci-dessous avant l'écriture concernée. `frontend-design`, l'existant et les préférences de l'agent ne permettent pas de réinterpréter la maquette.
 
 Si deux sources du même niveau se contredisent, signaler le conflit et demander laquelle fait foi avant publication. Ne jamais choisir silencieusement.
 
@@ -152,6 +154,7 @@ Pour tout travail non trivial avec sous-agents disponibles, utiliser `octacom-pa
 18. **Single Article et 404 toujours présents.** Tout site livré possède un Template Oxygen 6 pour les articles et un Template Oxygen 6 spécial `404 Not Found`, même si la mission initiale porte sur la home ou si aucun article n'est encore publié. Auditer et réutiliser les templates conformes existants ; ne jamais créer de doublon.
 19. **Expéditeur email sur domaine client uniquement.** Le `From Email`, le Sender et l'envelope sender des formulaires utilisent toujours une adresse d'un domaine personnalisé appartenant au client et correctement authentifié. Gmail, Outlook, Hotmail, Yahoo et tout autre domaine grand public ou tiers sont interdits comme expéditeurs, même lorsqu'ils sont affichés publiquement comme contact du client.
 20. **Animations d'apparition obligatoires.** Toute page construite ou refondue possède un système cohérent d'animations d'apparition sur ses principaux blocs. Cette obligation s'applique même lorsque la charte, Figma ou les annotations ne prévoient aucune animation. Leur absence ou leur validation incomplète bloque la livraison. Utiliser d'abord l'onglet Animations natif d'Oxygen 6. Reprendre les paramètres Figma lorsqu'ils existent. Si aucune source visuelle ne fixe le mouvement, définir un système sobre. La réduction ou la désactivation demandée par `prefers-reduced-motion` reste obligatoire et ne constitue pas un échec de ce critère.
+21. **Rendu Figma identique avant livraison.** Appliquer la [procédure de fidélité visuelle](.agents/references/figma-visual-fidelity.md) pendant la construction et avant de terminer. Capturer réellement Figma et le front à la même largeur, comparer la page entière puis chaque section, corriger et recapturer jusqu'à zéro écart visuel non autorisé, même minime. Une ressemblance, un score global, une preuve absente ou un écart simplement consigné ne valident jamais la barrière `FIGMA_VISUAL_MATCH_VERIFIED`. Sans cette barrière pour chaque cible Figma, la livraison reste bloquée.
 
 ---
 
@@ -181,6 +184,7 @@ Chaque image a un `alt` adapté. Convertir tout raster maîtrisé affiché en We
 
 ### Interactions et accessibilité
 
+- L'état final des animations d'apparition retrouve exactement la composition Figma. Vérifier les animations séparément, puis comparer le rendu stabilisé avec tous les blocs visibles.
 - Aucune information essentielle uniquement au hover, en image, par couleur ou dans un pseudo-élément.
 - Prévoir clavier, focus visible, tactile, ordre DOM logique, labels et noms accessibles.
 - L'état par défaut d'un élément animé est visible. Appliquer l'état initial masqué seulement après initialisation réussie.
@@ -203,13 +207,13 @@ La home calibre le socle partagé ; utiliser `oxygen6-homepage` pour la construi
 1. Préflight `skill-gate`, puis `octacom-project-start` pour sources, ERP en lecture seule, audit et sauvegarde.
 2. `figma-to-oxygen` pour lire toutes les annotations du périmètre ; aucune écriture dépendante avant `FIGMA_ANNOTATIONS_REVIEWED`.
 3. `octacom-parallel-delivery` pour les propriétaires et barrières ; `oxygen6-architecture` pour le socle global, puis les skills des pages et spécialités réellement concernés.
-4. Geler les mutations et appliquer `wordpress-oxygen-qa` ; corriger puis revérifier. Après chaque bloc majeur, contrôler le front et le builder et recharger tout éditeur périmé.
+4. Après chaque bloc majeur, comparer les captures Figma et front selon la procédure de fidélité, contrôler le builder et recharger tout éditeur périmé. Geler les mutations et appliquer `wordpress-oxygen-qa` ; corriger puis recapturer et revérifier jusqu'à `FIGMA_VISUAL_MATCH_VERIFIED` pour chaque cible Figma.
 
 ---
 
 ## 9. Fin de travail
 
-Avant de déclarer le site terminé, charger `wordpress-oxygen-qa` et exécuter sa définition de fin et son contrôle final, y compris annotations Figma, Templates Single Article/404, front/builder, responsive, sans-JS, animations, médias, SEO, formulaire/SMTP, légal et retour arrière. Le rapport distingue implémenté, réutilisable, dynamique, testé et non vérifié. Pour un développement complet, détailler temps/tokens/coût par modèle seulement depuis les journaux accessibles ; ne jamais estimer une métrique absente.
+Avant de déclarer le site terminé, charger `wordpress-oxygen-qa` et exécuter sa définition de fin et son contrôle final, y compris annotations Figma, rendu final identique avec `FIGMA_VISUAL_MATCH_VERIFIED`, Templates Single Article/404, front/builder, responsive, sans-JS, animations, médias, SEO, formulaire/SMTP, légal et retour arrière. Le rapport distingue implémenté, réutilisable, dynamique, testé et non vérifié. Joindre les références Figma, les captures front finales, les comparaisons et le registre des écarts clos. Toute comparaison impossible ou différence non autorisée bloque la livraison ; un rapport de blocage ne vaut pas livraison. Pour un développement complet, détailler temps/tokens/coût par modèle seulement depuis les journaux accessibles ; ne jamais estimer une métrique absente.
 
 ---
 

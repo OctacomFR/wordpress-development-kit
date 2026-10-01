@@ -5,10 +5,11 @@ description: "Lire une maquette Figma et traduire ses frames, annotations, asset
 
 # Traduire Figma vers Oxygen
 
-La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'implémentation de production.
+La maquette définit le rendu final exact à reproduire à 100 %. Oxygen, HTML et CSS définissent l'implémentation éditable qui produit ce rendu.
 
 ## Références à lire
 
+- Lire obligatoirement [../../references/figma-visual-fidelity.md](../../references/figma-visual-fidelity.md) avant l'inventaire, la construction et toute validation visuelle. Seuls les effets hover peuvent être interprétés ; le rendu au repos et les autres états spécifiés restent exacts.
 - Lire obligatoirement [references/annotation-workflow.md](references/annotation-workflow.md) avant toute implémentation fondée sur Figma.
 - Lire [references/figma-reading-and-inventory.md](references/figma-reading-and-inventory.md) pour l'acquisition du contexte et l'inventaire.
 - Lire [references/translation-and-assets.md](references/translation-and-assets.md) avant toute implémentation issue de Figma.
@@ -26,7 +27,7 @@ La maquette définit l'intention visuelle. Oxygen, HTML et CSS définissent l'im
 7. Construire les compositions Oxygen depuis ce relevé, avec Sections/Containers, flexbox ou Grid, largeur fluide et structure sémantique.
 8. Réserver l'absolu aux superpositions et décorations réellement présentes.
 9. Préparer les assets exacts avant import : utiliser ImageMagick pour transformer et convertir tous les rasters maîtrisés en WebP, FFmpeg pour transformer les vidéos et FFprobe pour les inspecter, puis conserver/exporter en SVG les logos, icônes, pictogrammes, formes et illustrations vectorielles. Importer ensuite les fichiers optimisés dans un emplacement durable ; aucune URL temporaire Figma ne reste en production.
-10. Comparer le front et Figma section par section à la largeur desktop de référence, puis contrôler le rendu à 1920 px et le comparer directement si Figma fournit une frame à cette largeur. Corriger les écarts constatés et vérifier la matrice d'annotations à chaque bloc concerné. Valider le desktop avant de régler les breakpoints responsive.
+10. Capturer Figma et le front réel, puis les comparer selon la procédure de fidélité sur la page entière et chaque section à la largeur desktop de référence. Corriger et recapturer jusqu'à zéro écart visuel non autorisé, même minime. Contrôler aussi 1920 px et comparer directement si Figma fournit une frame à cette largeur. Vérifier la matrice d'annotations à chaque bloc concerné. Valider le desktop avant de régler les breakpoints responsive, puis appliquer la même comparaison à chaque frame mobile ou tablette fournie. Franchir `FIGMA_VISUAL_MATCH_VERIFIED` avant de conclure.
 
 Ne pas coller du React, Tailwind ou un arbre rempli de coordonnées fixes dans Oxygen. Ne pas recréer approximativement logos, icônes, SVG ou favicon disponibles.
 

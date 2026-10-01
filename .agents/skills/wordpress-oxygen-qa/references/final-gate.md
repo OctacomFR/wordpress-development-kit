@@ -22,6 +22,11 @@ Est-ce que je suis bien sur Oxygen 6.x et sur la bonne version exacte ?
 Est-ce que j'ai réutilisé l'existant avant de recréer ?
 Est-ce qu'un élément Oxygen natif couvre le besoin avant le code custom ?
 Est-ce que le rendu respecte Figma plutôt que mes goûts ?
+Est-ce que chaque cible Figma a franchi FIGMA_VISUAL_MATCH_VERIFIED selon la procédure de fidélité visuelle ?
+Est-ce que les captures Figma et front final couvrent toute la page et chaque section, Header/Footer compris, pour chaque frame et état spécifié à sa largeur native ?
+Est-ce que j'ai examiné les vues côte à côte, superpositions et différences à taille native, avec zéro écart visuel non autorisé, même minime ?
+Est-ce que les preuves correspondent à la dernière version sauvegardée après la dernière mutation de la page et de ses objets partagés ?
+Est-ce que seules les interprétations hover et les divergences déjà autorisées par une décision explicite applicable figurent dans le registre clos ?
 Est-ce que le builder Oxygen restera éditable ?
 Est-ce que l'éditeur a été rechargé depuis la dernière mutation externe ?
 Est-ce que le contenu dynamique est réellement dynamique ?
@@ -53,7 +58,7 @@ La configuration WP Mail SMTP confirme-t-elle un SMTP Username authentifiable, e
 Est-ce que la boîte et l'expédition SMTP existent réellement, sans envoi de test à l'adresse finale sauf demande explicite ?
 Est-ce que les pages légales et le crédit Octacom sont présents dans le footer ?
 Est-ce qu'une sauvegarde vérifiée permet de revenir en arrière ?
-Est-ce que j'ai réellement regardé le rendu avant de dire terminé ?
+Est-ce que j'ai réellement comparé les captures Figma et front finales avant de dire terminé ?
 ```
 
-Si une réponse importante est non : corriger avant livraison.
+Si une réponse importante est non : corriger avant livraison. Toute réponse négative sur la comparaison Figma, les preuves finales ou la résolution des écarts bloque `FIGMA_VISUAL_MATCH_VERIFIED` et la livraison selon la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md).

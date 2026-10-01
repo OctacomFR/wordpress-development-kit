@@ -18,6 +18,7 @@ Lire [references/historical-inner-pages.md](references/historical-inner-pages.md
 3. Inventorier les Templates, Components, Variables, classes et patterns autorisés.
 4. Identifier les besoins propres et les skills spécialisés nécessaires.
 5. Vérifier que les fondations communes sont stables.
+6. Lire la [procédure de fidélité visuelle](../../references/figma-visual-fidelity.md) et préparer les références de chaque frame et état spécifié de la page.
 
 ## Réutilisation et isolation
 
@@ -25,7 +26,7 @@ Réutiliser Header, Footer, Template Content Area, hero interne, Variables, sect
 
 Ne jamais copier la home entière ni modifier une classe globale pour corriger un problème local. Si une évolution globale paraît nécessaire, documenter le besoin et les consommateurs, puis la transmettre au propriétaire du socle.
 
-Adapter la composition au contenu réel : longueur des textes, absence ou format des médias, tableaux, galeries, formulaires et médias sticky. Les règles détaillées se trouvent dans `oxygen6-frontend-quality`.
+Respecter la composition Figma avec le contenu réel : longueur des textes, absence ou format des médias, tableaux, galeries, formulaires et médias sticky. Si une source métier prioritaire change le rendu attendu et que son effet n'est pas fixé par une décision explicite, remonter le conflit avant l'écriture dépendante. Les règles de `oxygen6-frontend-quality` ne permettent pas de modifier silencieusement une disposition spécifiée par Figma.
 
 ## Parallélisation
 
@@ -47,4 +48,4 @@ En parallèle, déléguer en lecture seule : vérification des textes/médias, l
 
 ## Critère de sortie
 
-La page est terminée lorsque toutes ses annotations et leurs effets indirects sont vérifiés, son contenu et ses médias sont exacts, ses ajustements restent locaux, le Header sticky ne masque rien, responsive/liens/états/no-JS/builder sont testés et l'accueil comme les autres consommateurs n'ont pas régressé. La livraison du site reste bloquée tant que les Templates obligatoires Single Article et 404 ne sont pas validés.
+Pour toute page référencée dans Figma, franchir `FIGMA_VISUAL_MATCH_VERIFIED` avec des captures finales de la page entière et de chaque section, comparées à chaque frame et état spécifié à la largeur native. Corriger et recapturer jusqu'à zéro écart visuel non autorisé, même minime. La page est terminée seulement lorsque cette preuve, ses annotations et leurs effets indirects sont vérifiés, son contenu et ses médias sont exacts, ses ajustements restent locaux, le Header sticky ne masque rien, responsive/liens/états/no-JS/builder sont testés et les autres consommateurs n'ont pas régressé. Toute preuve manquante bloque la livraison, de même que les Templates obligatoires Single Article et 404 non validés.

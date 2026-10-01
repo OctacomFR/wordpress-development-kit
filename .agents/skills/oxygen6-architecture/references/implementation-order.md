@@ -39,4 +39,4 @@ Construire dans cet ordre recommandé :
 15. performance ;
 16. QA finale.
 
-Après chaque gros bloc : sauvegarder, ouvrir le front, contrôler le rendu avant de continuer.
+Après chaque gros bloc : sauvegarder, ouvrir le front, capturer et comparer au Figma selon la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md) avant de continuer. Les objets disposant d'une référence Figma exigent `FIGMA_VISUAL_MATCH_VERIFIED` avant stabilisation du socle. Refaire les captures des consommateurs affectés après une correction globale.

@@ -14,6 +14,7 @@ L'accueil est la page de calibration du site. Il révèle les patterns réutilis
 3. Charger `oxygen6-architecture` pour les fondations globales.
 4. Distinguer ce qui est global, réutilisable et propre à l'accueil.
 5. Confirmer contenus, médias, CTA, destinations et sources dynamiques.
+6. Lire la [procédure de fidélité visuelle](../../references/figma-visual-fidelity.md) et préparer les références de toute la page, Header et Footer compris.
 
 ## Rôle de l'accueil
 
@@ -44,11 +45,11 @@ Conserver dans la home les compositions uniques, décorations propres au hero et
 5. Components dont la répétition est confirmée.
 6. Contenus dynamiques.
 7. Interactions et états.
-8. Comparaison de chaque section desktop au Figma à la largeur de la frame ; contrôler aussi 1920 px et comparer directement si une frame Figma existe à cette largeur. Corriger dimensions, alignements, typographie, cadrages, découpes et superpositions jusqu'à correspondance visuelle vérifiée.
-9. Après validation du desktop, responsive et rendu sans JavaScript.
+8. Comparaison obligatoire des captures Figma et front de la page entière puis de chaque section desktop à la largeur exacte de la frame, avec côte à côte, superposition et différence. Corriger et recapturer jusqu'à zéro écart visuel non autorisé. Contrôler aussi 1920 px et comparer directement si une frame Figma existe à cette largeur.
+9. Après validation du desktop, responsive et rendu sans JavaScript. Reproduire et comparer chaque frame mobile et tablette fournie à sa largeur exacte.
 10. SEO, builder et QA visuelle/fonctionnelle.
 
-Après chaque gros bloc, sauvegarder, ouvrir le front et vérifier avant de poursuivre.
+Après chaque gros bloc, sauvegarder, ouvrir le front, capturer et comparer au Figma avant de poursuivre. Après toute correction finale, refaire les captures et comparaisons affectées.
 
 ## Sous-agents
 
@@ -56,4 +57,4 @@ Pendant que le propriétaire unique écrit, utiliser intensivement des spéciali
 
 ## Critère de stabilité
 
-La barrière `HOME_STABLE` est franchie lorsque toutes les annotations du périmètre et leurs effets indirects sont appliqués et vérifiés, le relevé desktop couvre la frame entière, la comparaison section par section est vérifiée à la largeur de référence, le rendu à 1920 px est contrôlé, les contenus sont contrôlés, les patterns locaux et globaux sont séparés, Header/Footer fonctionnent, le responsive et le sans-JS sont contrôlés, le builder reste éditable et les fondations peuvent être consommées par des pages internes sans refonte immédiate. Un écart visuel significatif non résolu bloque cette barrière ; consigner tout écart restant au lieu d'affirmer une reproduction à l'identique.
+La barrière `HOME_STABLE` exige `FIGMA_VISUAL_MATCH_VERIFIED` pour l'accueil et ses objets partagés référencés. Toutes les annotations et leurs effets indirects sont vérifiés, le relevé couvre la frame entière, les captures finales de la page et de chaque section sont comparées à toutes les frames fournies, et le registre contient zéro écart visuel non autorisé. Le rendu à 1920 px, les contenus, Header/Footer, le responsive, le sans-JS et le builder sont contrôlés. Les patterns locaux et globaux sont séparés et les fondations peuvent être consommées sans refonte immédiate. Tout écart restant, même minime, ou toute preuve manquante bloque cette barrière et la livraison.

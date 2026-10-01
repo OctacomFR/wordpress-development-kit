@@ -11,7 +11,7 @@ Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis harm
 Pour le node Figma demandé :
 
 1. appeler le contexte de design Figma sur le node exact ;
-2. récupérer une capture de référence si nécessaire pour comparer visuellement ;
+2. récupérer obligatoirement une capture de référence pour chaque frame et état spécifié du périmètre, avec node, provenance et dimensions, selon la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md) ;
 3. récupérer les variables Figma si elles existent ;
 4. exploiter les composants, styles, variables, annotations et informations d'interaction retournés ;
 5. identifier les assets exportables exacts ;

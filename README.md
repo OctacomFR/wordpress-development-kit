@@ -229,3 +229,18 @@ Recette manuelle après activation :
 4. Modifier temporairement le hook sur une branche de test et confirmer que Codex exige une nouvelle approbation ; annuler ensuite cette modification.
 
 Le contrôle `Stop` ne vérifie que l'absence d'appel d'outil local sur une demande d'action reconnue. Le contrôle Oxygen prouve seulement qu'un appel `oxygen_site_info` du même connecteur a répondu ; l'agent doit encore vérifier son contenu et toutes les autres préconditions métier. Les hooks ne couvrent pas tous les outils hébergés ou spécialisés. Aucun permis single-use ou exécuteur strict n'est fourni ; les permissions, les blocages d'information et le propriétaire unique restent requis.
+
+## Vérifier le rendu Figma avant livraison
+
+Le kit exige un rendu final identique à Figma à 100 %. Seuls les effets hover peuvent être interprétés. La [procédure de fidélité visuelle](.agents/references/figma-visual-fidelity.md) impose des captures Figma et front à la largeur native de chaque frame, une comparaison de la page entière et de chaque section, puis des corrections et de nouvelles captures jusqu'à zéro écart visuel non autorisé. Les preuves doivent correspondre à la dernière version sauvegardée.
+
+`FIGMA_VISUAL_MATCH_VERIFIED` bloque la stabilisation des cibles Figma et la livraison tant que les comparaisons sont incomplètes, les preuves manquent ou un écart subsiste. L'absence de navigateur ou de référence produit un rapport de blocage. Un score automatique ne remplace pas l'examen des images.
+
+Produire les supports de comparaison avec Python et ImageMagick déjà requis par le kit :
+
+```powershell
+python .agents/skills/wordpress-oxygen-qa/scripts/compare_visuals.py --figma qa/figma/home-desktop.png --front qa/front/home-desktop.png --output-dir qa/comparisons/home-desktop-final
+python .agents/skills/wordpress-oxygen-qa/scripts/test_compare_visuals.py
+```
+
+Le helper exige deux captures PNG de mêmes dimensions et un dossier de sortie nouveau. Il génère une vue côte à côte, une superposition, une image des différences et un JSON contenant les empreintes des sources et la mesure. L'agent doit ouvrir ces images et documenter la comparaison. Cet outil produit des preuves consultables ; il ne certifie pas automatiquement l'identité visuelle et ne modifie pas les hooks.

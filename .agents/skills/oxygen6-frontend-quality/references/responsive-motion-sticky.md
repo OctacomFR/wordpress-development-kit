@@ -8,6 +8,8 @@ Référence extraite du snapshot `docs/AGENTS.pre-skills-snapshot.md`, puis mise
 
 Le desktop Figma n'est pas une page à réduire proportionnellement.
 
+Chaque frame fournie doit être reproduite à l'identique à sa largeur native selon la [procédure de fidélité visuelle](../../../references/figma-visual-fidelity.md). Les règles d'adaptation ci-dessous s'appliquent uniquement aux choix que Figma et les sources prioritaires ne fixent pas. Une décision de disposition requise et introuvable reste bloquante. Les valeurs indicatives ne permettent aucune approximation des mesures de la maquette.
+
 Le responsive doit respecter l'intention du design avec :
 
 - largeur fluide ;
@@ -79,6 +81,8 @@ Les animations d'apparition sont un critère de livraison obligatoire. Toute pag
 Utiliser d'abord l'onglet Animations natif d'Oxygen 6. Il permet de régler le type d'entrée, la durée, le délai, la distance, l'easing et la répétition. Réserver les Interactions aux déclencheurs ou actions qui dépassent une animation d'entrée native.
 
 Lorsque Figma définit le mouvement, reprendre ses paramètres. Dans le cas contraire, définir un système sobre et cohérent avec la direction artistique. Éviter d'animer chaque élément ou d'introduire des flips, zooms et déplacements marqués sans justification visuelle.
+
+L'état final de chaque apparition conserve exactement positions, dimensions, couleurs et visibilité Figma. La comparaison de fidélité se fait après stabilisation de tous les blocs ; le test de déclenchement des animations reste séparé.
 
 Pour les animations non essentielles :
 
